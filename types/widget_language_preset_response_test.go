@@ -1,0 +1,72 @@
+package types
+
+import (
+	"testing"
+)
+
+func TestWidgetLanguagePresetResponseRoundTrip(t *testing.T) {
+	t.Parallel()
+	const wire = `{
+  "first_message": "value",
+  "text_contents": {
+    "main_label": "value",
+    "start_call": "value",
+    "start_chat": "value",
+    "new_call": "value",
+    "end_call": "value",
+    "mute_microphone": "value",
+    "change_language": "value",
+    "collapse": "value",
+    "expand": "value",
+    "copied": "value",
+    "accept_terms": "value",
+    "dismiss_terms": "value",
+    "listening_status": "value",
+    "speaking_status": "value",
+    "connecting_status": "value",
+    "chatting_status": "value",
+    "queue_waiting_status": "value",
+    "queue_waiting_status_short": "value",
+    "input_label": "value",
+    "input_placeholder": "value",
+    "input_placeholder_text_only": "value",
+    "input_placeholder_new_conversation": "value",
+    "user_ended_conversation": "value",
+    "agent_ended_conversation": "value",
+    "conversation_id": "value",
+    "error_occurred": "value",
+    "queue_timed_out": "value",
+    "copy_id": "value",
+    "initiate_feedback": "value",
+    "request_follow_up_feedback": "value",
+    "thanks_for_feedback": "value",
+    "thanks_for_feedback_details": "value",
+    "follow_up_feedback_placeholder": "value",
+    "submit": "value",
+    "go_back": "value",
+    "send_message": "value",
+    "text_mode": "value",
+    "voice_mode": "value",
+    "switched_to_text_mode": "value",
+    "switched_to_voice_mode": "value",
+    "copy": "value",
+    "download": "value",
+    "wrap": "value",
+    "agent_working": "value",
+    "agent_done": "value",
+    "agent_error": "value",
+    "attach_file": "value",
+    "remove_file": "value",
+    "file_upload_error": "value",
+    "file_type_unsupported": "value",
+    "file_too_large": "value",
+    "file_limit_reached": "value",
+    "typing_indicator": "value",
+    "rich_content_unavailable": "value"
+  },
+  "terms_text": "value",
+  "terms_html": "value",
+  "terms_key": "value"
+}`
+	assertRoundTrip(t, wire, new(WidgetLanguagePresetResponse))
+}
