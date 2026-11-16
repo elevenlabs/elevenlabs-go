@@ -1,0 +1,41 @@
+package feedback
+
+import (
+	context "context"
+	conversations "github.com/elevenlabs/elevenlabs-go/agents/conversations"
+	core "github.com/elevenlabs/elevenlabs-go/core"
+	internal "github.com/elevenlabs/elevenlabs-go/internal"
+	option "github.com/elevenlabs/elevenlabs-go/option"
+)
+
+type Client struct {
+	WithRawResponse *RawClient
+
+	options *core.RequestOptions
+	baseURL string
+	caller  *internal.Caller
+}
+
+func NewClient(options *core.RequestOptions) *Client {
+	return &Client{
+		WithRawResponse: NewRawClient(options),
+		options:         options,
+		baseURL:         options.BaseURL,
+		caller: internal.NewCaller(
+			&internal.CallerParams{
+				Client:         options.HTTPClient,
+				MaxAttempts:    options.MaxAttempts,
+				DisableRetries: options.DisableRetries,
+			},
+		),
+	}
+}
+
+// Send the feedback for the given conversation
+func (c *Client) Create(ctx context.Context, conversationId string, request *conversations.ConversationFeedbackRequestModel, opts ...option.RequestOption) (any, error) {
+	response, err := c.WithRawResponse.Create(ctx, conversationId, request, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}

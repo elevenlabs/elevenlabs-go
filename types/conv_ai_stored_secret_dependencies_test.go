@@ -1,0 +1,56 @@
+package types
+
+import (
+	"testing"
+)
+
+func TestConvAiStoredSecretDependenciesRoundTrip(t *testing.T) {
+	t.Parallel()
+	const wire = `{
+  "tools": [
+    {
+      "id": "value",
+      "name": "value",
+      "type": "available",
+      "created_at_unix_secs": 123,
+      "access_level": "admin"
+    }
+  ],
+  "tools_has_more": true,
+  "agents": [
+    {
+      "referenced_resource_ids": [
+        "value"
+      ],
+      "id": "value",
+      "name": "value",
+      "type": "available",
+      "created_at_unix_secs": 123,
+      "access_level": "admin"
+    }
+  ],
+  "agents_has_more": true,
+  "phone_numbers": [
+    {
+      "phone_number_id": "value",
+      "phone_number": "value",
+      "label": "value",
+      "provider": "twilio"
+    }
+  ],
+  "phone_numbers_has_more": true,
+  "mcp_servers": [
+    {
+      "id": "value",
+      "name": "value",
+      "type": "available",
+      "created_at_unix_secs": 123,
+      "access_level": "admin"
+    }
+  ],
+  "others": [
+    "conversation_initiation_webhook"
+  ]
+}`
+	assertRoundTrip(t, wire, new(ConvAiStoredSecretDependencies))
+}
