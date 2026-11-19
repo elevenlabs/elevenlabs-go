@@ -112,7 +112,13 @@ type turnKey struct{}
 // NewSpeechEngineSession creates a session over a transport you manage. Most applications use
 // SpeechEngineServer, SpeechEngineResource.Handler or ServeSpeechEngineConn instead.
 func NewSpeechEngineSession(transport SpeechEngineTransport, callbacks SpeechEngineCallbacks, opts *SpeechEngineSessionOptions) *SpeechEngineSession {
-	ctx, cancel := context.WithCancel(context.Background())
+	return newSession(context.Background(), transport, callbacks, opts)
+}
+
+// newSession creates a session whose turn contexts derive from parent, so cancelling parent
+// cancels the running OnTranscript at once. Writes use their own timeout contexts.
+func newSession(parent context.Context, transport SpeechEngineTransport, callbacks SpeechEngineCallbacks, opts *SpeechEngineSessionOptions) *SpeechEngineSession {
+	ctx, cancel := context.WithCancel(parent)
 	session := &SpeechEngineSession{
 		transport:  transport,
 		callbacks:  callbacks,
@@ -130,7 +136,9 @@ func NewSpeechEngineSession(transport SpeechEngineTransport, callbacks SpeechEng
 // SpeechEngineResource.VerifyRequest before accepting the connection.
 func ServeSpeechEngineConn(ctx context.Context, conn *websocket.Conn, callbacks SpeechEngineCallbacks, opts *SpeechEngineSessionOptions) error {
 	conn.SetReadLimit(maxMessageBytes)
-	session := NewSpeechEngineSession(&coderTransport{conn: conn}, callbacks, opts)
+	// Turns derive from ctx: handler.Close, Serve shutdown or a cancelled request stops LLM work
+	// immediately, not only once the read loop next returns.
+	session := newSession(ctx, &coderTransport{conn: conn}, callbacks, opts)
 	err := session.readLoop(ctx, conn)
 	session.HandleDisconnect()
 	session.Wait()

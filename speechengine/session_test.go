@@ -326,3 +326,28 @@ func TestExtractText(t *testing.T) {
 		}
 	}
 }
+
+// Cancelling the context a connection is served under cancels the running turn at once, without
+// waiting for the read loop to see the cancellation (it can be blocked writing a pong).
+func TestCancellingTheServeContextCancelsTheRunningTurn(t *testing.T) {
+	parent, cancel := context.WithCancel(context.Background())
+	started := make(chan struct{})
+	stopped := make(chan struct{})
+	session := newSession(parent, newFakeTransport(), SpeechEngineCallbacks{
+		OnTranscript: func(ctx context.Context, _ []ConversationMessage, _ *SpeechEngineSession) error {
+			close(started)
+			<-ctx.Done()
+			close(stopped)
+			return ctx.Err()
+		},
+	}, nil)
+	session.HandleMessage([]byte(`{"type":"user_transcript","event_id":1,"user_transcript":[{"role":"user","content":"hi"}]}`))
+	<-started
+	cancel()
+	select {
+	case <-stopped:
+	case <-time.After(5 * time.Second):
+		t.Fatal("the turn's context must be cancelled with the serve context")
+	}
+	session.Wait()
+}
