@@ -501,3 +501,21 @@ func TestFromJSONReadsNullsAsAbsent(t *testing.T) {
 		t.Fatalf("only the constant's null is data:\n%s", s)
 	}
 }
+
+func TestFromAgentTreatsANilWorkflowPointerAsEmpty(t *testing.T) {
+	for _, model := range []any{
+		(*types.AgentWorkflowRequestModel)(nil),
+		(*types.AgentWorkflowResponseModel)(nil),
+		(*types.GetAgentResponseModel)(nil),
+	} {
+		wf, err := agentworkflows.FromAgent(model)
+		if err != nil {
+			t.Fatalf("FromAgent(%T nil): %v", model, err)
+		}
+		got, _ := wf.ToJSONString()
+		want, _ := agentworkflows.New(nil).ToJSONString()
+		if got != want {
+			t.Errorf("FromAgent(%T nil) = %s, want an empty workflow %s", model, got, want)
+		}
+	}
+}
