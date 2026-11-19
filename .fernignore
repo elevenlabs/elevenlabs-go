@@ -1,3 +1,9 @@
 # Specify files that shouldn't be modified by Fern
 README.md
 .github/assets/logo.png
+
+# Hand-written music compose-detailed, parsed: the generated ComposeDetailed JSON-decodes the
+# multipart/mixed response of POST /v1/music/detailed and always fails, so ComposeDetailedParsed
+# sends the same request and splits the JSON metadata and audio parts.
+music/client/compose_detailed_parsed.go
+music/client/compose_detailed_parsed_test.go
