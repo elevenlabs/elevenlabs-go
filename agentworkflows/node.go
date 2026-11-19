@@ -43,6 +43,7 @@ type origin struct {
 func (g *graph) connect(from origin, target string, back *Condition) *Node {
 	backward := wirejson.Clone(from.backward)
 	if back != nil {
+		g.checkCondition(*back, "the Back condition of an edge from", from.source)
 		backward = back.Wire()
 	}
 	g.edges = append(g.edges, &edge{
@@ -98,11 +99,21 @@ func (g *graph) goTo(from origin, target string, opts *GoToOptions) *Node {
 }
 
 func (g *graph) branch(source string, condition Condition, back *Condition) *Branch {
+	g.checkCondition(condition, "the condition of a When branch from", source)
 	from := origin{source: source, forward: condition.Wire()}
 	if back != nil {
+		g.checkCondition(*back, "the Back condition of a When branch from", source)
 		from.backward = back.Wire()
 	}
 	return &Branch{g: g, from: from}
+}
+
+// checkCondition records an invalid_option error when condition is the zero Condition, which
+// would otherwise be sent as an unconditional edge that always fires.
+func (g *graph) checkCondition(condition Condition, where, source string) {
+	if condition.wire == nil {
+		g.issue(InvalidOption, fmt.Sprintf("%s %q is the zero Condition; create it with ConditionLLM, ConditionExpr, ConditionAlways, ConditionSuccess or ConditionFailure", where, source), source)
+	}
 }
 
 func unconditional(source string) origin {

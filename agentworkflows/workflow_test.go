@@ -519,3 +519,37 @@ func TestFromAgentTreatsANilWorkflowPointerAsEmpty(t *testing.T) {
 		}
 	}
 }
+
+// A zero Condition must not be sent as an unconditional edge that always fires.
+func TestZeroConditionIsInvalidOption(t *testing.T) {
+	cases := map[string]func(*agentworkflows.Workflow){
+		"When": func(wf *agentworkflows.Workflow) {
+			wf.Converse("triage", "Triage", nil).
+				When(agentworkflows.Condition{}, nil).
+				Converse("billing", "Billing", nil)
+		},
+		"When back": func(wf *agentworkflows.Workflow) {
+			wf.Converse("triage", "Triage", nil).
+				When(agentworkflows.ConditionLLM("Billing", nil), &agentworkflows.WhenOptions{Back: &agentworkflows.Condition{}}).
+				Converse("billing", "Billing", nil)
+		},
+		"GoTo back": func(wf *agentworkflows.Workflow) {
+			triage := wf.Converse("triage", "Triage", nil)
+			triage.When(agentworkflows.ConditionLLM("Billing", nil), nil).Converse("billing", "Billing", nil)
+			triage.When(agentworkflows.ConditionLLM("Support", nil), nil).Converse("support", "Support", nil).
+				GoTo("billing", &agentworkflows.GoToOptions{Back: &agentworkflows.Condition{}})
+		},
+	}
+	for name, build := range cases {
+		t.Run(name, func(t *testing.T) {
+			wf := agentworkflows.New(nil)
+			build(wf)
+			if _, err := wf.ToJSON(); !contains(codesOf(t, err), agentworkflows.InvalidOption) {
+				t.Fatalf("ToJSON: expected invalid_option, got %v", err)
+			}
+			if _, err := wf.Build(nil); !contains(codesOf(t, err), agentworkflows.InvalidOption) {
+				t.Fatalf("Build: expected invalid_option, got %v", err)
+			}
+		})
+	}
+}

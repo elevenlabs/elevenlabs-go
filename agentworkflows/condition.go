@@ -3,7 +3,8 @@ package agentworkflows
 import "github.com/elevenlabs/elevenlabs-go/internal/wirejson"
 
 // Condition says when an edge may be followed. Create one with ConditionLLM, ConditionExpr,
-// ConditionAlways, ConditionSuccess or ConditionFailure. The zero value is not a valid condition.
+// ConditionAlways, ConditionSuccess or ConditionFailure. The zero value is not a valid condition:
+// passing it to When or as a Back option records an invalid_option error.
 type Condition struct {
 	wire map[string]any
 }
