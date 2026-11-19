@@ -199,6 +199,44 @@ if closer, ok := audio.(io.Closer); ok {
 }
 ```
 
+## Agent workflows as code
+
+The `agentworkflows` package builds an agent's workflow in code instead of in the editor. `Build`
+returns the `*types.AgentWorkflowRequestModel` that `client.Agents.Create` and `client.Agents.Update`
+take, and `ToJSONString` returns the workflow as canonical JSON for storing in git. The output is
+byte-identical to the other ElevenLabs SDKs' builders for the same program.
+
+```go
+import "github.com/elevenlabs/elevenlabs-go/agentworkflows"
+
+wf := agentworkflows.New(nil)
+triage := wf.Converse("triage", "Find out what the caller needs", nil)
+triage.When(agentworkflows.ConditionLLM("Caller gave an order number", nil), nil).
+	Tool("lookup_order", []string{"tool_get_order"}, nil).
+	OnResult(agentworkflows.ResultBranches{
+		Success: func(ok *agentworkflows.Branch) {
+			ok.Converse("resolve", "Explain the order status", nil).End(nil)
+		},
+		Failure: func(failed *agentworkflows.Branch) { failed.GoTo("triage", nil) },
+	})
+triage.When(agentworkflows.ConditionLLM("Caller wants a human", nil), nil).
+	Transfer("human", agentworkflows.DestinationPhone("+15551234567"), nil)
+
+workflow, err := wf.Build(nil)
+if err != nil {
+	return err // a *agentworkflows.ValidationError listing every problem
+}
+agent, err := client.Agents.Create(ctx, &types.BodyCreateAgentV1ConvaiAgentsCreatePost{
+	ConversationConfig: &types.ConversationalConfig{},
+	Workflow:           workflow,
+})
+```
+
+Chaining never fails: duplicate ids, unknown targets and options that don't apply to a node are all
+reported together by `Build`. To edit an existing workflow, load it with
+`agentworkflows.FromAgent(agent)` or `agentworkflows.FromJSON(data)`; node ids, editor positions and
+edge order are kept.
+
 ## Environments
 
 This SDK allows you to configure different environments for API requests. It defaults to the production environment.
