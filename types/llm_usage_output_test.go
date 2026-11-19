@@ -1,0 +1,59 @@
+package types
+
+import (
+	"testing"
+)
+
+func TestLlmUsageOutputRoundTrip(t *testing.T) {
+	t.Parallel()
+	const wire = `{
+  "model_usage": {
+    "key": {
+      "input": {
+        "tokens": 123,
+        "price": 9.99
+      },
+      "input_cache_read": {
+        "tokens": 123,
+        "price": 9.99
+      },
+      "input_cache_write": {
+        "tokens": 123,
+        "price": 9.99
+      },
+      "output_total": {
+        "tokens": 123,
+        "price": 9.99
+      }
+    }
+  }
+}`
+	assertRoundTrip(t, wire, new(LlmUsageOutput))
+}
+
+func TestLlmUsageOutputRoundTrip2(t *testing.T) {
+	t.Parallel()
+	const wire = `{
+  "model_usage": {
+    "key": {
+      "input": {
+        "tokens": 123,
+        "price": 9.99
+      },
+      "input_cache_read": {
+        "tokens": 123,
+        "price": 9.99
+      },
+      "input_cache_write": {
+        "tokens": 123,
+        "price": 9.99
+      },
+      "output_total": {
+        "tokens": 123,
+        "price": 9.99
+      }
+    }
+  }
+}`
+	assertRoundTrip(t, wire, new(LlmUsageOutput))
+}

@@ -1,0 +1,41 @@
+package forcedalignment
+
+import (
+	context "context"
+	core "github.com/elevenlabs/elevenlabs-go/core"
+	internal "github.com/elevenlabs/elevenlabs-go/internal"
+	option "github.com/elevenlabs/elevenlabs-go/option"
+	types "github.com/elevenlabs/elevenlabs-go/types"
+)
+
+type Client struct {
+	WithRawResponse *RawClient
+
+	options *core.RequestOptions
+	baseURL string
+	caller  *internal.Caller
+}
+
+func NewClient(options *core.RequestOptions) *Client {
+	return &Client{
+		WithRawResponse: NewRawClient(options),
+		options:         options,
+		baseURL:         options.BaseURL,
+		caller: internal.NewCaller(
+			&internal.CallerParams{
+				Client:         options.HTTPClient,
+				MaxAttempts:    options.MaxAttempts,
+				DisableRetries: options.DisableRetries,
+			},
+		),
+	}
+}
+
+// Force align an audio file to text. Use this endpoint to get the timing information for each character and word in an audio file based on a provided text transcript.
+func (c *Client) Create(ctx context.Context, request *types.BodyCreateForcedAlignmentV1ForcedAlignmentPost, opts ...option.RequestOption) (*types.ForcedAlignmentResponseModel, error) {
+	response, err := c.WithRawResponse.Create(ctx, request, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}

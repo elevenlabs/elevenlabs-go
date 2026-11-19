@@ -1,0 +1,130 @@
+package types
+
+import (
+	"encoding/json"
+	"fmt"
+	"github.com/elevenlabs/elevenlabs-go/internal"
+)
+
+type WorkflowPhoneNumberNodeModelOutputPostDialDigits struct {
+	Type    string
+	Dynamic *PostDialDigitsDynamicVariable
+	Static  *PostDialDigitsStatic
+}
+
+func (w *WorkflowPhoneNumberNodeModelOutputPostDialDigits) GetDynamic() *PostDialDigitsDynamicVariable {
+	if w == nil {
+		return nil
+	}
+	if w.Dynamic == nil {
+		return nil
+	}
+	return w.Dynamic
+}
+
+func (w *WorkflowPhoneNumberNodeModelOutputPostDialDigits) GetStatic() *PostDialDigitsStatic {
+	if w == nil {
+		return nil
+	}
+	if w.Static == nil {
+		return nil
+	}
+	return w.Static
+}
+
+func (w *WorkflowPhoneNumberNodeModelOutputPostDialDigits) GetType() string {
+	if w == nil {
+		return ""
+	}
+	return w.Type
+}
+
+func (w *WorkflowPhoneNumberNodeModelOutputPostDialDigits) UnmarshalJSON(data []byte) error {
+	var unmarshaler struct {
+		Type string `json:"type"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	w.Type = unmarshaler.Type
+	if unmarshaler.Type == "" {
+		return fmt.Errorf("%T did not include discriminant type", w)
+	}
+	switch unmarshaler.Type {
+	case "dynamic":
+		value := new(PostDialDigitsDynamicVariable)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		w.Dynamic = value
+	case "static":
+		value := new(PostDialDigitsStatic)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		w.Static = value
+	}
+	return nil
+}
+
+func (w WorkflowPhoneNumberNodeModelOutputPostDialDigits) MarshalJSON() ([]byte, error) {
+	if err := w.validate(); err != nil {
+		return nil, err
+	}
+	if w.Dynamic != nil {
+		return internal.MarshalJSONWithDiscriminant(w.Dynamic, "type", "dynamic")
+	}
+	if w.Static != nil {
+		return internal.MarshalJSONWithDiscriminant(w.Static, "type", "static")
+	}
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", w)
+}
+
+type WorkflowPhoneNumberNodeModelOutputPostDialDigitsVisitor interface {
+	VisitDynamic(*PostDialDigitsDynamicVariable) error
+	VisitStatic(*PostDialDigitsStatic) error
+}
+
+func (w *WorkflowPhoneNumberNodeModelOutputPostDialDigits) Accept(visitor WorkflowPhoneNumberNodeModelOutputPostDialDigitsVisitor) error {
+	if w.Dynamic != nil {
+		return visitor.VisitDynamic(w.Dynamic)
+	}
+	if w.Static != nil {
+		return visitor.VisitStatic(w.Static)
+	}
+	return fmt.Errorf("type %T does not define a non-empty union type", w)
+}
+
+func (w *WorkflowPhoneNumberNodeModelOutputPostDialDigits) validate() error {
+	if w == nil {
+		return fmt.Errorf("type %T is nil", w)
+	}
+	var fields []string
+	if w.Dynamic != nil {
+		fields = append(fields, "dynamic")
+	}
+	if w.Static != nil {
+		fields = append(fields, "static")
+	}
+	if len(fields) == 0 {
+		if w.Type != "" {
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", w, w.Type)
+		}
+		return fmt.Errorf("type %T is empty", w)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", w, fields)
+	}
+	if w.Type != "" {
+		field := fields[0]
+		if w.Type != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				w,
+				w.Type,
+				w,
+			)
+		}
+	}
+	return nil
+}

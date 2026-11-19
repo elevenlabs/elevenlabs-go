@@ -1,0 +1,29 @@
+package types
+
+import (
+	"testing"
+)
+
+func TestDependentAvailableMcpServerIdentifierRoundTrip(t *testing.T) {
+	t.Parallel()
+	const wire = `{
+  "id": "value",
+  "name": "value",
+  "type": "available",
+  "created_at_unix_secs": 123,
+  "access_level": "admin"
+}`
+	assertRoundTrip(t, wire, new(DependentAvailableMcpServerIdentifier))
+}
+
+func TestDependentAvailableMcpServerIdentifierRoundTrip2(t *testing.T) {
+	t.Parallel()
+	const wire = `{
+  "id": "value",
+  "name": "value",
+  "type": "available",
+  "created_at_unix_secs": 123,
+  "access_level": "admin"
+}`
+	assertRoundTrip(t, wire, new(DependentAvailableMcpServerIdentifier))
+}
