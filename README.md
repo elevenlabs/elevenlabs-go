@@ -340,6 +340,79 @@ socket, err := client.TextToSpeech.Realtime(
 )
 ```
 
+## Speech Engine
+
+With [Speech Engine](https://elevenlabs.io/docs/eleven-api/guides/cookbooks/speech-engine) you host
+a WebSocket server and the ElevenLabs API connects to it: it sends you user transcripts, and you
+reply with text from your own LLM, which is spoken back to the user.
+
+`client.SpeechEngine.Create`, `Get`, `Update` and `Duplicate` return a
+`*speechengine.SpeechEngineResource`. It carries the client's API key, which it uses to verify the
+JWT the API sends in the `X-Elevenlabs-Speech-Engine-Authorization` header of each connection.
+
+```go
+import (
+	"context"
+	"log"
+	"net/http"
+
+	elevenlabsclient "github.com/elevenlabs/elevenlabs-go/client"
+	"github.com/elevenlabs/elevenlabs-go/speechengine"
+	"github.com/elevenlabs/elevenlabs-go/types"
+)
+
+client := elevenlabsclient.NewClient()
+
+engine, err := client.SpeechEngine.Create(ctx, &types.CreateSpeechEngineRequest{
+	SpeechEngine: &types.SpeechEngineConfig{WsUrl: "wss://your-server.example.com/ws"},
+})
+if err != nil {
+	log.Fatal(err)
+}
+
+callbacks := speechengine.SpeechEngineCallbacks{
+	OnTranscript: func(ctx context.Context, transcript []speechengine.ConversationMessage, session *speechengine.SpeechEngineSession) error {
+		reply, err := myLLM.Generate(ctx, transcript)
+		if err != nil {
+			return err
+		}
+		return session.SendResponse(ctx, reply)
+	},
+}
+
+// Mount the engine on an existing server, next to the rest of your app...
+mux := http.NewServeMux()
+engine.Attach(mux, "/ws", speechengine.SpeechEngineServerOptions{Callbacks: callbacks})
+log.Fatal(http.ListenAndServe(":8080", mux))
+
+// ...or run a standalone server on :3001 until ctx is cancelled.
+// err = engine.Serve(ctx, speechengine.SpeechEngineServerOptions{Callbacks: callbacks})
+```
+
+To serve an engine that already exists without fetching it, use
+`client.SpeechEngine.Resource("seng_...")`.
+
+The `ctx` passed to `OnTranscript` is cancelled when the user interrupts (a newer transcript
+arrives), when the conversation ends, and when `OnTranscript` returns. Pass it to your LLM call so
+abandoned responses stop, and pass it to `SendResponse`, which uses it to tag the reply with the
+transcript it answers and sends nothing once the turn has been interrupted.
+
+To stream a response, call `session.SendResponseChunk(ctx, chunk)` for each piece and then
+`session.EndResponse(ctx)`, or hand a channel to `session.SendResponseStream`. A chunk is a
+string or an OpenAI, Anthropic or Gemini stream event (a struct, map or raw JSON), whose text is
+extracted for you.
+
+The other callbacks are `OnInit` (the conversation ID), `OnClose` (the API ended the conversation),
+`OnDisconnect` (the connection is gone) and `OnError`.
+
+To handle the WebSocket upgrade yourself, check the request with `engine.VerifyRequest(r)`, accept
+it with `github.com/coder/websocket`, and run the conversation with
+`speechengine.ServeSpeechEngineConn(ctx, conn, callbacks, nil)`. `speechengine.VerifySpeechEngineJWT`
+verifies a token on its own.
+
+`SpeechEngineServerOptions.DisableAuth` accepts connections without verifying them. Only use it
+behind an IP allowlist that admits ElevenLabs alone.
+
 ## Advanced
 
 ### Retries
