@@ -68,9 +68,11 @@ type HandleRegistrar interface {
 }
 
 // Attach mounts a handler for this engine's connections on mux at path, and returns it so the
-// caller can Close it later. Only requests to exactly path are accepted.
+// caller can Close it later. Routing is left to mux: the handler doesn't check the request path
+// again, because a subrouter (chi's Route/Mount, gorilla's PathPrefix().Subrouter()) registers a
+// relative pattern while r.URL.Path keeps the full path. opts.Path is ignored.
 func (r *SpeechEngineResource) Attach(mux HandleRegistrar, path string, opts SpeechEngineServerOptions) *SpeechEngineHandler {
-	opts.Path = path
+	opts.Path = ""
 	handler := r.Handler(opts)
 	mux.Handle(path, handler)
 	return handler

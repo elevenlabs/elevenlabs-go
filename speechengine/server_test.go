@@ -290,3 +290,44 @@ func TestResourceServeStopsWithItsContext(t *testing.T) {
 		t.Fatal("Serve did not return after its context was cancelled")
 	}
 }
+
+// subrouter stands in for a chi or gorilla subrouter mounted under a prefix: it registers the
+// relative pattern but leaves r.URL.Path as the full request path.
+type subrouter struct {
+	prefix   string
+	handlers map[string]http.Handler
+}
+
+func (s *subrouter) Handle(pattern string, handler http.Handler) { s.handlers[pattern] = handler }
+
+func (s *subrouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if h, ok := s.handlers[strings.TrimPrefix(r.URL.Path, s.prefix)]; ok {
+		h.ServeHTTP(w, r)
+		return
+	}
+	http.NotFound(w, r)
+}
+
+func TestAttachToASubrouterMountedUnderAPrefix(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	callbacks, _, _ := echoCallbacks()
+
+	sub := &subrouter{prefix: "/api", handlers: map[string]http.Handler{}}
+	mux := http.NewServeMux()
+	mux.Handle("/api/", sub)
+	engine := NewSpeechEngineResource("seng_1", goldenAPIKey, nil)
+	engine.Attach(sub, "/ws", SpeechEngineServerOptions{Callbacks: callbacks})
+	httpServer := httptest.NewServer(mux)
+	defer httpServer.Close()
+
+	conn, _, err := dialEngine(t, ctx, "ws"+strings.TrimPrefix(httpServer.URL, "http")+"/api/ws", goldenToken)
+	if err != nil {
+		t.Fatalf("dial through the subrouter: %v", err)
+	}
+	defer conn.CloseNow()
+	writeFrame(t, ctx, conn, `{"type":"user_transcript","event_id":1,"user_transcript":[{"role":"user","content":"hi"}]}`)
+	if frame := readFrame(t, ctx, conn); frame["content"] != "you said: hi" {
+		t.Fatalf("unexpected response: %v", frame)
+	}
+}
