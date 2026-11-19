@@ -1,5 +1,6 @@
 # Specify files that shouldn't be modified by Fern
 README.md
+.github/assets/logo.png
 
 # Hand-written Speech Engine server: the inbound side of Speech Engine, where the ElevenLabs API
 # dials into a developer-hosted WebSocket server. The generator only emits the client that dials out
@@ -29,7 +30,6 @@ client/client.go
 client/speech_engine_wiring_test.go
 client/testdata/
 
-.github/assets/logo.png
 
 # Hand-written webhook signature verifier. Fern's built-in verifier can't parse the compound
 # `ElevenLabs-Signature: t=...,v0=...` header, so this matches the Python/Rust/.NET SDKs by hand.
