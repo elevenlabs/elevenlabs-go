@@ -1,0 +1,15 @@
+package types
+
+import (
+	"testing"
+)
+
+func TestAlertingPagerDutyNotifierRoundTrip(t *testing.T) {
+	t.Parallel()
+	const wire = `{
+  "type": "integration",
+  "integration_type": "pagerduty",
+  "connection_id": "value"
+}`
+	assertRoundTrip(t, wire, new(AlertingPagerDutyNotifier))
+}

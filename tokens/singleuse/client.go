@@ -1,0 +1,42 @@
+package singleuse
+
+import (
+	context "context"
+	core "github.com/elevenlabs/elevenlabs-go/core"
+	internal "github.com/elevenlabs/elevenlabs-go/internal"
+	option "github.com/elevenlabs/elevenlabs-go/option"
+	tokens "github.com/elevenlabs/elevenlabs-go/tokens"
+	types "github.com/elevenlabs/elevenlabs-go/types"
+)
+
+type Client struct {
+	WithRawResponse *RawClient
+
+	options *core.RequestOptions
+	baseURL string
+	caller  *internal.Caller
+}
+
+func NewClient(options *core.RequestOptions) *Client {
+	return &Client{
+		WithRawResponse: NewRawClient(options),
+		options:         options,
+		baseURL:         options.BaseURL,
+		caller: internal.NewCaller(
+			&internal.CallerParams{
+				Client:         options.HTTPClient,
+				MaxAttempts:    options.MaxAttempts,
+				DisableRetries: options.DisableRetries,
+			},
+		),
+	}
+}
+
+// Generate a time limited single-use token with embedded authentication for frontend clients.
+func (c *Client) Create(ctx context.Context, tokenType *types.SingleUseTokenType, request *tokens.CreateSingleUseRequest, opts ...option.RequestOption) (*types.SingleUseTokenResponseModel, error) {
+	response, err := c.WithRawResponse.Create(ctx, tokenType, request, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}

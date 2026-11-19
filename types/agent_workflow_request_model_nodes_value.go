@@ -1,0 +1,319 @@
+package types
+
+import (
+	"encoding/json"
+	"fmt"
+	"github.com/elevenlabs/elevenlabs-go/internal"
+)
+
+type AgentWorkflowRequestModelNodesValue struct {
+	Type            string
+	End             *WorkflowEndNodeModelInput
+	OverrideAgent   *WorkflowOverrideAgentNodeModelInput
+	PhoneNumber     *WorkflowPhoneNumberNodeModelInput
+	Say             *WorkflowSayNodeModelInput
+	StandaloneAgent *WorkflowStandaloneAgentNodeModelInput
+	Start           *WorkflowStartNodeModelInput
+	StartProcedure  *WorkflowStartProcedureNodeModelInput
+	Tool            *WorkflowToolNodeModelInput
+	UpdateState     *WorkflowUpdateStateNodeModelInput
+}
+
+func (a *AgentWorkflowRequestModelNodesValue) GetEnd() *WorkflowEndNodeModelInput {
+	if a == nil {
+		return nil
+	}
+	if a.End == nil {
+		return nil
+	}
+	return a.End
+}
+
+func (a *AgentWorkflowRequestModelNodesValue) GetOverrideAgent() *WorkflowOverrideAgentNodeModelInput {
+	if a == nil {
+		return nil
+	}
+	if a.OverrideAgent == nil {
+		return nil
+	}
+	return a.OverrideAgent
+}
+
+func (a *AgentWorkflowRequestModelNodesValue) GetPhoneNumber() *WorkflowPhoneNumberNodeModelInput {
+	if a == nil {
+		return nil
+	}
+	if a.PhoneNumber == nil {
+		return nil
+	}
+	return a.PhoneNumber
+}
+
+func (a *AgentWorkflowRequestModelNodesValue) GetSay() *WorkflowSayNodeModelInput {
+	if a == nil {
+		return nil
+	}
+	if a.Say == nil {
+		return nil
+	}
+	return a.Say
+}
+
+func (a *AgentWorkflowRequestModelNodesValue) GetStandaloneAgent() *WorkflowStandaloneAgentNodeModelInput {
+	if a == nil {
+		return nil
+	}
+	if a.StandaloneAgent == nil {
+		return nil
+	}
+	return a.StandaloneAgent
+}
+
+func (a *AgentWorkflowRequestModelNodesValue) GetStart() *WorkflowStartNodeModelInput {
+	if a == nil {
+		return nil
+	}
+	if a.Start == nil {
+		return nil
+	}
+	return a.Start
+}
+
+func (a *AgentWorkflowRequestModelNodesValue) GetStartProcedure() *WorkflowStartProcedureNodeModelInput {
+	if a == nil {
+		return nil
+	}
+	if a.StartProcedure == nil {
+		return nil
+	}
+	return a.StartProcedure
+}
+
+func (a *AgentWorkflowRequestModelNodesValue) GetTool() *WorkflowToolNodeModelInput {
+	if a == nil {
+		return nil
+	}
+	if a.Tool == nil {
+		return nil
+	}
+	return a.Tool
+}
+
+func (a *AgentWorkflowRequestModelNodesValue) GetUpdateState() *WorkflowUpdateStateNodeModelInput {
+	if a == nil {
+		return nil
+	}
+	if a.UpdateState == nil {
+		return nil
+	}
+	return a.UpdateState
+}
+
+func (a *AgentWorkflowRequestModelNodesValue) GetType() string {
+	if a == nil {
+		return ""
+	}
+	return a.Type
+}
+
+func (a *AgentWorkflowRequestModelNodesValue) UnmarshalJSON(data []byte) error {
+	var unmarshaler struct {
+		Type string `json:"type"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	a.Type = unmarshaler.Type
+	if unmarshaler.Type == "" {
+		return fmt.Errorf("%T did not include discriminant type", a)
+	}
+	switch unmarshaler.Type {
+	case "end":
+		value := new(WorkflowEndNodeModelInput)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		a.End = value
+	case "override_agent":
+		value := new(WorkflowOverrideAgentNodeModelInput)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		a.OverrideAgent = value
+	case "phone_number":
+		value := new(WorkflowPhoneNumberNodeModelInput)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		a.PhoneNumber = value
+	case "say":
+		value := new(WorkflowSayNodeModelInput)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		a.Say = value
+	case "standalone_agent":
+		value := new(WorkflowStandaloneAgentNodeModelInput)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		a.StandaloneAgent = value
+	case "start":
+		value := new(WorkflowStartNodeModelInput)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		a.Start = value
+	case "start_procedure":
+		value := new(WorkflowStartProcedureNodeModelInput)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		a.StartProcedure = value
+	case "tool":
+		value := new(WorkflowToolNodeModelInput)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		a.Tool = value
+	case "update_state":
+		value := new(WorkflowUpdateStateNodeModelInput)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		a.UpdateState = value
+	}
+	return nil
+}
+
+func (a AgentWorkflowRequestModelNodesValue) MarshalJSON() ([]byte, error) {
+	if err := a.validate(); err != nil {
+		return nil, err
+	}
+	if a.End != nil {
+		return internal.MarshalJSONWithDiscriminant(a.End, "type", "end")
+	}
+	if a.OverrideAgent != nil {
+		return internal.MarshalJSONWithDiscriminant(a.OverrideAgent, "type", "override_agent")
+	}
+	if a.PhoneNumber != nil {
+		return internal.MarshalJSONWithDiscriminant(a.PhoneNumber, "type", "phone_number")
+	}
+	if a.Say != nil {
+		return internal.MarshalJSONWithDiscriminant(a.Say, "type", "say")
+	}
+	if a.StandaloneAgent != nil {
+		return internal.MarshalJSONWithDiscriminant(a.StandaloneAgent, "type", "standalone_agent")
+	}
+	if a.Start != nil {
+		return internal.MarshalJSONWithDiscriminant(a.Start, "type", "start")
+	}
+	if a.StartProcedure != nil {
+		return internal.MarshalJSONWithDiscriminant(a.StartProcedure, "type", "start_procedure")
+	}
+	if a.Tool != nil {
+		return internal.MarshalJSONWithDiscriminant(a.Tool, "type", "tool")
+	}
+	if a.UpdateState != nil {
+		return internal.MarshalJSONWithDiscriminant(a.UpdateState, "type", "update_state")
+	}
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", a)
+}
+
+type AgentWorkflowRequestModelNodesValueVisitor interface {
+	VisitEnd(*WorkflowEndNodeModelInput) error
+	VisitOverrideAgent(*WorkflowOverrideAgentNodeModelInput) error
+	VisitPhoneNumber(*WorkflowPhoneNumberNodeModelInput) error
+	VisitSay(*WorkflowSayNodeModelInput) error
+	VisitStandaloneAgent(*WorkflowStandaloneAgentNodeModelInput) error
+	VisitStart(*WorkflowStartNodeModelInput) error
+	VisitStartProcedure(*WorkflowStartProcedureNodeModelInput) error
+	VisitTool(*WorkflowToolNodeModelInput) error
+	VisitUpdateState(*WorkflowUpdateStateNodeModelInput) error
+}
+
+func (a *AgentWorkflowRequestModelNodesValue) Accept(visitor AgentWorkflowRequestModelNodesValueVisitor) error {
+	if a.End != nil {
+		return visitor.VisitEnd(a.End)
+	}
+	if a.OverrideAgent != nil {
+		return visitor.VisitOverrideAgent(a.OverrideAgent)
+	}
+	if a.PhoneNumber != nil {
+		return visitor.VisitPhoneNumber(a.PhoneNumber)
+	}
+	if a.Say != nil {
+		return visitor.VisitSay(a.Say)
+	}
+	if a.StandaloneAgent != nil {
+		return visitor.VisitStandaloneAgent(a.StandaloneAgent)
+	}
+	if a.Start != nil {
+		return visitor.VisitStart(a.Start)
+	}
+	if a.StartProcedure != nil {
+		return visitor.VisitStartProcedure(a.StartProcedure)
+	}
+	if a.Tool != nil {
+		return visitor.VisitTool(a.Tool)
+	}
+	if a.UpdateState != nil {
+		return visitor.VisitUpdateState(a.UpdateState)
+	}
+	return fmt.Errorf("type %T does not define a non-empty union type", a)
+}
+
+func (a *AgentWorkflowRequestModelNodesValue) validate() error {
+	if a == nil {
+		return fmt.Errorf("type %T is nil", a)
+	}
+	var fields []string
+	if a.End != nil {
+		fields = append(fields, "end")
+	}
+	if a.OverrideAgent != nil {
+		fields = append(fields, "override_agent")
+	}
+	if a.PhoneNumber != nil {
+		fields = append(fields, "phone_number")
+	}
+	if a.Say != nil {
+		fields = append(fields, "say")
+	}
+	if a.StandaloneAgent != nil {
+		fields = append(fields, "standalone_agent")
+	}
+	if a.Start != nil {
+		fields = append(fields, "start")
+	}
+	if a.StartProcedure != nil {
+		fields = append(fields, "start_procedure")
+	}
+	if a.Tool != nil {
+		fields = append(fields, "tool")
+	}
+	if a.UpdateState != nil {
+		fields = append(fields, "update_state")
+	}
+	if len(fields) == 0 {
+		if a.Type != "" {
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", a, a.Type)
+		}
+		return fmt.Errorf("type %T is empty", a)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", a, fields)
+	}
+	if a.Type != "" {
+		field := fields[0]
+		if a.Type != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				a,
+				a.Type,
+				a,
+			)
+		}
+	}
+	return nil
+}

@@ -1,0 +1,70 @@
+package feedback
+
+import (
+	context "context"
+	conversations "github.com/elevenlabs/elevenlabs-go/agents/conversations"
+	core "github.com/elevenlabs/elevenlabs-go/core"
+	internal "github.com/elevenlabs/elevenlabs-go/internal"
+	option "github.com/elevenlabs/elevenlabs-go/option"
+	http "net/http"
+)
+
+type RawClient struct {
+	baseURL string
+	caller  *internal.Caller
+	options *core.RequestOptions
+}
+
+func NewRawClient(options *core.RequestOptions) *RawClient {
+	return &RawClient{
+		options: options,
+		baseURL: options.BaseURL,
+		caller: internal.NewCaller(
+			&internal.CallerParams{
+				Client:         options.HTTPClient,
+				MaxAttempts:    options.MaxAttempts,
+				DisableRetries: options.DisableRetries,
+			},
+		),
+	}
+}
+
+// Send the feedback for the given conversation
+func (r *RawClient) Create(ctx context.Context, conversationId string, request *conversations.ConversationFeedbackRequestModel, opts ...option.RequestOption) (*core.Response[any], error) {
+	options := core.NewRequestOptions(opts...)
+	baseURL := internal.ResolveBaseURL(
+		options.BaseURL,
+		r.baseURL,
+		"https://api.elevenlabs.io",
+	)
+	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/conversations/%v/feedback", conversationId)
+	headers := internal.MergeHeaders(
+		r.options.ToHeader(),
+		options.ToHeader(),
+	)
+	headers.Add("Content-Type", "application/json")
+	var response any
+	raw, err := r.caller.Call(
+		ctx,
+		&internal.CallParams{
+			URL:             endpointURL,
+			Method:          http.MethodPost,
+			Headers:         headers,
+			MaxAttempts:     options.MaxAttempts,
+			DisableRetries:  options.DisableRetries,
+			BodyProperties:  options.BodyProperties,
+			QueryParameters: options.QueryParameters,
+			Client:          options.HTTPClient,
+			Request:         request,
+			Response:        &response,
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &core.Response[any]{
+		StatusCode: raw.StatusCode,
+		Header:     raw.Header,
+		Body:       response,
+	}, nil
+}

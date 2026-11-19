@@ -1,0 +1,33 @@
+package types
+
+import (
+	"fmt"
+)
+
+type AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccess string
+
+const (
+	AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccessAdmin     AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccess = "admin"
+	AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccessEditor    AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccess = "editor"
+	AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccessCommenter AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccess = "commenter"
+	AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccessViewer    AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccess = "viewer"
+)
+
+func NewAddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccessFromString(s string) (AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccess, error) {
+	switch s {
+	case "admin":
+		return AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccessAdmin, nil
+	case "editor":
+		return AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccessEditor, nil
+	case "commenter":
+		return AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccessCommenter, nil
+	case "viewer":
+		return AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccessViewer, nil
+	}
+	var t AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccess
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (e AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccess) Ptr() *AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccess {
+	return &e
+}
