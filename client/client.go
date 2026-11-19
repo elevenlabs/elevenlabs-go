@@ -70,7 +70,7 @@ type Client struct {
 	Tokens                     *tokensclient.Client
 	ForcedAlignment            *forcedalignment.Client
 	Agents                     *agentsclient.Client
-	SpeechEngine               *speechengine.Client
+	SpeechEngine               *speechengine.SpeechEngineClient
 	EnvironmentVariables       *environmentvariables.Client
 	Environments               *environments.Client
 	Productions                *productionsclient.Client
@@ -119,7 +119,7 @@ func NewClient(opts ...option.RequestOption) *Client {
 		Tokens:                     tokensclient.NewClient(options),
 		ForcedAlignment:            forcedalignment.NewClient(options),
 		Agents:                     agentsclient.NewClient(options),
-		SpeechEngine:               speechengine.NewClient(options),
+		SpeechEngine:               speechengine.NewSpeechEngineClient(options),
 		EnvironmentVariables:       environmentvariables.NewClient(options),
 		Environments:               environments.NewClient(options),
 		Productions:                productionsclient.NewClient(options),
