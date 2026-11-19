@@ -278,6 +278,14 @@ func toModel(name string, wire map[string]any) (*types.ToolRequestModelToolConfi
 	if err := json.Unmarshal(data, &config); err != nil {
 		return nil, modelError(name, err)
 	}
+	// The generated query params model has no omitempty on `properties`, so a loaded empty
+	// query_params_schema ({}) would be sent as "properties": null. Send no properties as an
+	// empty object instead, which is what ToJSON's {} means.
+	if webhook := config.Webhook; webhook != nil && webhook.ApiSchema != nil {
+		if query := webhook.ApiSchema.QueryParamsSchema; query != nil && query.Properties == nil {
+			query.Properties = map[string]*types.QueryParamsJsonSchemaInputPropertiesValue{}
+		}
+	}
 	wanted := constants(canonical)
 	sentData, err := json.Marshal(config)
 	if err != nil {

@@ -456,3 +456,32 @@ func TestLoadersRejectNonObjects(t *testing.T) {
 		t.Fatalf("got %v", tool.Kind())
 	}
 }
+
+// A loaded empty query_params_schema is written as {} by ToJSON; Build must not send it as
+// "properties": null, which the generated model's missing omitempty would otherwise produce.
+func TestLoadedEmptyQuerySchemaBuildsWithEmptyProperties(t *testing.T) {
+	tool := load(t, `{"type":"webhook","name":"t","description":"T","api_schema":{"method":"GET","url":"https://x/",
+		"query_params_schema":{}}}`)
+	if got := apiSchema(t, tool)["query_params_schema"]; !reflect.DeepEqual(got, map[string]any{}) {
+		t.Fatalf("ToJSON query = %v, want {}", got)
+	}
+	request, err := tool.Build(nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	data, err := json.Marshal(request.ToolConfig)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var sent struct {
+		APISchema struct {
+			Query map[string]json.RawMessage `json:"query_params_schema"`
+		} `json:"api_schema"`
+	}
+	if err := json.Unmarshal(data, &sent); err != nil {
+		t.Fatal(err)
+	}
+	if got := string(sent.APISchema.Query["properties"]); got != "{}" {
+		t.Fatalf("Build sent query_params_schema.properties = %s, want {} (%s)", got, data)
+	}
+}
