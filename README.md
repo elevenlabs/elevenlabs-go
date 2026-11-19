@@ -302,6 +302,61 @@ Params and bodies are `agenttools.Schema` values (`String`, `Integer`, `Number`,
 existing tool, load it with `agenttools.FromJSON(data)` or `agenttools.FromResponse(tool)`; fields
 the builder doesn't model, and tools of types it can't edit (such as MCP tools), are kept as loaded.
 
+## Flows
+
+Flows image, video and text-to-speech generations, and flows template runs, are asynchronous:
+`Create` returns straight away with a `pending` status, and `Get` reports progress until the work
+is `completed` or `failed`. `CreateAndWait` does both. It polls `Get` at the pace the server asks
+for in its `Retry-After` header, never faster than `MinPollInterval` (3 seconds by default), and
+returns the final generation:
+
+```go
+generation, err := client.Flows.Image.CreateAndWait(
+	ctx,
+	&types.ImageGenerationRequest{
+		ModelId:   "gpt-image-2",
+		GptImage2: &types.GptImage2Request{Prompt: "A lighthouse at dawn, watercolor"},
+	},
+	&flows.WaitOptions{WaitTimeout: 5 * time.Minute},
+)
+var timeoutErr *flows.WaitTimeoutError
+if errors.As(err, &timeoutErr) {
+	// Still running on the server: resume later with client.Flows.Image.Get(ctx, timeoutErr.ID).
+	return err
+}
+if err != nil {
+	return err
+}
+if completed := generation.GetCompleted(); completed != nil {
+	fmt.Println(completed.ContentUrl)
+} else if failed := generation.GetFailed(); failed != nil {
+	fmt.Println("Generation failed:", failed.FailureReason, failed.ErrorMessage)
+}
+```
+
+`client.Flows.Video.CreateAndWait` and `client.Flows.TextToSpeech.CreateAndWait` work the same
+way. For a template run, pass the template id; the run comes back with its `Status` and `Outputs`:
+
+```go
+run, err := client.Flows.Templates.Runs.CreateAndWait(
+	ctx,
+	"TEMPLATE_ID",
+	&templates.TemplateRunCreateRequest{
+		Inputs: map[string]*types.TemplateRunInput{"prompt": {String: "A fox in the snow"}},
+	},
+	nil, // the default wait options: no timeout, 3-second minimum poll interval
+)
+```
+
+A `failed` generation or run is returned with a `nil` error, so check its status. The error is a
+`*flows.WaitTimeoutError` (carrying `ID`, and `TemplateID` for a run) when `WaitTimeout` runs out,
+wraps `ctx.Err()` when the context is cancelled, and is the API error when the create call or a
+status check fails. Request options apply to the create call and to every status check, except
+`option.WithBodyProperties`, which only the create call gets.
+
+`CreateAndWait` is meant for scripts and quickstarts. In production, set `Webhook` on the request
+and handle the webhook event instead of holding a process open.
+
 ## Environments
 
 This SDK allows you to configure different environments for API requests. It defaults to the production environment.
