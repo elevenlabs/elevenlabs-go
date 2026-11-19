@@ -101,6 +101,10 @@ func FromAgent(agent any) (*Workflow, error) {
 	default:
 		return nil, fmt.Errorf("agentworkflows: FromAgent takes a get-agent response or its workflow, not %T", agent)
 	}
+	// A nil workflow pointer is an agent without a workflow, as a nil response is.
+	if rv := reflect.ValueOf(workflow); rv.Kind() == reflect.Ptr && rv.IsNil() {
+		return New(nil), nil
+	}
 	tree, err := workflowModelTree(workflow)
 	if err != nil {
 		return nil, err
