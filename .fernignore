@@ -8,7 +8,13 @@ README.md
 # (vendored in agentworkflows/testdata/fixtures).
 agentworkflows/
 
+# Hand-written agent tools-as-code builder (docs/agents-as-code/tool-spec.md in elevenlabs-js):
+# webhook, client and system tools on top of the generated client, which the generator does not
+# emit. It builds the generated types.ToolRequestModel, reuses the workflow builder's Destination
+# and passes the shared cross-SDK fixtures (vendored in agenttools/testdata/fixtures).
+agenttools/
+
 # Hand-written canonical JSON writer (sorted keys, JavaScript number and string formatting) shared
-# by the agents-as-code builders. It sits in the module's internal/ tree so the workflow builder
-# and a later tools builder can import it without making it public API.
+# by the agents-as-code builders. It sits in the module's internal/ tree so the workflow and tools
+# builders can import it without making it public API.
 internal/wirejson/

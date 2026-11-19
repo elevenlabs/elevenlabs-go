@@ -40,6 +40,29 @@ func TestFormatNumberMatchesJavaScript(t *testing.T) {
 	}
 }
 
+func TestIsIntegerReadsEveryDigit(t *testing.T) {
+	cases := map[string]bool{
+		"0":                     true,
+		"-0":                    true,
+		"3":                     true,
+		"3.0":                   true,
+		"1E2":                   true,
+		"1.5e1":                 true,
+		"9223372036854775808":   true,
+		"1.5":                   false,
+		"1e-1":                  false,
+		"1.0000000000000000001": false,
+		"12.5e-1":               false,
+		"x":                     false,
+		"":                      false,
+	}
+	for in, want := range cases {
+		if got := IsInteger(in); got != want {
+			t.Errorf("IsInteger(%q) = %v, want %v", in, got, want)
+		}
+	}
+}
+
 func TestStringEscapesLikeJSONStringify(t *testing.T) {
 	got, err := String(map[string]any{"s": "a\"b\\c\n\t\u0001<>&/+ é"})
 	if err != nil {
