@@ -19,6 +19,12 @@ agenttools/
 # builders can import it without making it public API.
 internal/wirejson/
 
+# Hand-written music compose-detailed, parsed: the generated ComposeDetailed JSON-decodes the
+# multipart/mixed response of POST /v1/music/detailed and always fails, so ComposeDetailedParsed
+# sends the same request and splits the JSON metadata and audio parts.
+music/client/compose_detailed_parsed.go
+music/client/compose_detailed_parsed_test.go
+
 # Hand-written webhook signature verifier. Fern's built-in verifier can't parse the compound
 # `ElevenLabs-Signature: t=...,v0=...` header, so this matches the Python/Rust/.NET SDKs by hand.
 # It adds the package-level `webhooks.ConstructEvent` and a `ConstructEvent` method on the
