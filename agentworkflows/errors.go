@@ -17,7 +17,8 @@ const (
 	// UnknownEdge: InsertBetween is given a pair of nodes with no edge between them.
 	UnknownEdge IssueCode = "unknown_edge"
 	// InvalidOption: an option doesn't apply to the node's kind, a schema override names a tool
-	// the node doesn't run, or an option value can't be converted to JSON.
+	// the node doesn't run, an option value can't be converted to JSON, or (Go-specific) When or
+	// a Back option is given the zero Condition.
 	InvalidOption IssueCode = "invalid_option"
 	// DuplicateEdge: a second edge connects the same two nodes and can't be merged into the first
 	// as its backward condition.
