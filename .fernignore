@@ -2,6 +2,19 @@
 README.md
 .github/assets/logo.png
 
+# Hand-written flows CreateAndWait helpers (client.Flows.Image.CreateAndWait, and on .Video,
+# .TextToSpeech and .Templates.Runs): start a generation or template run, then poll Get until it is
+# completed or failed, honouring Retry-After. The generator does not emit them. Each method lives in
+# its own file in the generated package, so no generated file is edited; the shared polling loop is
+# in flows/internal/flowswait. Matches the Python, TypeScript, Rust and .NET SDKs.
+flows/create_and_wait.go
+flows/create_and_wait_test.go
+flows/image/create_and_wait.go
+flows/video/create_and_wait.go
+flows/texttospeech/create_and_wait.go
+flows/templates/runs/create_and_wait.go
+flows/internal/flowswait/
+
 # Hand-written music compose-detailed, parsed: the generated ComposeDetailed JSON-decodes the
 # multipart/mixed response of POST /v1/music/detailed and always fails, so ComposeDetailedParsed
 # sends the same request and splits the JSON metadata and audio parts.
