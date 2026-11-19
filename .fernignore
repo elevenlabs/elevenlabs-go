@@ -28,3 +28,13 @@ speechengine/speech_engine_client.go
 client/client.go
 client/speech_engine_wiring_test.go
 client/testdata/
+
+.github/assets/logo.png
+
+# Hand-written webhook signature verifier. Fern's built-in verifier can't parse the compound
+# `ElevenLabs-Signature: t=...,v0=...` header, so this matches the Python/Rust/.NET SDKs by hand.
+# It adds the package-level `webhooks.ConstructEvent` and a `ConstructEvent` method on the
+# generated `webhooks.Client` (Go lets a package's methods live in any of its files), so no
+# generated file is edited.
+webhooks/verifier.go
+webhooks/verifier_test.go
