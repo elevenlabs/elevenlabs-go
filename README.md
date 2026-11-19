@@ -314,6 +314,40 @@ if errors.As(err, &apiErr) {
 }
 ```
 
+## Webhooks
+
+ElevenLabs signs each webhook it sends with your webhook secret. `client.Webhooks.ConstructEvent`
+verifies the `ElevenLabs-Signature` header and returns the decoded event as a `map[string]any`. Pass
+the raw request body exactly as received: re-encoding a decoded body changes the bytes and breaks
+verification.
+
+```go
+http.HandleFunc("/webhooks/elevenlabs", func(w http.ResponseWriter, r *http.Request) {
+	rawBody, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, "cannot read body", http.StatusBadRequest)
+		return
+	}
+
+	event, err := client.Webhooks.ConstructEvent(
+		rawBody,
+		r.Header.Get("ElevenLabs-Signature"),
+		os.Getenv("ELEVENLABS_WEBHOOK_SECRET"),
+	)
+	if err != nil {
+		// Missing or invalid signature, or a timestamp older than 30 minutes.
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	fmt.Println(event["type"])
+	w.WriteHeader(http.StatusOK)
+})
+```
+
+`webhooks.ConstructEvent` (package `github.com/elevenlabs/elevenlabs-go/webhooks`) does the same
+without a client. Each failure is a sentinel error you can match with `errors.Is`, such as
+`webhooks.ErrSignatureMismatch` or `webhooks.ErrTimestampOutsideTolerance`.
+
 ## WebSockets
 
 `client.TextToSpeech.Realtime(...)` opens a connection and returns a `*texttospeech.TextToSpeechSocket`.
