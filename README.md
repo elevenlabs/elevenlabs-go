@@ -136,6 +136,36 @@ _, err = io.Copy(file, audio)
 return err
 ```
 
+### Music with metadata
+
+`client.Music.ComposeDetailedParsed` composes a song and returns its metadata and audio file as
+separate fields. It takes the same arguments as `ComposeDetailed`. The API answers with a
+`multipart/mixed` body (a JSON part, then the audio), which the generated `ComposeDetailed` can't
+decode.
+
+```go
+song, err := client.Music.ComposeDetailedParsed(ctx, &types.BodyComposeMusicWithADetailedResponseV1MusicDetailedPost{
+	Prompt:        elevenlabs.String("Epic orchestral music with dramatic strings"),
+	MusicLengthMs: elevenlabs.Int(60000),
+})
+if err != nil {
+	return err
+}
+
+metadata, _ := song.JSON["song_metadata"].(map[string]any)
+fmt.Println(metadata["title"])
+return os.WriteFile(song.Filename, song.Audio, 0o644)
+```
+
+`song.JSON` holds the metadata part as the API sent it (`composition_plan`, `song_metadata`,
+`words_timestamps` and, with `WithWaveformVisual`, `waveform_visual`). `song.Filename` is the name
+the API suggests for the audio, or `generated_music.mp3`, and `song.SongID` is the `song-id`
+response header, sent when `StoreForInpainting` is set. The whole body is read before the method
+returns, so a context deadline or HTTP client `Timeout` covers the download. An error status
+returns a `*core.APIError`, as `ComposeDetailed` does; a body that isn't a complete multipart body
+with a JSON part and an audio part returns a `*ComposeDetailedDecodeError` from the `music/client`
+package.
+
 ## Voices
 
 List all your available voices with `Search`.
