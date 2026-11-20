@@ -602,6 +602,8 @@ func (a *Agent) assemble(toolIDs map[string]string, resolve bool, onWarning func
 	}
 
 	// Webhook and client tools by their pushed ids, other kinds by the ids they were loaded with.
+	// An other-kind tool whose id is already attached (such as a loaded mcp tool added back with
+	// AddTool while its id is still in ToolIDs) isn't listed twice.
 	var attached []string
 	var system []*agenttools.SystemTool
 	for _, tool := range a.tools {
@@ -610,9 +612,13 @@ func (a *Agent) assemble(toolIDs map[string]string, resolve bool, onWarning func
 		}
 		if st := tool.AsSystem(); st != nil {
 			system = append(system, st)
-		} else {
-			attached = append(attached, idOf(tool))
+			continue
 		}
+		id := idOf(tool)
+		if !managedTool(tool) && (hasString(a.toolIDs, id) || hasString(attached, id)) {
+			continue
+		}
+		attached = append(attached, id)
 	}
 	if a.toolListGiven {
 		if isSet(raw, toolIDsPath) {
@@ -754,4 +760,13 @@ func dedupe(issues []Issue) []Issue {
 		}
 	}
 	return out
+}
+
+func hasString(list []string, s string) bool {
+	for _, item := range list {
+		if item == s {
+			return true
+		}
+	}
+	return false
 }

@@ -619,7 +619,8 @@ func TestALoadedMCPToolStaysInToolIDs(t *testing.T) {
 		t.Fatal(err)
 	}
 	config := `{"name": "A", "conversation_config": {"agent": {"prompt": {"prompt": "p", "tool_ids": ["tool_mcp", "tool_ping"]}}}, "platform_settings": {}, "tags": []}`
-	agent, err := agentbuilder.FromJSON(config, &agentbuilder.LoadOptions{ToolsByID: map[string]agenttools.Tool{"tool_mcp": mcpTool(t), "tool_ping": ping}})
+	mcp := mcpTool(t)
+	agent, err := agentbuilder.FromJSON(config, &agentbuilder.LoadOptions{ToolsByID: map[string]agenttools.Tool{"tool_mcp": mcp, "tool_ping": ping}})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -640,5 +641,15 @@ func TestALoadedMCPToolStaysInToolIDs(t *testing.T) {
 	}
 	if got := at(wire, "conversation_config", "agent", "prompt", "tool_ids"); !reflect.DeepEqual(got, []any{"tool_mcp", "tool_order"}) {
 		t.Fatalf("tool_ids = %v", got)
+	}
+
+	// Adding the loaded MCP object back, while its id is still in ToolIDs, attaches it once.
+	agent.AddTool(mcp)
+	wire, err = agent.ToJSON(&agentbuilder.BuildOptions{ToolIDs: map[string]string{"get_order": "tool_order"}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := at(wire, "conversation_config", "agent", "prompt", "tool_ids"); !reflect.DeepEqual(got, []any{"tool_mcp", "tool_order"}) {
+		t.Fatalf("tool_ids after AddTool = %v", got)
 	}
 }
