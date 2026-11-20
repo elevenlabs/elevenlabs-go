@@ -13,6 +13,34 @@ agentworkflows/
 # and a later tools builder can import it without making it public API.
 internal/wirejson/
 
+# Hand-written Speech Engine server: the inbound side of Speech Engine, where the ElevenLabs API
+# dials into a developer-hosted WebSocket server. The generator only emits the client that dials out
+# to /speech-engine/upstream (speechengine/socket.go), so the JWT verifier, the per-connection
+# session, the net/http handler and standalone server, SpeechEngineResource and the wrapping
+# SpeechEngineClient are maintained by hand to match the Python, TypeScript, PHP, .NET and Rust SDKs.
+# They live in the generated speechengine package so the wrapper can read the generated Client's
+# options (for the API key) and embed it.
+speechengine/jwt.go
+speechengine/jwt_test.go
+speechengine/session.go
+speechengine/session_test.go
+speechengine/server.go
+speechengine/server_test.go
+speechengine/resource.go
+speechengine/speech_engine_client.go
+
+# Frozen to wire the hand-written client in: client/client.go is generated, but its SpeechEngine
+# field is changed to *speechengine.SpeechEngineClient (built with NewSpeechEngineClient), so
+# client.SpeechEngine.Create/Get/Update/Duplicate return a SpeechEngineResource. Those two lines
+# are the only difference from the generated file. Go cannot change a field's type from another
+# file, and Fern has no option yet to rename the generated root client so a hand-written one can
+# take its name. The trade-off: a top-level resource the generator adds later must be merged into
+# this file by hand. TestRootClientWiresEveryResource fails until it is, so the gap cannot pass
+# unnoticed.
+client/client.go
+client/speech_engine_wiring_test.go
+client/testdata/
+
 # Hand-written flows CreateAndWait helpers (client.Flows.Image.CreateAndWait, and on .Video,
 # .TextToSpeech and .Templates.Runs): start a generation or template run, then poll Get until it is
 # completed or failed, honouring Retry-After. The generator does not emit them. Each method lives in
