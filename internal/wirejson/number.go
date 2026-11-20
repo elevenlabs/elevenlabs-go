@@ -22,6 +22,14 @@ func FormatNumber(text string) string {
 	return text
 }
 
+// IsInteger reports whether JSON number text is a whole number, judged from every digit of the text
+// (exponent included) rather than from a float64, so 1.5e1 and 100.0 are integers and
+// 1.0000000000000000001 is not. Text that isn't a number is not an integer.
+func IsInteger(text string) bool {
+	_, digits, point, ok := decompose(text)
+	return ok && (digits == "" || point >= int64(len(digits)))
+}
+
 // FormatFloat writes a finite float64 as JavaScript's Number.prototype.toString does.
 func FormatFloat(value float64) string {
 	return formatFloat(value)

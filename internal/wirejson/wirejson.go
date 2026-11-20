@@ -1,5 +1,5 @@
 // Package wirejson is the canonical JSON layer shared by the hand-written agents-as-code builders
-// (the workflow builder in agentworkflows, and later the tools builder).
+// (the workflow builder in agentworkflows and the tools builder in agenttools).
 //
 // The builders keep their state in API wire format as plain Go JSON trees: nil, bool, string,
 // json.Number, []any and map[string]any. This package converts Go values into such trees, reads

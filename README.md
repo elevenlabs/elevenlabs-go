@@ -267,6 +267,41 @@ reported together by `Build`. To edit an existing workflow, load it with
 `agentworkflows.FromAgent(agent)` or `agentworkflows.FromJSON(data)`; node ids, editor positions and
 edge order are kept.
 
+## Agent tools as code
+
+The `agenttools` package builds webhook, client and system tools in code. `Build` returns the
+`*types.ToolRequestModel` that `client.Agents.Tools.Create` and `client.Agents.Tools.Update` take,
+and `ToJSONString` returns the tool as canonical JSON (the CLI's `tool_configs/*.json` format). The
+output is byte-identical to the other ElevenLabs SDKs' builders for the same program.
+
+```go
+import "github.com/elevenlabs/elevenlabs-go/agenttools"
+
+getOrder := agenttools.Webhook("get_order", "Look up an order by the number the caller gives").
+	Get("https://api.example.com/orders/{order_id}").
+	PathParam("order_id", agenttools.String().Describe("The order number, e.g. A-1042")).
+	QueryParam("include", agenttools.String().Constant("items")).
+	Header("Authorization", agenttools.HeaderSecret("sec_orders_api")).
+	Assign("order_status", "order.status", nil).
+	Options(&agenttools.ToolOptions{PreToolSpeech: types.PreToolSpeechModeForce.Ptr()})
+
+request, err := getOrder.Build(nil)
+if err != nil {
+	return err // a *agenttools.ValidationError listing every problem
+}
+tool, err := client.Agents.Tools.Create(ctx, request)
+
+transfer := agenttools.SystemTransferToNumber(nil).
+	Transfer("Caller asks for billing", agenttools.DestinationPhone("+15551234567"), nil)
+entry, err := transfer.BuildConfig(nil) // entry.System goes in the agent's prompt.built_in_tools
+```
+
+Params and bodies are `agenttools.Schema` values (`String`, `Integer`, `Number`, `Bool`, `Object`,
+`Array`); each literal needs one value source: `Describe`, `FromVariable`, `Constant`,
+`SystemProvided` or `Omit`. Schemas are values, so one can be reused across tools. To edit an
+existing tool, load it with `agenttools.FromJSON(data)` or `agenttools.FromResponse(tool)`; fields
+the builder doesn't model, and tools of types it can't edit (such as MCP tools), are kept as loaded.
+
 ## Flows
 
 Flows image, video and text-to-speech generations, and flows template runs, are asynchronous:
