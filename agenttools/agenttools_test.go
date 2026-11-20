@@ -485,3 +485,44 @@ func TestLoadedEmptyQuerySchemaBuildsWithEmptyProperties(t *testing.T) {
 		t.Fatalf("Build sent query_params_schema.properties = %s, want {} (%s)", got, data)
 	}
 }
+
+const transferRule = `{"condition":"Caller asks for the front desk","provider_configs":[{"config":{"transfer_destination":{"destination":"+15551234567","type":"phone"},"type":"twilio_cold_blind_transfer"},"type":"twilio"}]}`
+
+func loadedTransfer(t *testing.T, systemToolType string) agenttools.Tool {
+	t.Helper()
+	return load(t, `{"type":"system","name":"`+systemToolType+`","params":{"system_tool_type":"`+systemToolType+
+		`","transfers":[],"transfer_rules":[`+transferRule+`]}}`)
+}
+
+func TestTransferRulesDoNotSatisfyAnAgentTransfer(t *testing.T) {
+	_, err := loadedTransfer(t, "transfer_to_agent").Build(nil)
+	wantCodes(t, err, "no_transfers")
+}
+
+func TestBuildSendsLoadedTransferRules(t *testing.T) {
+	request, err := loadedTransfer(t, "transfer_to_number").Build(nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	data, err := json.Marshal(request)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var sent struct {
+		ToolConfig struct {
+			Params struct {
+				TransferRules []any `json:"transfer_rules"`
+			} `json:"params"`
+		} `json:"tool_config"`
+	}
+	if err := json.Unmarshal(data, &sent); err != nil {
+		t.Fatal(err)
+	}
+	var want []any
+	if err := json.Unmarshal([]byte(`[`+transferRule+`]`), &want); err != nil {
+		t.Fatal(err)
+	}
+	if !reflect.DeepEqual(sent.ToolConfig.Params.TransferRules, want) {
+		t.Fatalf("sent transfer_rules = %v, want %v\n%s", sent.ToolConfig.Params.TransferRules, want, data)
+	}
+}

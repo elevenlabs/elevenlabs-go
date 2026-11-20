@@ -192,7 +192,11 @@ func (t *SystemTool) validate() []Issue {
 	}
 	// A loaded transfer_to_number tool may use transfer_rules instead of transfers; the API takes exactly one.
 	transfers, _ := t.params["transfers"].([]any)
-	rules, _ := t.params["transfer_rules"].([]any)
+	// Only transfer_to_number has transfer_rules; transfer_to_agent needs transfers.
+	var rules []any
+	if t.systemToolType == "transfer_to_number" {
+		rules, _ = t.params["transfer_rules"].([]any)
+	}
 	if len(transfers) == 0 && len(rules) == 0 {
 		return []Issue{errorIssue(NoTransfers, "transfer", fmt.Sprintf("%s needs at least one Transfer", t.systemToolType))}
 	}
