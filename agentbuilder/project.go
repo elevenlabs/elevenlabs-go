@@ -372,6 +372,10 @@ func (p *Project) recordAgent(agent *Agent, id string, config any, branchID, ver
 	if branch == nil {
 		slot.agent = agent
 	} else {
+		// checkBranch made sure it has one; never fall back to the main branch's file.
+		if branch.config == "" {
+			return checkBranchOf(nil, agent.Name(), branchID)
+		}
 		path = branch.config
 	}
 	// Like the CLI: the version the server reports, on the entry it belongs to.
@@ -423,9 +427,13 @@ func checkBranchOf(slot *agentSlot, label, branchID string) error {
 		return nil
 	}
 	if slot != nil {
+		// The first branch entry with that id is the one recorded; it needs its own file.
 		for _, branch := range branchesOf(slot.entry) {
 			if branch.branchID == branchID {
-				return nil
+				if branch.config != "" {
+					return nil
+				}
+				break
 			}
 		}
 	}

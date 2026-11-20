@@ -496,3 +496,117 @@ func TestRootClientWiresTheAgentsWrapper(t *testing.T) {
 		t.Fatalf("generated Get: %+v %v", response, err)
 	}
 }
+
+const mcpToolJSON = `{"type": "mcp", "name": "docs_search", "description": "Search the docs", "mcp_server_id": "mcp_1"}`
+
+func mcpTool(t *testing.T) agenttools.Tool {
+	t.Helper()
+	tool, err := agenttools.FromJSON(mcpToolJSON)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return tool
+}
+
+// A tool Push doesn't manage needs the id it was loaded with: given as a new object, it's reported
+// before any request, whether the agent or a workflow node uses it.
+func TestPushRejectsAnMCPToolWithoutAnID(t *testing.T) {
+	f := newFakeServer(t)
+	agent := agentbuilder.New("A", &agentbuilder.Options{Prompt: ptr("p")}).AddTool(mcpTool(t))
+	if got := issuesOf(t, agent.Validate(nil)); !reflect.DeepEqual(got, []issue{{"invalid_tool", "tools.docs_search"}}) {
+		t.Fatalf("issues = %v", got)
+	}
+	_, err := f.client().Agents.Push(ctx, agent, nil)
+	if got := issuesOf(t, err); !reflect.DeepEqual(got, []issue{{"invalid_tool", "tools.docs_search"}}) {
+		t.Fatalf("issues = %v", got)
+	}
+	var verr *agentbuilder.ValidationError
+	errors.As(err, &verr)
+	if want := `Tool "docs_search" has type "mcp", which push doesn't create or update: load it with its id or attach it with ToolIDs`; verr.Issues[0].Message != want {
+		t.Fatalf("message = %q", verr.Issues[0].Message)
+	}
+
+	wf := agentworkflows.New(nil)
+	wf.Converse("triage", "Find out what the caller needs", nil).
+		Tool("search", nil, &agentworkflows.Options{Tools: []agentworkflows.Tool{mcpTool(t)}})
+	inWorkflow := agentbuilder.New("A", &agentbuilder.Options{Prompt: ptr("p"), Workflow: wf})
+	if got := issuesOf(t, inWorkflow.Validate(nil)); !reflect.DeepEqual(got, []issue{{"invalid_tool", "tools.docs_search"}}) {
+		t.Fatalf("issues = %v", got)
+	}
+	if len(f.callList()) != 0 {
+		t.Fatalf("calls = %v", f.callList())
+	}
+}
+
+// Push manages webhook and client tools only: an MCP tool, like Pull leaves it, stays attached by
+// the id it was loaded with and is never created or updated.
+func TestPushLeavesAnMCPToolAttachedByID(t *testing.T) {
+	check := func(t *testing.T, f *fakeServer, agent *agentbuilder.Agent, opts *agentbuilder.PushOptions) {
+		t.Helper()
+		if got := agent.Tools(); len(got) != 0 {
+			t.Fatalf("Tools() = %v", names(got))
+		}
+		result := mustPush(t, f, agent, opts)
+		if got := f.writes(); !reflect.DeepEqual(got, []string{"PATCH /v1/convai/agents/agent_1"}) {
+			t.Fatalf("writes = %v", got)
+		}
+		if _, ok := result.Tools["docs_search"]; ok {
+			t.Fatalf("result.Tools = %+v", result.Tools)
+		}
+		sent := f.agent("agent_1")
+		if got := at(sent, "conversation_config", "agent", "prompt", "tool_ids"); !reflect.DeepEqual(got, []any{"tool_mcp"}) {
+			t.Fatalf("tool_ids = %v", got)
+		}
+		if got := f.toolConfig("tool_mcp"); !reflect.DeepEqual(got, toTree(t, mcpToolJSON)) {
+			t.Fatalf("mcp tool = %v", got)
+		}
+	}
+	config := `{"name": "A", "conversation_config": {"agent": {"prompt": {"prompt": "p", "tool_ids": ["tool_mcp"]}}}, "platform_settings": {}, "tags": []}`
+
+	t.Run("loaded with its id", func(t *testing.T) {
+		f := newFakeServer(t)
+		f.addTool("tool_mcp", mcpToolJSON, "agent_1")
+		f.addAgent("agent_1", `{}`)
+		agent, err := agentbuilder.FromJSON(config, &agentbuilder.LoadOptions{ToolsByID: map[string]agenttools.Tool{"tool_mcp": mcpTool(t)}})
+		if err != nil {
+			t.Fatal(err)
+		}
+		check(t, f, agent, &agentbuilder.PushOptions{AgentID: "agent_1"})
+	})
+
+	t.Run("from a project's tools.json", func(t *testing.T) {
+		f := newFakeServer(t)
+		f.addTool("tool_mcp", mcpToolJSON, "agent_1")
+		f.addAgent("agent_1", `{}`)
+		project := fromFiles(t, map[string]string{
+			"agents.json":            `{"agents": [{"config": "agent_configs/a.json", "id": "agent_1"}]}`,
+			"tools.json":             `{"tools": [{"type": "mcp", "config": "tool_configs/docs.json", "id": "tool_mcp"}]}`,
+			"agent_configs/a.json":   config,
+			"tool_configs/docs.json": mcpToolJSON,
+		})
+		agent, err := project.Agent("A")
+		if err != nil {
+			t.Fatal(err)
+		}
+		check(t, f, agent, &agentbuilder.PushOptions{Project: project})
+	})
+
+	t.Run("in a workflow node", func(t *testing.T) {
+		f := newFakeServer(t)
+		f.addTool("tool_mcp", mcpToolJSON, "agent_1")
+		f.addAgent("agent_1", `{}`)
+		mcp := mcpTool(t)
+		agent, err := agentbuilder.FromJSON(config, &agentbuilder.LoadOptions{ToolsByID: map[string]agenttools.Tool{"tool_mcp": mcp}})
+		if err != nil {
+			t.Fatal(err)
+		}
+		wf := agentworkflows.New(nil)
+		wf.Converse("triage", "Find out what the caller needs", nil).
+			Tool("search", nil, &agentworkflows.Options{Tools: []agentworkflows.Tool{mcp}})
+		agent.Update(&agentbuilder.Options{Workflow: wf})
+		check(t, f, agent, &agentbuilder.PushOptions{AgentID: "agent_1"})
+		if got := at(f.agent("agent_1"), "workflow", "nodes", "search", "tools"); !reflect.DeepEqual(got, []any{map[string]any{"tool_id": "tool_mcp"}}) {
+			t.Fatalf("search tools = %v", got)
+		}
+	})
+}

@@ -311,6 +311,41 @@ func TestBranchWithoutAFileIsRejectedBeforeAnyRequest(t *testing.T) {
 	}
 }
 
+// A branch entry without a config path is rejected like a missing branch, before any request, so
+// a branch never writes the main branch's file.
+func TestBranchEntryWithoutAConfigIsRejectedBeforeAnyWrite(t *testing.T) {
+	mainConfig := `{"name": "Support", "conversation_config": {"agent": {"prompt": {"prompt": "p"}}}, "platform_settings": {}, "tags": []}`
+	for _, branch := range []string{`{"branch_id": "agtbrch_beta"}`, `{"branch_id": "agtbrch_beta", "config": ""}`, `{"branch_id": "agtbrch_beta", "config": 1}`} {
+		project := fromFiles(t, map[string]string{
+			"agents.json":                `{"agents": [{"config": "agent_configs/support.json", "id": "agent_support", "branches": {"beta": ` + branch + `}}]}`,
+			"agent_configs/support.json": mainConfig,
+		})
+		f := newFakeServer(t)
+		f.addAgent("agent_support", mainConfig)
+		f.mu.Lock()
+		f.branches["agent_support/agtbrch_beta"] = toTree(t, mainConfig)
+		f.mu.Unlock()
+		support, err := project.Agent("Support")
+		if err != nil {
+			t.Fatal(err)
+		}
+		support.Update(&agentbuilder.Options{Prompt: ptr("changed")})
+		_, err = f.client().Agents.Push(ctx, support, &agentbuilder.PushOptions{Project: project, BranchID: "agtbrch_beta"})
+		projectError(t, err, `Branch agtbrch_beta of "Support" has no config file`)
+		_, err = f.client().Agents.Pull(ctx, "agent_support", &agentbuilder.PullOptions{Project: project, BranchID: "agtbrch_beta"})
+		projectError(t, err, `Branch agtbrch_beta of "agent_support" has no config file`)
+		if len(f.callList()) != 0 {
+			t.Fatalf("calls = %v", f.callList())
+		}
+		if changed := project.ChangedFiles(); len(changed) != 0 {
+			t.Fatalf("changed = %v", changed)
+		}
+		if got := filesOf(t, project)["agent_configs/support.json"]; got != mainConfig {
+			t.Fatalf("main config = %s", got)
+		}
+	}
+}
+
 func TestRecordingABranchKeepsTheMainAgent(t *testing.T) {
 	project := fromFiles(t, readTree(t, cliProject))
 	main, _ := project.Agent("Support")

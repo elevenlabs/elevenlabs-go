@@ -394,16 +394,47 @@ func (a *Agent) AddTool(tool agenttools.Tool) *Agent {
 
 // Tools lists every webhook and client tool the agent and its workflow use, each once, in the
 // order they were first used: the tools Push creates or updates. System tools aren't listed;
-// they live inside the agent's config.
+// they live inside the agent's config. Nor are tools of other kinds (such as mcp): they stay
+// attached by the id the agent was loaded with, as Pull leaves them.
 func (a *Agent) Tools() []agenttools.Tool {
 	var out []agenttools.Tool
 	for _, tool := range append(append([]agenttools.Tool{}, a.tools...), a.workflowTools()...) {
-		if tool == nil || tool.Kind() == agenttools.ToolKindSystem || containsTool(out, tool) {
+		if tool == nil || !managedTool(tool) || containsTool(out, tool) {
 			continue
 		}
 		out = append(out, tool)
 	}
 	return out
+}
+
+// managedTool reports whether Push creates or updates tool: a webhook or client tool.
+func managedTool(tool agenttools.Tool) bool {
+	kind := tool.Kind()
+	return kind == agenttools.ToolKindWebhook || kind == agenttools.ToolKindClient
+}
+
+// knownID is the id the agent was loaded with for tool (LoadOptions.ToolsByID; a project passes
+// its tools.json ids this way). Tools of kinds Push doesn't manage stay attached by it.
+func (a *Agent) knownID(tool agenttools.Tool) (string, bool) {
+	var ids []string
+	for id, t := range a.toolsByID {
+		if sameTool(t, tool) {
+			ids = append(ids, id)
+		}
+	}
+	if len(ids) == 0 {
+		return "", false
+	}
+	sort.Strings(ids)
+	return ids[0], true
+}
+
+// toolTypeOf is the type a tool's config gives, such as "mcp".
+func toolTypeOf(tool agenttools.Tool) string {
+	if other, ok := tool.(*agenttools.OtherTool); ok {
+		return other.ToolType()
+	}
+	return string(tool.Kind())
 }
 
 // workflowTools are the agenttools tools the workflow's nodes use: the built workflow's Tools, or
@@ -486,7 +517,13 @@ func (a *Agent) assemble(toolIDs map[string]string, resolve bool, onWarning func
 	var issues []Issue
 	config := wirejson.Clone(a.base).(map[string]any)
 	idOf := func(tool agentworkflows.Tool) string {
-		if id, ok := toolIDs[tool.Name()]; ok {
+		// A kind Push doesn't manage keeps the id it was loaded with; a missing one is reported as
+		// invalid_tool below.
+		if t, ok := tool.(agenttools.Tool); ok && t != nil && !managedTool(t) {
+			if id, known := a.knownID(t); known {
+				return id
+			}
+		} else if id, ok := toolIDs[tool.Name()]; ok {
 			return id
 		}
 		return "<tool:" + tool.Name() + ">"
@@ -553,9 +590,16 @@ func (a *Agent) assemble(toolIDs map[string]string, resolve bool, onWarning func
 				issues = append(issues, Issue{Code: InvalidTool, Severity: SeverityError, Message: err.Error(), Path: "tools." + tool.Name()})
 			}
 		}
+		// Push only creates and updates webhook and client tools; any other kind needs an id.
+		if tool.Kind() != agenttools.ToolKindSystem && !managedTool(tool) {
+			if _, known := a.knownID(tool); !known {
+				issues = append(issues, Issue{Code: InvalidTool, Severity: SeverityError, Message: fmt.Sprintf("Tool %q has type %q, which push doesn't create or update: load it with its id or attach it with ToolIDs", tool.Name(), toolTypeOf(tool)), Path: "tools." + tool.Name()})
+			}
+		}
 	}
 
-	var managed []string
+	// Webhook and client tools by their pushed ids, other kinds by the ids they were loaded with.
+	var attached []string
 	var system []*agenttools.SystemTool
 	for _, tool := range a.tools {
 		if tool == nil {
@@ -564,14 +608,14 @@ func (a *Agent) assemble(toolIDs map[string]string, resolve bool, onWarning func
 		if st := tool.AsSystem(); st != nil {
 			system = append(system, st)
 		} else {
-			managed = append(managed, idOf(tool))
+			attached = append(attached, idOf(tool))
 		}
 	}
 	if a.toolListGiven {
 		if isSet(raw, toolIDsPath) {
 			issues = append(issues, conflict("Tools", toolIDsPath))
 		}
-		ids := append(append([]string{}, a.toolIDs...), managed...)
+		ids := append(append([]string{}, a.toolIDs...), attached...)
 		setPath(config, toolIDsPath, anyList(keepOrder(ids, a.loadedToolIDs)))
 	}
 	for _, tool := range system {
@@ -623,7 +667,7 @@ func (a *Agent) assemble(toolIDs map[string]string, resolve bool, onWarning func
 		workflow := wirejson.Clone(a.rawWorkflow).(map[string]any)
 		mapWorkflowToolIDs(workflow, func(id string) string {
 			tool, ok := a.toolsByID[id]
-			if !ok {
+			if !ok || tool == nil || !managedTool(tool) {
 				return id
 			}
 			if newID, ok := toolIDs[tool.Name()]; ok {
