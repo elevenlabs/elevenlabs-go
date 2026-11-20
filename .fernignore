@@ -14,6 +14,14 @@ agentworkflows/
 # and passes the shared cross-SDK fixtures (vendored in agenttools/testdata/fixtures).
 agenttools/
 
+# Hand-written agents-as-code agent builder (docs/agents-as-code/agent-spec.md in elevenlabs-js): the
+# Agent definition, client.Agents.Push / Pull, and Project, which reads and writes the ElevenLabs CLI's
+# project layout. It sits on top of the generated client and the workflow and tools builders, which
+# the generator does not emit, and passes the shared project fixture (vendored in
+# agentbuilder/testdata/project). Its AgentsClient embeds the generated agents client and is what
+# client.Agents is (see client/client.go below).
+agentbuilder/
+
 # Hand-written canonical JSON writer (sorted keys, JavaScript number and string formatting) shared
 # by the agents-as-code builders. It sits in the module's internal/ tree so the workflow and tools
 # builders can import it without making it public API.
@@ -35,10 +43,13 @@ speechengine/server_test.go
 speechengine/resource.go
 speechengine/speech_engine_client.go
 
-# Frozen to wire the hand-written client in: client/client.go is generated, but its SpeechEngine
+# Frozen to wire the hand-written clients in: client/client.go is generated, but its SpeechEngine
 # field is changed to *speechengine.SpeechEngineClient (built with NewSpeechEngineClient), so
-# client.SpeechEngine.Create/Get/Update/Duplicate return a SpeechEngineResource. Those two lines
-# are the only difference from the generated file. Go cannot change a field's type from another
+# client.SpeechEngine.Create/Get/Update/Duplicate return a SpeechEngineResource, and its Agents
+# field to *agentbuilder.AgentsClient (built with agentbuilder.NewAgentsClient, which embeds the
+# generated agents client), so client.Agents has Push and Pull. Those lines, and the import of
+# agentbuilder in place of the generated agents/client package, are the only difference from the
+# generated file. Go cannot change a field's type from another
 # file, and Fern has no option yet to rename the generated root client so a hand-written one can
 # take its name. The trade-off: a top-level resource the generator adds later must be merged into
 # this file by hand. TestRootClientWiresEveryResource fails until it is, so the gap cannot pass

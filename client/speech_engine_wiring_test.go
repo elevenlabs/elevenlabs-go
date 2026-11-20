@@ -90,9 +90,17 @@ func TestSpeechEngineCreateReturnsAResource(t *testing.T) {
 	}
 }
 
+// wrappedResources maps a generated resource package to the hand-written package whose wrapper
+// the frozen client/client.go constructs instead of the generated client: client.Agents is an
+// *agentbuilder.AgentsClient, which embeds the generated agents client.
+var wrappedResources = map[string]string{
+	"agents/client": "agentbuilder",
+}
+
 // TestRootClientWiresEveryResource fails when the generator adds a top-level resource that the
 // frozen client/client.go does not expose. Fix it by merging the regenerated client.go in by
-// hand, keeping the SpeechEngine field as *speechengine.SpeechEngineClient.
+// hand, keeping the SpeechEngine field as *speechengine.SpeechEngineClient and the Agents field as
+// *agentbuilder.AgentsClient.
 func TestRootClientWiresEveryResource(t *testing.T) {
 	source, err := os.ReadFile("client.go")
 	if err != nil {
@@ -113,7 +121,11 @@ func TestRootClientWiresEveryResource(t *testing.T) {
 				continue
 			}
 			found++
-			if !strings.Contains(string(source), `"github.com/elevenlabs/elevenlabs-go/`+pkg+`"`) {
+			wired := pkg
+			if wrapper, ok := wrappedResources[pkg]; ok {
+				wired = wrapper
+			}
+			if !strings.Contains(string(source), `"github.com/elevenlabs/elevenlabs-go/`+wired+`"`) {
 				t.Errorf("generated resource package %q is not wired into the frozen client/client.go", pkg)
 			}
 		}

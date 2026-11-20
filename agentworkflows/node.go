@@ -12,8 +12,8 @@ type Chain interface {
 	// Converse adds a subagent (override_agent) node: the agent holds a conversation with prompt
 	// added to its instructions until an outgoing condition holds. Its label defaults to id.
 	Converse(id, prompt string, opts *Options) *Node
-	// Tool adds a tool node that runs toolIDs in parallel. Route its outcome with OnSuccess,
-	// OnFailure or OnResult.
+	// Tool adds a tool node that runs toolIDs in parallel, followed by any tools written as code in
+	// opts.Tools. Route its outcome with OnSuccess, OnFailure or OnResult.
 	Tool(id string, toolIDs []string, opts *Options) *Node
 	// Transfer adds a transfer node: phone_number for phone and SIP destinations, standalone_agent
 	// for agent destinations.
@@ -63,6 +63,7 @@ func (g *graph) converse(from origin, id, prompt string, opts *Options) *Node {
 }
 
 func (g *graph) tool(from origin, id string, toolIDs []string, opts *Options) *Node {
+	// opts.Tools run after toolIDs; opts.ToolIDs doesn't apply here, as toolIDs takes its place.
 	resolved := opts.resolve(g, id)
 	resolved.toolIDs = append([]string{}, toolIDs...)
 	resolved.hasToolIDs = true

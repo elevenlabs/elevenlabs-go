@@ -31,6 +31,11 @@
 // to a node's kind, invalid routing) is recorded and reported at once by Build, ToJSON and
 // ToJSONString as a *ValidationError.
 //
+// Tool nodes and subagents can also use tools written as code (agenttools tools, in
+// Options.Tools) before they exist on the server. Each stands under the placeholder "<tool:NAME>"
+// until Build, ToJSON or ToJSONString is given its id in BuildOptions.ToolIDs; agentbuilder's push
+// does that after creating the tools. Tools lists them.
+//
 // Node types the builder has no verb for (such as say, or types newer than this SDK version) are
 // kept exactly as loaded. A type the generated types don't model gets an unknown_node_type
 // warning from Build, since agents.Create can't send it; send ToJSON's output directly instead.

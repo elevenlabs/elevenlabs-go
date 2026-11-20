@@ -12,7 +12,7 @@ func Example() {
 	triage.When(agentworkflows.ConditionLLM("Caller wants a human", nil), nil).
 		Transfer("human", agentworkflows.DestinationPhone("+15551234567"), nil)
 
-	s, err := wf.ToJSONString()
+	s, err := wf.ToJSONString(nil)
 	if err != nil {
 		fmt.Println(err)
 		return

@@ -44,6 +44,12 @@ const (
 	// UnknownNodeType (warning): a node's type isn't in this SDK version's generated types, so
 	// agents.Create / agents.Update can't send Build's output. Send ToJSON's output directly instead.
 	UnknownNodeType IssueCode = "unknown_node_type"
+	// DuplicateToolName: a node uses a Tool whose name another Tool, used by this or another node,
+	// also has.
+	DuplicateToolName IssueCode = "duplicate_tool_name"
+	// UnresolvedTool: Build, ToJSON or ToJSONString is called without an id in BuildOptions.ToolIDs
+	// for a Tool a node uses.
+	UnresolvedTool IssueCode = "unresolved_tool"
 	// InvalidModel is Go-specific: the validated workflow still doesn't decode into the generated
 	// types.AgentWorkflowRequestModel, for example because a loaded field has the wrong shape.
 	InvalidModel IssueCode = "invalid_model"

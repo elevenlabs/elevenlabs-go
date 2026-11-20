@@ -2,7 +2,7 @@ package agentworkflows_test
 
 // Cross-SDK conformance: runs every shared fixture (vendored from elevenlabs-js
 // docs/agents-as-code/fixtures into testdata/fixtures) through the Go builder and compares
-// ToJSONString() byte for byte, or the sorted error codes from Build(). Mirrors the JS runner in
+// ToJSONString(nil) byte for byte, or the sorted error codes from Build(). Mirrors the JS runner in
 // tests/custom/agents/workflow/fixtureRunner.ts.
 
 import (
@@ -124,7 +124,7 @@ func runFixture(t *testing.T, fx *fixture) (string, []string) {
 		wf = agentworkflows.New(&opts)
 	}
 	run(t, wf, fx.Ops, wf)
-	out, err := wf.ToJSONString()
+	out, err := wf.ToJSONString(nil)
 	if err != nil {
 		var verr *agentworkflows.ValidationError
 		if !errors.As(err, &verr) {
