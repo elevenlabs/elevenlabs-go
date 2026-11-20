@@ -57,8 +57,9 @@ type Options struct {
 
 // LoadOptions are the optional settings of FromJSON.
 type LoadOptions struct {
-	// ToolsByID are the tools the config refers to, by id. Each matching id becomes a tool the
-	// agent manages; the others stay as ToolIDs.
+	// ToolsByID are the tools the config refers to, by id. Each matching webhook or client tool
+	// becomes a tool the agent manages; the other ids, including tools of other kinds such as mcp,
+	// stay as ToolIDs.
 	ToolsByID map[string]agenttools.Tool
 }
 
@@ -221,8 +222,8 @@ func New(name string, opts *Options) *Agent {
 
 // FromJSON loads an agent config in API format (snake_case keys): a CLI agent_configs/*.json
 // file, or an agent's ToJSON. data is JSON text (a string, []byte or json.RawMessage) or a parsed
-// value. Tool ids found in opts.ToolsByID become tools the agent manages; the others stay as
-// ToolIDs. Loaded system tools become *agenttools.SystemTool values. Fields this SDK doesn't
+// value. Webhook and client tools found in opts.ToolsByID become tools the agent manages; the
+// other ids, including tools of other kinds such as mcp, stay as ToolIDs. Loaded system tools become *agenttools.SystemTool values. Fields this SDK doesn't
 // model are kept, so an unedited agent round-trips exactly. opts may be nil.
 //
 // Document order decides the order of a loaded workflow's nodes, so pass the JSON text where you
@@ -265,7 +266,9 @@ func FromJSON(data any, opts *LoadOptions) (*Agent, error) {
 			deletePath(parsed, toolIDsPath)
 			a.loadedToolIDs = stringList(list)
 			for _, id := range a.loadedToolIDs {
-				if tool, managed := a.toolsByID[id]; managed {
+				// Like Pull: kinds Push doesn't manage (mcp...) stay attached by id. toolsByID keeps
+				// them, so a workflow node or AddTool can still use the object under that id.
+				if tool, known := a.toolsByID[id]; known && managedTool(tool) {
 					a.tools = append(a.tools, tool)
 				} else {
 					a.toolIDs = append(a.toolIDs, id)

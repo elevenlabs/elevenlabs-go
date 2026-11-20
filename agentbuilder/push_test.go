@@ -610,3 +610,35 @@ func TestPushLeavesAnMCPToolAttachedByID(t *testing.T) {
 		}
 	})
 }
+
+// A loaded MCP tool stays in ToolIDs, as Pull leaves it, so replacing the agent's tools keeps it
+// attached.
+func TestALoadedMCPToolStaysInToolIDs(t *testing.T) {
+	ping, err := agenttools.FromJSON(`{"type": "client", "name": "ping", "description": "Ping the client"}`)
+	if err != nil {
+		t.Fatal(err)
+	}
+	config := `{"name": "A", "conversation_config": {"agent": {"prompt": {"prompt": "p", "tool_ids": ["tool_mcp", "tool_ping"]}}}, "platform_settings": {}, "tags": []}`
+	agent, err := agentbuilder.FromJSON(config, &agentbuilder.LoadOptions{ToolsByID: map[string]agenttools.Tool{"tool_mcp": mcpTool(t), "tool_ping": ping}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := agent.ToolIDs(); !reflect.DeepEqual(got, []string{"tool_mcp"}) {
+		t.Fatalf("ToolIDs() = %v", got)
+	}
+	if got := agent.Tools(); len(got) != 1 || got[0] != ping {
+		t.Fatalf("Tools() = %v", names(got))
+	}
+
+	agent.Update(&agentbuilder.Options{Tools: []agenttools.Tool{getOrder("Look up an order")}})
+	if got := agent.ToolIDs(); !reflect.DeepEqual(got, []string{"tool_mcp"}) {
+		t.Fatalf("ToolIDs() after Update = %v", got)
+	}
+	wire, err := agent.ToJSON(&agentbuilder.BuildOptions{ToolIDs: map[string]string{"get_order": "tool_order"}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := at(wire, "conversation_config", "agent", "prompt", "tool_ids"); !reflect.DeepEqual(got, []any{"tool_mcp", "tool_order"}) {
+		t.Fatalf("tool_ids = %v", got)
+	}
+}
