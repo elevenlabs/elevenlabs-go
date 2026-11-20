@@ -51,8 +51,12 @@ const (
 	// InvalidDestination: a transfer destination of the wrong kind, or a SIP URI without
 	// transfer_type "sip_refer".
 	InvalidDestination IssueCode = "invalid_destination"
-	// NoTransfers: a transfer system tool has no Transfer entries.
+	// NoTransfers: a transfer system tool has no entries in transfers (from Transfer or loaded) and
+	// none in a loaded transfer_rules.
 	NoTransfers IssueCode = "no_transfers"
+	// ConflictingTransfers: a transfer_to_number tool has entries in both transfers and
+	// transfer_rules, which the API rejects.
+	ConflictingTransfers IssueCode = "conflicting_transfers"
 	// InvalidOption: an option doesn't apply to the tool's kind, is outside its documented range, or
 	// can't be converted to JSON.
 	InvalidOption IssueCode = "invalid_option"

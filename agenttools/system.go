@@ -190,8 +190,15 @@ func (t *SystemTool) validate() []Issue {
 	if t.systemToolType != "transfer_to_number" && t.systemToolType != "transfer_to_agent" {
 		return nil
 	}
-	if transfers, _ := t.params["transfers"].([]any); len(transfers) == 0 {
+	// A loaded transfer_to_number tool may use transfer_rules instead of transfers; the API takes exactly one.
+	transfers, _ := t.params["transfers"].([]any)
+	rules, _ := t.params["transfer_rules"].([]any)
+	if len(transfers) == 0 && len(rules) == 0 {
 		return []Issue{errorIssue(NoTransfers, "transfer", fmt.Sprintf("%s needs at least one Transfer", t.systemToolType))}
+	}
+	if len(transfers) > 0 && len(rules) > 0 {
+		return []Issue{errorIssue(ConflictingTransfers, "transfer",
+			fmt.Sprintf("%s has both transfers and transfer_rules; the API takes only one", t.systemToolType))}
 	}
 	return nil
 }

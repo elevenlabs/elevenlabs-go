@@ -21,7 +21,7 @@ import (
 	"github.com/elevenlabs/elevenlabs-go/internal/wirejson"
 )
 
-const fixtureCount = 21
+const fixtureCount = 23
 
 type fixture struct {
 	Name string `json:"name"`
