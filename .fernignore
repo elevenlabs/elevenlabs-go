@@ -2,6 +2,10 @@
 README.md
 .github/assets/logo.png
 
+# Hand-written release workflow: runs only when a GitHub release is published. The generated one
+# tagged and released on every push to main that touched go.mod.
+.github/workflows/release.yml
+
 # Hand-written agent workflows-as-code builder (docs/agents-as-code/workflow-spec.md in
 # elevenlabs-js): a layer on top of the generated client that the generator does not emit. It
 # builds the generated types.AgentWorkflowRequestModel and passes the shared cross-SDK fixtures
