@@ -133,3 +133,21 @@ func TestDecodeKeepsNumberText(t *testing.T) {
 		t.Error("trailing data must be rejected")
 	}
 }
+
+func TestIndentKeepsObjectOrderAndSortsMaps(t *testing.T) {
+	value := &Object{
+		Keys: []string{"z", "missing", "a"},
+		Values: map[string]any{
+			"z": map[string]any{"b": json.Number("1.0"), "a": []any{}},
+			"a": []any{&Object{}, "x"},
+		},
+	}
+	got, err := Indent(value, "    ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := "{\n    \"z\": {\n        \"a\": [],\n        \"b\": 1\n    },\n    \"a\": [\n        {},\n        \"x\"\n    ]\n}"
+	if got != want {
+		t.Fatalf("Indent = %q", got)
+	}
+}

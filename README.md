@@ -302,6 +302,71 @@ Params and bodies are `agenttools.Schema` values (`String`, `Integer`, `Number`,
 existing tool, load it with `agenttools.FromJSON(data)` or `agenttools.FromResponse(tool)`; fields
 the builder doesn't model, and tools of types it can't edit (such as MCP tools), are kept as loaded.
 
+## Agents as code
+
+The `agentbuilder` package defines a whole agent in code: its settings, its tools and its workflow.
+`client.Agents.Push` creates or updates every webhook and client tool the agent uses, then the agent
+with their ids filled in, and `client.Agents.Pull` loads an existing agent back. Workflow tool nodes
+take the tools themselves, through `agentworkflows.Options.Tools`.
+
+```go
+import (
+	"github.com/elevenlabs/elevenlabs-go/agentbuilder"
+	"github.com/elevenlabs/elevenlabs-go/agenttools"
+	"github.com/elevenlabs/elevenlabs-go/agentworkflows"
+)
+
+getOrder := agenttools.Webhook("get_order", "Look up an order by its number").
+	Get("https://api.example.com/orders/{order_id}").
+	PathParam("order_id", agenttools.String().Describe("The order number"))
+
+wf := agentworkflows.New(nil)
+wf.Converse("triage", "Find out what the caller needs", nil).
+	When(agentworkflows.ConditionLLM("Caller gave an order number", nil), nil).
+	Tool("lookup", nil, &agentworkflows.Options{Tools: []agentworkflows.Tool{getOrder}})
+
+prompt, greeting := "You are a support agent for Acme.", "Hi, how can I help?"
+agent := agentbuilder.New("Support line", &agentbuilder.Options{
+	Prompt:       &prompt,
+	FirstMessage: &greeting,
+	Tools:        []agenttools.Tool{agenttools.SystemEndCall()},
+	Workflow:     wf,
+})
+
+result, err := client.Agents.Push(ctx, agent, nil) // creates get_order, then the agent
+if err != nil {
+	return err // a *agentbuilder.ValidationError before any request, or a *agentbuilder.PushError
+}
+// Later: update the same agent and tools.
+_, err = client.Agents.Push(ctx, agent, &agentbuilder.PushOptions{AgentID: result.AgentID})
+```
+
+`agent.Validate(nil)` runs every check that needs no ids, so CI can check an agent without an API
+key. Tools the agent stops using are reported as `detached`, never deleted. If a request fails
+partway, the `*agentbuilder.PushError` lists what was already written.
+
+To keep agents in a repository alongside the ElevenLabs CLI, use a project. It reads and writes the
+CLI's layout (`agents.json`, `tools.json`, `agent_configs/`, `tool_configs/`), records the ids, and
+leaves every file nothing changed exactly as it was:
+
+```go
+project, err := agentbuilder.OpenProject(".")
+if err != nil {
+	return err
+}
+agent, err := project.Agent("Support line")
+if err != nil {
+	return err
+}
+agent.Update(&agentbuilder.Options{FirstMessage: &greeting})
+_, err = client.Agents.Push(ctx, agent, &agentbuilder.PushOptions{Project: project}) // saves the project
+
+pulled, err := client.Agents.Pull(ctx, "agent_123", &agentbuilder.PullOptions{Project: project})
+```
+
+Settings the SDK doesn't model, in a loaded config or tool, are kept and sent as they are. YAML and
+TOML configs, `tests.json` and creating branches aren't supported yet.
+
 ## Flows
 
 Flows image, video and text-to-speech generations, and flows template runs, are asynchronous:

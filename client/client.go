@@ -1,7 +1,7 @@
 package client
 
 import (
-	agentsclient "github.com/elevenlabs/elevenlabs-go/agents/client"
+	"github.com/elevenlabs/elevenlabs-go/agentbuilder"
 	"github.com/elevenlabs/elevenlabs-go/assets"
 	"github.com/elevenlabs/elevenlabs-go/audioeffects"
 	"github.com/elevenlabs/elevenlabs-go/audioisolation"
@@ -69,7 +69,7 @@ type Client struct {
 	SpeechToText               *speechtotextclient.Client
 	Tokens                     *tokensclient.Client
 	ForcedAlignment            *forcedalignment.Client
-	Agents                     *agentsclient.Client
+	Agents                     *agentbuilder.AgentsClient
 	SpeechEngine               *speechengine.SpeechEngineClient
 	EnvironmentVariables       *environmentvariables.Client
 	Environments               *environments.Client
@@ -118,7 +118,7 @@ func NewClient(opts ...option.RequestOption) *Client {
 		SpeechToText:               speechtotextclient.NewClient(options),
 		Tokens:                     tokensclient.NewClient(options),
 		ForcedAlignment:            forcedalignment.NewClient(options),
-		Agents:                     agentsclient.NewClient(options),
+		Agents:                     agentbuilder.NewAgentsClient(options),
 		SpeechEngine:               speechengine.NewSpeechEngineClient(options),
 		EnvironmentVariables:       environmentvariables.NewClient(options),
 		Environments:               environments.NewClient(options),

@@ -52,7 +52,7 @@ func TestSpecChainExample(t *testing.T) {
 		When(agentworkflows.ConditionLLM("Caller wants a human", nil), nil).
 		Transfer("human", agentworkflows.DestinationPhone("+15551234567"), nil)
 
-	out, err := wf.ToJSON()
+	out, err := wf.ToJSON(nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -119,7 +119,7 @@ func TestBackwardLoopBetweenSubagentsIsAllowed(t *testing.T) {
 func TestLoadedNullBackwardConditionIsNoTransition(t *testing.T) {
 	wf := agentworkflows.New(nil)
 	wf.Converse("greet", "Hi", nil).End(nil)
-	out, err := wf.ToJSON()
+	out, err := wf.ToJSON(nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -167,7 +167,7 @@ func TestPositionIsAcceptedForNodeKindsWithoutAFieldMap(t *testing.T) {
 	}
 	x, y := 10.0, 20.0
 	wf.Node("announce").Update(&agentworkflows.Options{Position: &types.PositionInput{X: &x, Y: &y}})
-	out, err := wf.ToJSON()
+	out, err := wf.ToJSON(nil)
 	if err != nil {
 		t.Fatalf("position must be accepted on a say node: %v", err)
 	}
@@ -195,7 +195,7 @@ func TestLoadedBackwardOnlyEdgeHasNoForwardTransition(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	out, err := wf.ToJSON()
+	out, err := wf.ToJSON(nil)
 	if err != nil {
 		t.Fatalf("a backward-only edge must not trip the forward routing checks: %v", err)
 	}
@@ -211,7 +211,7 @@ func TestLoadedBackwardOnlyEdgeHasNoForwardTransition(t *testing.T) {
 func TestMalformedLoadedFieldIsInvalidModel(t *testing.T) {
 	wf := agentworkflows.New(nil)
 	wf.Converse("greet", "Hi", nil).End(nil)
-	out, err := wf.ToJSON()
+	out, err := wf.ToJSON(nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -227,7 +227,7 @@ func TestMalformedLoadedFieldIsInvalidModel(t *testing.T) {
 		t.Fatalf("codes = %v", codes)
 	}
 	// ToJSONString doesn't type the output, so it still round-trips the field.
-	if _, err := loaded.ToJSONString(); err != nil {
+	if _, err := loaded.ToJSONString(nil); err != nil {
 		t.Fatal(err)
 	}
 }
@@ -285,7 +285,7 @@ func TestUnknownNodeTypeIsAWarningAndRoundTrips(t *testing.T) {
 	if model.Nodes["survey"].GetType() != "future_survey" {
 		t.Fatalf("survey type = %q", model.Nodes["survey"].GetType())
 	}
-	got, err := wf.ToJSONString()
+	got, err := wf.ToJSONString(nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -308,7 +308,7 @@ func TestUnreachableNodeWarning(t *testing.T) {
 	}
 }
 
-// Every fixture's expected output is a fixed point: FromJSON(s).ToJSONString() == s.
+// Every fixture's expected output is a fixed point: FromJSON(s).ToJSONString(nil) == s.
 func TestFixtureOutputsRoundTrip(t *testing.T) {
 	paths, _ := filepath.Glob(filepath.Join("testdata", "fixtures", "*.json"))
 	checked := 0
@@ -328,7 +328,7 @@ func TestFixtureOutputsRoundTrip(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		s, err := first.ToJSONString()
+		s, err := first.ToJSONString(nil)
 		if err != nil {
 			t.Fatalf("%s: %v", path, err)
 		}
@@ -336,7 +336,7 @@ func TestFixtureOutputsRoundTrip(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		again, err := second.ToJSONString()
+		again, err := second.ToJSONString(nil)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -372,7 +372,7 @@ func TestLoadKeepsDocumentOrder(t *testing.T) {
 	if wf.StartID() != "begin" {
 		t.Fatalf("StartID = %q", wf.StartID())
 	}
-	out, err := wf.ToJSON()
+	out, err := wf.ToJSON(nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -397,7 +397,7 @@ func TestNumbersAreWrittenAsJavaScriptWritesThem(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	s, err := wf.ToJSONString()
+	s, err := wf.ToJSONString(nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -435,7 +435,7 @@ func TestFromAgentLoadsAGetAgentResponse(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		got, err := loaded.ToJSONString()
+		got, err := loaded.ToJSONString(nil)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -493,7 +493,7 @@ func TestFromJSONReadsNullsAsAbsent(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	s, err := wf.ToJSONString()
+	s, err := wf.ToJSONString(nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -512,8 +512,8 @@ func TestFromAgentTreatsANilWorkflowPointerAsEmpty(t *testing.T) {
 		if err != nil {
 			t.Fatalf("FromAgent(%T nil): %v", model, err)
 		}
-		got, _ := wf.ToJSONString()
-		want, _ := agentworkflows.New(nil).ToJSONString()
+		got, _ := wf.ToJSONString(nil)
+		want, _ := agentworkflows.New(nil).ToJSONString(nil)
 		if got != want {
 			t.Errorf("FromAgent(%T nil) = %s, want an empty workflow %s", model, got, want)
 		}
@@ -544,7 +544,7 @@ func TestZeroConditionIsInvalidOption(t *testing.T) {
 		t.Run(name, func(t *testing.T) {
 			wf := agentworkflows.New(nil)
 			build(wf)
-			if _, err := wf.ToJSON(); !contains(codesOf(t, err), agentworkflows.InvalidOption) {
+			if _, err := wf.ToJSON(nil); !contains(codesOf(t, err), agentworkflows.InvalidOption) {
 				t.Fatalf("ToJSON: expected invalid_option, got %v", err)
 			}
 			if _, err := wf.Build(nil); !contains(codesOf(t, err), agentworkflows.InvalidOption) {

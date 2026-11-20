@@ -317,13 +317,16 @@ func (w *Workflow) InsertBetween(sourceID, targetID string, insert func(from *Br
 
 // Build validates the workflow and returns the generated request model that agents.Create and
 // agents.Update accept. Every error is reported at once, in a *ValidationError. opts may be nil;
-// opts.OnWarning is called once per warning.
+// opts.OnWarning is called once per warning, and opts.ToolIDs gives the id of each Tool the nodes
+// use.
 func (w *Workflow) Build(opts *BuildOptions) (*types.AgentWorkflowRequestModel, error) {
 	var onWarning func(Issue)
+	var toolIDs map[string]string
 	if opts != nil {
 		onWarning = opts.OnWarning
+		toolIDs = opts.ToolIDs
 	}
-	wire, err := w.toWire(onWarning)
+	wire, err := w.toWire(onWarning, toolIDs)
 	if err != nil {
 		return nil, err
 	}
@@ -343,9 +346,9 @@ func (w *Workflow) Build(opts *BuildOptions) (*types.AgentWorkflowRequestModel, 
 
 // ToJSON validates like Build and returns the workflow in API wire format: snake_case keys, as
 // the REST API and the CLI's agent_configs/*.json use them. Numbers are json.Number values
-// written as JavaScript writes them.
-func (w *Workflow) ToJSON() (map[string]any, error) {
-	wire, err := w.toWire(nil)
+// written as JavaScript writes them. opts may be nil; it takes the same ToolIDs as Build.
+func (w *Workflow) ToJSON(opts *BuildOptions) (map[string]any, error) {
+	wire, err := w.toWire(nil, toolIDsOf(opts))
 	if err != nil {
 		return nil, err
 	}
@@ -358,18 +361,26 @@ func (w *Workflow) ToJSON() (map[string]any, error) {
 
 // ToJSONString validates like Build and returns the canonical file format: ToJSON's output with
 // keys sorted at every level, 2-space indentation and a trailing newline. It is byte-identical to
-// every other ElevenLabs SDK's output for the same program, and FromJSON(s).ToJSONString() == s.
-func (w *Workflow) ToJSONString() (string, error) {
-	wire, err := w.toWire(nil)
+// every other ElevenLabs SDK's output for the same program, and FromJSON(s).ToJSONString(nil) == s.
+// opts may be nil; it takes the same ToolIDs as Build.
+func (w *Workflow) ToJSONString(opts *BuildOptions) (string, error) {
+	wire, err := w.toWire(nil, toolIDsOf(opts))
 	if err != nil {
 		return "", err
 	}
 	return wirejson.String(wire)
 }
 
-func (w *Workflow) toWire(onWarning func(Issue)) (map[string]any, error) {
+func toolIDsOf(opts *BuildOptions) map[string]string {
+	if opts == nil {
+		return nil
+	}
+	return opts.ToolIDs
+}
+
+func (w *Workflow) toWire(onWarning func(Issue), toolIDs map[string]string) (map[string]any, error) {
 	g := w.g
-	issues := validate(g)
+	issues := append(validate(g), unresolvedTools(g, toolIDs)...)
 	var errs []Issue
 	for _, issue := range issues {
 		if issue.Severity == SeverityError {
@@ -434,7 +445,7 @@ func (w *Workflow) toWire(onWarning func(Issue)) (map[string]any, error) {
 
 	nodesWire := map[string]any{}
 	for _, id := range g.nodeOrder {
-		obj := cloneMap(g.nodes[id])
+		obj := cloneMap(resolveTools(g, g.nodes[id], toolIDs))
 		obj["position"] = wirejson.Clone(positions[id])
 		uids := edgeOrder(g.loadedOrder[id], outgoing[id])
 		order := make([]any, len(uids))

@@ -228,14 +228,34 @@ func String(value any) (string, error) {
 		return "", err
 	}
 	var buf bytes.Buffer
-	if err := write(&buf, tree, 0); err != nil {
+	if err := write(&buf, tree, 0, "  "); err != nil {
 		return "", err
 	}
 	buf.WriteByte('\n')
 	return buf.String(), nil
 }
 
-func write(buf *bytes.Buffer, value any, depth int) error {
+// Object is a JSON object that Indent writes with its keys in Keys order instead of sorted, for
+// files whose field order is fixed (such as the CLI's agents.json). A key in Keys that Values
+// doesn't hold is left out.
+type Object struct {
+	Keys   []string
+	Values map[string]any
+}
+
+// Indent writes value as JavaScript's JSON.stringify(value, null, indent) writes it, with no
+// trailing newline: map[string]any objects with their keys sorted (see SortKeys), *Object values in
+// their own order, and strings and numbers as String writes them. value must be a wire tree, which
+// may hold *Object values.
+func Indent(value any, indent string) (string, error) {
+	var buf bytes.Buffer
+	if err := write(&buf, value, 0, indent); err != nil {
+		return "", err
+	}
+	return buf.String(), nil
+}
+
+func write(buf *bytes.Buffer, value any, depth int, indent string) error {
 	switch v := value.(type) {
 	case nil:
 		buf.WriteString("null")
@@ -259,12 +279,12 @@ func write(buf *bytes.Buffer, value any, depth int) error {
 			if i > 0 {
 				buf.WriteByte(',')
 			}
-			newline(buf, depth+1)
-			if err := write(buf, item, depth+1); err != nil {
+			newline(buf, depth+1, indent)
+			if err := write(buf, item, depth+1, indent); err != nil {
 				return err
 			}
 		}
-		newline(buf, depth)
+		newline(buf, depth, indent)
 		buf.WriteByte(']')
 	case map[string]any:
 		if len(v) == 0 {
@@ -275,30 +295,47 @@ func write(buf *bytes.Buffer, value any, depth int) error {
 		for key := range v {
 			keys = append(keys, key)
 		}
-		buf.WriteByte('{')
-		for i, key := range SortKeys(keys) {
-			if i > 0 {
-				buf.WriteByte(',')
-			}
-			newline(buf, depth+1)
-			writeString(buf, key)
-			buf.WriteString(": ")
-			if err := write(buf, v[key], depth+1); err != nil {
-				return err
+		return writeObject(buf, SortKeys(keys), v, depth, indent)
+	case *Object:
+		var keys []string
+		for _, key := range v.Keys {
+			if _, ok := v.Values[key]; ok {
+				keys = append(keys, key)
 			}
 		}
-		newline(buf, depth)
-		buf.WriteByte('}')
+		if len(keys) == 0 {
+			buf.WriteString("{}")
+			return nil
+		}
+		return writeObject(buf, keys, v.Values, depth, indent)
 	default:
 		return fmt.Errorf("wirejson: %T is not a wire value", value)
 	}
 	return nil
 }
 
-func newline(buf *bytes.Buffer, depth int) {
+func writeObject(buf *bytes.Buffer, keys []string, values map[string]any, depth int, indent string) error {
+	buf.WriteByte('{')
+	for i, key := range keys {
+		if i > 0 {
+			buf.WriteByte(',')
+		}
+		newline(buf, depth+1, indent)
+		writeString(buf, key)
+		buf.WriteString(": ")
+		if err := write(buf, values[key], depth+1, indent); err != nil {
+			return err
+		}
+	}
+	newline(buf, depth, indent)
+	buf.WriteByte('}')
+	return nil
+}
+
+func newline(buf *bytes.Buffer, depth int, indent string) {
 	buf.WriteByte('\n')
 	for i := 0; i < depth; i++ {
-		buf.WriteString("  ")
+		buf.WriteString(indent)
 	}
 }
 

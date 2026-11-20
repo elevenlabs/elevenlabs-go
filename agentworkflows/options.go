@@ -30,8 +30,14 @@ type Options struct {
 	// Prompt replaces a subagent's prompt (converse, through Update).
 	Prompt *string `json:"prompt,omitempty"`
 	// ToolIDs are a subagent's additional tools (converse), or the tools a tool node runs (tool,
-	// through Update). A non-nil empty slice clears them.
+	// through Update), by id. A non-nil empty slice clears them.
 	ToolIDs []string `json:"tool_ids,omitempty"`
+	// Tools are tools written as code (such as agenttools tools), used like ToolIDs: a subagent's
+	// additional tools (converse), or more tools a tool node runs (tool, and through Update). They
+	// come after ToolIDs, and each one's id is filled in when the workflow is built with
+	// BuildOptions.ToolIDs, as agentbuilder's push does. Setting ToolIDs or Tools in Update replaces
+	// both; a non-nil empty slice clears them.
+	Tools []Tool `json:"-"`
 	// KnowledgeBase is a subagent's additional knowledge base (converse).
 	KnowledgeBase []*types.KnowledgeBaseLocator `json:"knowledge_base,omitempty"`
 	// ConversationConfig overrides the agent's conversation config in a subagent (converse).
@@ -39,8 +45,8 @@ type Options struct {
 	// EntryBehavior is what a subagent does when the conversation enters it (converse).
 	EntryBehavior *types.EntryBehavior `json:"entry_behavior,omitempty"`
 
-	// SchemaOverrides are per-tool parameter overrides, keyed by tool id and then by dotted
-	// parameter path (tool).
+	// SchemaOverrides are per-tool parameter overrides, keyed by tool id (or tool name, for a Tool
+	// in Tools) and then by dotted parameter path (tool).
 	SchemaOverrides map[string]map[string]*types.WorkflowToolLocatorSchemaOverridesValue `json:"schema_overrides,omitempty"`
 
 	// TransferType, CustomSipHeaders, SipReferPlayDialtone, Uui and PostDialDigits apply to phone
@@ -92,10 +98,14 @@ type ResultBranches struct {
 	Failure func(failed *Branch)
 }
 
-// BuildOptions are the optional settings of Build.
+// BuildOptions are the optional settings of Build, ToJSON and ToJSONString.
 type BuildOptions struct {
-	// OnWarning is called once per warning (unreachable_node, unknown_node_type).
+	// OnWarning is called once per warning (unreachable_node, unknown_node_type). Build only.
 	OnWarning func(Issue)
+	// ToolIDs maps the name of each Tool the workflow's nodes use (see Options.Tools) to its id.
+	// agentbuilder's push passes these after creating the tools. Every Tool needs one; a missing
+	// one is reported as unresolved_tool.
+	ToolIDs map[string]string
 }
 
 // resolvedOptions are Options in wire format: the special options apart, and the rest as
@@ -103,6 +113,7 @@ type BuildOptions struct {
 type resolvedOptions struct {
 	destination     *Destination
 	toolIDs         []string
+	tools           []Tool
 	hasToolIDs      bool
 	schemaOverrides map[string]any
 	hasOverrides    bool
@@ -122,8 +133,9 @@ func (o *Options) resolve(g *graph, id string) resolvedOptions {
 		return r
 	}
 	r.destination = o.Destination
-	if o.ToolIDs != nil {
+	if o.ToolIDs != nil || o.Tools != nil {
 		r.toolIDs = append([]string{}, o.ToolIDs...)
+		r.tools = append([]Tool{}, o.Tools...)
 		r.hasToolIDs = true
 	}
 	if o.SchemaOverrides != nil {

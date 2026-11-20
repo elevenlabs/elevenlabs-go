@@ -38,6 +38,10 @@ type graph struct {
 	loadedOrder map[string][]int // each loaded node's edge_order, as edge uids
 	preventLoop *bool
 	nextUID     int
+	// toolRefs are the Tool values nodes reference, by placeholder, and toolRefOrder their
+	// placeholders in the order they were first used.
+	toolRefs     map[string]Tool
+	toolRefOrder []string
 }
 
 func newGraph() *graph {
@@ -45,6 +49,7 @@ func newGraph() *graph {
 		nodes:       map[string]map[string]any{},
 		startID:     defaultStartID,
 		loadedOrder: map[string][]int{},
+		toolRefs:    map[string]Tool{},
 	}
 }
 
@@ -178,12 +183,29 @@ func (g *graph) applyOptions(id string, model map[string]any, opts resolvedOptio
 		}
 	}
 
+	// Tool values stand under their placeholders, and schema overrides for one may be keyed by its
+	// name.
+	var refs []string
+	if opts.hasToolIDs {
+		refs = g.refTools(id, opts.toolIDs, opts.tools)
+	}
+	if opts.hasOverrides {
+		overrides := make(map[string]any, len(opts.schemaOverrides))
+		for key, value := range opts.schemaOverrides {
+			if _, isTool := g.toolRefs[toolPlaceholder(key)]; isTool {
+				key = toolPlaceholder(key)
+			}
+			overrides[key] = value
+		}
+		opts.schemaOverrides = overrides
+	}
+
 	nodeType, _ := node["type"].(string)
 	if nodeType == "tool" {
 		existing, _ := node["tools"].([]any)
 		var ids []string
 		if opts.hasToolIDs {
-			ids = opts.toolIDs
+			ids = refs
 		} else {
 			for _, tool := range existing {
 				if m, ok := tool.(map[string]any); ok {
@@ -200,7 +222,7 @@ func (g *graph) applyOptions(id string, model map[string]any, opts resolvedOptio
 			}
 			for _, toolID := range wirejson.SortKeys(keysOf(opts.schemaOverrides)) {
 				if !runs[toolID] {
-					g.issue(InvalidOption, fmt.Sprintf("Node %q has schema overrides for tool %q, which it doesn't run", id, toolID), id)
+					g.issue(InvalidOption, fmt.Sprintf("Node %q has schema overrides for tool %q, which it doesn't run", id, displayTool(toolID)), id)
 				}
 			}
 		}
@@ -222,8 +244,8 @@ func (g *graph) applyOptions(id string, model map[string]any, opts resolvedOptio
 			g.invalidOption(id, "schema_overrides", nodeType)
 		}
 		if opts.hasToolIDs {
-			values := make([]any, len(opts.toolIDs))
-			for i, toolID := range opts.toolIDs {
+			values := make([]any, len(refs))
+			for i, toolID := range refs {
 				values[i] = toolID
 			}
 			rest = append(rest, option{key: "tool_ids", value: values})
@@ -272,6 +294,8 @@ func (g *graph) load(raw []byte) error {
 	g.issues = nil
 	g.loadedOrder = map[string][]int{}
 	g.preventLoop = nil
+	g.toolRefs = map[string]Tool{}
+	g.toolRefOrder = nil
 
 	if value, ok := top["prevent_subagent_loops"]; ok {
 		var b bool
