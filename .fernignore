@@ -2,6 +2,17 @@
 README.md
 .github/assets/logo.png
 
+# Hand-written agent workflows-as-code builder (docs/agents-as-code/workflow-spec.md in
+# elevenlabs-js): a layer on top of the generated client that the generator does not emit. It
+# builds the generated types.AgentWorkflowRequestModel and passes the shared cross-SDK fixtures
+# (vendored in agentworkflows/testdata/fixtures).
+agentworkflows/
+
+# Hand-written canonical JSON writer (sorted keys, JavaScript number and string formatting) shared
+# by the agents-as-code builders. It sits in the module's internal/ tree so the workflow builder
+# and a later tools builder can import it without making it public API.
+internal/wirejson/
+
 # Hand-written Speech Engine server: the inbound side of Speech Engine, where the ElevenLabs API
 # dials into a developer-hosted WebSocket server. The generator only emits the client that dials out
 # to /speech-engine/upstream (speechengine/socket.go), so the JWT verifier, the per-connection
