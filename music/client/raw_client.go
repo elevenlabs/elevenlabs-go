@@ -135,7 +135,7 @@ func (r *RawClient) Compose(ctx context.Context, request *types.BodyComposeMusic
 }
 
 // Compose a song from a prompt or a composition plan.
-func (r *RawClient) ComposeDetailed(ctx context.Context, request *types.BodyComposeMusicWithADetailedResponseV1MusicDetailedPost, opts ...option.RequestOption) (*core.Response[*types.ComposeDetailedMusicResponse], error) {
+func (r *RawClient) ComposeDetailed(ctx context.Context, request *types.BodyComposeMusicWithADetailedResponseV1MusicDetailedPost, opts ...option.RequestOption) (*core.Response[io.Reader], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -158,7 +158,7 @@ func (r *RawClient) ComposeDetailed(ctx context.Context, request *types.BodyComp
 	if request == nil {
 		request = &types.BodyComposeMusicWithADetailedResponseV1MusicDetailedPost{}
 	}
-	var response types.ComposeDetailedMusicResponse
+	var response io.Reader
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -177,10 +177,10 @@ func (r *RawClient) ComposeDetailed(ctx context.Context, request *types.BodyComp
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*types.ComposeDetailedMusicResponse]{
+	return &core.Response[io.Reader]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
-		Body:       &response,
+		Body:       response,
 	}, nil
 }
 

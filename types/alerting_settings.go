@@ -14,6 +14,8 @@ type AlertingSettings struct {
 	MonitorConfigs map[string]*AlertingMonitorConfig `json:"monitor_configs,omitempty"`
 	// How many minutes an alert can stay inactive before it is auto-resolved. Unset values fall through to the next layer.
 	AutoResolveAfterInactiveMinutes *int `json:"auto_resolve_after_inactive_minutes,omitempty" xml:"auto_resolve_after_inactive_minutes,omitempty" min:"1"`
+	// Environments whose conversations are monitored, e.g. ``['production']``. The list must include ``production``. Unset values fall through to the next layer; when no layer sets it, every environment is monitored.
+	Environments []string `json:"environments,omitempty" xml:"environments,omitempty" minItems:"1" maxItems:"20"`
 	// Delivery channels for alert lifecycle notifications. Stacked with other layers and deduped by ``webhook_id``, PagerDuty ``connection_id``, or Slack ``(connection_id, channel_id)``.
 	Notifiers       []*AlertingSettingsNotifiersItem `json:"notifiers,omitempty" xml:"notifiers,omitempty" maxItems:"10"`
 	extraProperties map[string]interface{}
@@ -33,6 +35,13 @@ func (a *AlertingSettings) GetAutoResolveAfterInactiveMinutes() (value *int) {
 	return a.AutoResolveAfterInactiveMinutes
 }
 
+func (a *AlertingSettings) GetEnvironments() (value []string) {
+	if a == nil {
+		return
+	}
+	return a.Environments
+}
+
 func (a *AlertingSettings) GetNotifiers() (value []*AlertingSettingsNotifiersItem) {
 	if a == nil {
 		return
@@ -46,6 +55,10 @@ func (a *AlertingSettings) SetMonitorConfigs(monitorConfigs map[string]*Alerting
 
 func (a *AlertingSettings) SetAutoResolveAfterInactiveMinutes(autoResolveAfterInactiveMinutes *int) {
 	a.AutoResolveAfterInactiveMinutes = autoResolveAfterInactiveMinutes
+}
+
+func (a *AlertingSettings) SetEnvironments(environments []string) {
+	a.Environments = environments
 }
 
 func (a *AlertingSettings) SetNotifiers(notifiers []*AlertingSettingsNotifiersItem) {

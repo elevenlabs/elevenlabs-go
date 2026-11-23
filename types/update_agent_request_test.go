@@ -1192,6 +1192,9 @@ func TestUpdateAgentRequestRoundTrip(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",

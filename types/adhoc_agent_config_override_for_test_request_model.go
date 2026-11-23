@@ -7,10 +7,11 @@ import (
 )
 
 type AdhocAgentConfigOverrideForTestRequestModel struct {
-	ConversationConfig *ConversationalConfig              `json:"conversation_config" xml:"conversation_config" required:"true"`
-	PlatformSettings   *AgentPlatformSettingsRequestModel `json:"platform_settings" xml:"platform_settings" required:"true"`
-	Workflow           *AgentWorkflowRequestModel         `json:"workflow,omitempty" xml:"workflow,omitempty"`
-	extraProperties    map[string]interface{}
+	ConversationConfig *ConversationalConfig              `json:"conversation_config,omitempty" xml:"conversation_config,omitempty"`
+	PlatformSettings   *AgentPlatformSettingsRequestModel `json:"platform_settings,omitempty" xml:"platform_settings,omitempty"`
+	// A workflow to run instead of the agent's. It replaces the agent's workflow whole.
+	Workflow        *AgentWorkflowRequestModel `json:"workflow,omitempty" xml:"workflow,omitempty"`
+	extraProperties map[string]interface{}
 }
 
 func (a *AdhocAgentConfigOverrideForTestRequestModel) GetConversationConfig() (value *ConversationalConfig) {

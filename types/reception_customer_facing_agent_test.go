@@ -27,7 +27,7 @@ func TestReceptionCustomerFacingAgentRoundTrip(t *testing.T) {
       "value"
     ],
     "first_message": "value",
-    "disable_first_message_interruptions": true,
+    "first_message_mode": "interruptible",
     "enable_end_call_tool": true,
     "enable_skip_turn_tool": true,
     "enable_play_keypad_touch_tone_tool": true,

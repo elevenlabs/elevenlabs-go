@@ -1215,6 +1215,9 @@ func TestCreateWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -2510,6 +2513,9 @@ func TestCreateWireError422(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -3770,6 +3776,9 @@ func TestGetWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -5104,6 +5113,9 @@ func TestGetWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -6417,6 +6429,9 @@ func TestGetWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -7794,6 +7809,9 @@ func TestUpdateWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -9111,6 +9129,9 @@ func TestUpdateWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -10374,6 +10395,9 @@ func TestUpdateWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -11687,6 +11711,9 @@ func TestUpdateWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -13046,6 +13073,9 @@ func TestUpdateWireError422(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -15343,6 +15373,9 @@ func TestRunTestsWire(t *testing.T) {
           }
         },
         "auto_resolve_after_inactive_minutes": 123,
+        "environments": [
+          "value"
+        ],
         "notifiers": [
           {
             "type": "webhook",
@@ -17984,6 +18017,9 @@ func TestRunTestsWireError422(t *testing.T) {
           }
         },
         "auto_resolve_after_inactive_minutes": 123,
+        "environments": [
+          "value"
+        ],
         "notifiers": [
           {
             "type": "webhook",

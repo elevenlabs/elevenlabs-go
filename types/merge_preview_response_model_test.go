@@ -1198,6 +1198,9 @@ func TestMergePreviewResponseModelRoundTrip(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -1327,10 +1330,15 @@ func TestMergePreviewResponseModelRoundTrip(t *testing.T) {
       "section": "conversation_config",
       "base_value": {},
       "source_value": {},
-      "target_value": {}
+      "target_value": {},
+      "id": "value",
+      "accepts_custom_value": true
     }
   ],
-  "source_identical_to_target": true
+  "source_identical_to_target": true,
+  "source_tip_version_id": "value",
+  "target_tip_version_id": "value",
+  "merge_error": "value"
 }`
 	assertRoundTrip(t, wire, new(MergePreviewResponseModel))
 }

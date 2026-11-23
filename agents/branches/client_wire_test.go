@@ -2153,6 +2153,9 @@ func TestPreviewMergeWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -2282,10 +2285,15 @@ func TestPreviewMergeWire(t *testing.T) {
       "section": "conversation_config",
       "base_value": {},
       "source_value": {},
-      "target_value": {}
+      "target_value": {},
+      "id": "value",
+      "accepts_custom_value": true
     }
   ],
-  "source_identical_to_target": true
+  "source_identical_to_target": true,
+  "source_tip_version_id": "value",
+  "target_tip_version_id": "value",
+  "merge_error": "value"
 }`)
 
 	client := NewClient(core.NewRequestOptions(
@@ -3499,6 +3507,9 @@ func TestPreviewMergeWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -3628,10 +3639,15 @@ func TestPreviewMergeWire(t *testing.T) {
       "section": "conversation_config",
       "base_value": {},
       "source_value": {},
-      "target_value": {}
+      "target_value": {},
+      "id": "value",
+      "accepts_custom_value": true
     }
   ],
-  "source_identical_to_target": true
+  "source_identical_to_target": true,
+  "source_tip_version_id": "value",
+  "target_tip_version_id": "value",
+  "merge_error": "value"
 }`)) {
 		t.Fatalf("response mismatch\n got: %s\nwant: %s", string(gotResponse), `{
   "agent_id": "value",
@@ -4825,6 +4841,9 @@ func TestPreviewMergeWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -4954,10 +4973,15 @@ func TestPreviewMergeWire(t *testing.T) {
       "section": "conversation_config",
       "base_value": {},
       "source_value": {},
-      "target_value": {}
+      "target_value": {},
+      "id": "value",
+      "accepts_custom_value": true
     }
   ],
-  "source_identical_to_target": true
+  "source_identical_to_target": true,
+  "source_tip_version_id": "value",
+  "target_tip_version_id": "value",
+  "merge_error": "value"
 }`)
 	}
 
@@ -5031,7 +5055,16 @@ func TestMergeWire(t *testing.T) {
 	var request agents.BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost
 	if err := json.Unmarshal([]byte(`{
   "archive_source_branch": true,
-  "force": true
+  "force": true,
+  "conflict_resolutions": [
+    {
+      "conflict_id": "value",
+      "choice": "source",
+      "custom_value": "value"
+    }
+  ],
+  "source_tip_id": "value",
+  "target_tip_id": "value"
 }`), &request); err != nil {
 		t.Fatalf("unmarshal request body: %v", err)
 	}
@@ -5090,7 +5123,16 @@ func TestMergeWireError422(t *testing.T) {
 	var request agents.BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost
 	if err := json.Unmarshal([]byte(`{
   "archive_source_branch": true,
-  "force": true
+  "force": true,
+  "conflict_resolutions": [
+    {
+      "conflict_id": "value",
+      "choice": "source",
+      "custom_value": "value"
+    }
+  ],
+  "source_tip_id": "value",
+  "target_tip_id": "value"
 }`), &request); err != nil {
 		t.Fatalf("unmarshal request body: %v", err)
 	}
@@ -6303,6 +6345,9 @@ func TestPreviewRebaseWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -6432,10 +6477,15 @@ func TestPreviewRebaseWire(t *testing.T) {
       "section": "conversation_config",
       "base_value": {},
       "source_value": {},
-      "target_value": {}
+      "target_value": {},
+      "id": "value",
+      "accepts_custom_value": true
     }
   ],
-  "source_identical_to_target": true
+  "source_identical_to_target": true,
+  "source_tip_version_id": "value",
+  "target_tip_version_id": "value",
+  "merge_error": "value"
 }`)
 
 	client := NewClient(core.NewRequestOptions(
@@ -7648,6 +7698,9 @@ func TestPreviewRebaseWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -7777,10 +7830,15 @@ func TestPreviewRebaseWire(t *testing.T) {
       "section": "conversation_config",
       "base_value": {},
       "source_value": {},
-      "target_value": {}
+      "target_value": {},
+      "id": "value",
+      "accepts_custom_value": true
     }
   ],
-  "source_identical_to_target": true
+  "source_identical_to_target": true,
+  "source_tip_version_id": "value",
+  "target_tip_version_id": "value",
+  "merge_error": "value"
 }`)) {
 		t.Fatalf("response mismatch\n got: %s\nwant: %s", string(gotResponse), `{
   "agent_id": "value",
@@ -8974,6 +9032,9 @@ func TestPreviewRebaseWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -9103,10 +9164,15 @@ func TestPreviewRebaseWire(t *testing.T) {
       "section": "conversation_config",
       "base_value": {},
       "source_value": {},
-      "target_value": {}
+      "target_value": {},
+      "id": "value",
+      "accepts_custom_value": true
     }
   ],
-  "source_identical_to_target": true
+  "source_identical_to_target": true,
+  "source_tip_version_id": "value",
+  "target_tip_version_id": "value",
+  "merge_error": "value"
 }`)
 	}
 
@@ -9177,7 +9243,16 @@ func TestRebaseWire(t *testing.T) {
 	if err := json.Unmarshal([]byte(`{
   "source_branch_id": "value",
   "branch_id": "value",
-  "agent_id": "value"
+  "agent_id": "value",
+  "conflict_resolutions": [
+    {
+      "conflict_id": "value",
+      "choice": "source",
+      "custom_value": "value"
+    }
+  ],
+  "branch_tip_id": "value",
+  "source_tip_id": "value"
 }`), &request); err != nil {
 		t.Fatalf("unmarshal request body: %v", err)
 	}
@@ -9238,7 +9313,16 @@ func TestRebaseWireError422(t *testing.T) {
 	if err := json.Unmarshal([]byte(`{
   "source_branch_id": "value",
   "branch_id": "value",
-  "agent_id": "value"
+  "agent_id": "value",
+  "conflict_resolutions": [
+    {
+      "conflict_id": "value",
+      "choice": "source",
+      "custom_value": "value"
+    }
+  ],
+  "branch_tip_id": "value",
+  "source_tip_id": "value"
 }`), &request); err != nil {
 		t.Fatalf("unmarshal request body: %v", err)
 	}

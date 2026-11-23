@@ -17,6 +17,7 @@ func TestAsrProviderVariantsRoundTrip(t *testing.T) {
 		{variant: AsrProviderScribeRealtime, wire: "\"scribe_realtime\""},
 		{variant: AsrProviderScribeV2Turbo, wire: "\"scribe_v2_turbo\""},
 		{variant: AsrProviderScribeV3Live, wire: "\"scribe_v3_live\""},
+		{variant: AsrProviderScribeV3LiveMedical, wire: "\"scribe_v3_live_medical\""},
 	}
 	for _, tc := range cases {
 		tc := tc

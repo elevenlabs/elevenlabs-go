@@ -1,0 +1,17 @@
+package types
+
+import (
+	"testing"
+)
+
+func TestClientToolCallClientToolCallRoundTrip(t *testing.T) {
+	t.Parallel()
+	const wire = `{
+  "tool_name": "value",
+  "tool_call_id": "value",
+  "parameters": {},
+  "event_id": 123,
+  "expects_response": true
+}`
+	assertRoundTrip(t, wire, new(ClientToolCallClientToolCall))
+}

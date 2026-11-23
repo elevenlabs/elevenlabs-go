@@ -11,6 +11,8 @@ type PolicyConfigInput struct {
 	Retry    *RetryPolicy `json:"retry,omitempty" xml:"retry,omitempty"`
 	// The weekly windows calls may be placed in.
 	CallingPeriods []*CallingPeriod `json:"calling_periods,omitempty" xml:"calling_periods,omitempty" minItems:"1"`
+	// Local dates in `timezone` whose calling windows replace `calling_periods`. Date ranges may not overlap.
+	DateOverrides []*DateOverride `json:"date_overrides,omitempty" xml:"date_overrides,omitempty" maxItems:"100"`
 	// The agent's data collection items that steer follow-up calls. Each defaults
 	// to the built-in item for its purpose; `null` turns it off.
 	DataCollection *DataCollectionConfig `json:"data_collection,omitempty" xml:"data_collection,omitempty"`
@@ -40,6 +42,13 @@ func (p *PolicyConfigInput) GetCallingPeriods() (value []*CallingPeriod) {
 	return p.CallingPeriods
 }
 
+func (p *PolicyConfigInput) GetDateOverrides() (value []*DateOverride) {
+	if p == nil {
+		return
+	}
+	return p.DateOverrides
+}
+
 func (p *PolicyConfigInput) GetDataCollection() (value *DataCollectionConfig) {
 	if p == nil {
 		return
@@ -64,6 +73,10 @@ func (p *PolicyConfigInput) SetRetry(retry *RetryPolicy) {
 
 func (p *PolicyConfigInput) SetCallingPeriods(callingPeriods []*CallingPeriod) {
 	p.CallingPeriods = callingPeriods
+}
+
+func (p *PolicyConfigInput) SetDateOverrides(dateOverrides []*DateOverride) {
+	p.DateOverrides = dateOverrides
 }
 
 func (p *PolicyConfigInput) SetDataCollection(dataCollection *DataCollectionConfig) {

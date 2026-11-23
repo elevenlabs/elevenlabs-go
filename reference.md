@@ -2725,7 +2725,6 @@ List Agent Conversation Tickets
 - `sortBy`
 - `ownerUserId`
 - `assigneeUserId`
-- `issueType`
 - `label`
 - `mergedIntoTicketId`
 - `search`
@@ -2757,7 +2756,6 @@ List Workspace Conversation Tickets
 - `sortBy`
 - `ownerUserId`
 - `assigneeUserId`
-- `issueType`
 - `label`
 - `mergedIntoTicketId`
 - `search`

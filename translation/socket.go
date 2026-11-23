@@ -24,7 +24,7 @@ type TranslationConnectRequest struct {
 	ApplyTextNormalization *types.TranslationRealtimeApplyTextNormalization
 	Eagerness              *types.TranslationRealtimeEagerness
 	ClientSessionId        *string
-	EnableZrm              *bool
+	EnableLogging          *bool
 }
 
 // Realtime opens a connection to the translation channel. The client's
@@ -47,7 +47,7 @@ func (c *Client) Realtime(ctx context.Context, request *TranslationConnectReques
 	internal.AddWebSocketQuery(query, "apply_text_normalization", request.ApplyTextNormalization)
 	internal.AddWebSocketQuery(query, "eagerness", request.Eagerness)
 	internal.AddWebSocketQuery(query, "client_session_id", request.ClientSessionId)
-	internal.AddWebSocketQuery(query, "enable_zrm", request.EnableZrm)
+	internal.AddWebSocketQuery(query, "enable_logging", request.EnableLogging)
 	address, err := internal.WebSocketURL(
 		baseURL,
 		internal.EncodeURL("/v1/translation/realtime"),
