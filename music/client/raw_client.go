@@ -35,7 +35,9 @@ func (r *RawClient) VideoToMusic(ctx context.Context, bodyVideoToMusicV1MusicVid
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := baseURL + "/v1/music/video-to-music"
@@ -89,7 +91,9 @@ func (r *RawClient) Compose(ctx context.Context, request *types.BodyComposeMusic
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := baseURL + "/v1/music"
@@ -135,11 +139,13 @@ func (r *RawClient) Compose(ctx context.Context, request *types.BodyComposeMusic
 }
 
 // Compose a song from a prompt or a composition plan.
-func (r *RawClient) ComposeDetailed(ctx context.Context, request *types.BodyComposeMusicWithADetailedResponseV1MusicDetailedPost, opts ...option.RequestOption) (*core.Response[*types.ComposeDetailedMusicResponse], error) {
+func (r *RawClient) ComposeDetailed(ctx context.Context, request *types.BodyComposeMusicWithADetailedResponseV1MusicDetailedPost, opts ...option.RequestOption) (*core.Response[io.Reader], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := baseURL + "/v1/music/detailed"
@@ -158,7 +164,7 @@ func (r *RawClient) ComposeDetailed(ctx context.Context, request *types.BodyComp
 	if request == nil {
 		request = &types.BodyComposeMusicWithADetailedResponseV1MusicDetailedPost{}
 	}
-	var response types.ComposeDetailedMusicResponse
+	var response io.Reader
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -177,10 +183,10 @@ func (r *RawClient) ComposeDetailed(ctx context.Context, request *types.BodyComp
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*types.ComposeDetailedMusicResponse]{
+	return &core.Response[io.Reader]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
-		Body:       &response,
+		Body:       response,
 	}, nil
 }
 
@@ -189,7 +195,9 @@ func (r *RawClient) Stream(ctx context.Context, request *types.BodyStreamCompose
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := baseURL + "/v1/music/stream"
@@ -239,7 +247,9 @@ func (r *RawClient) Upload(ctx context.Context, request *types.BodyUploadMusicV1
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := baseURL + "/v1/music/upload"
@@ -286,7 +296,9 @@ func (r *RawClient) SeparateStems(ctx context.Context, bodyStemSeparationV1Music
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := baseURL + "/v1/music/stem-separation"

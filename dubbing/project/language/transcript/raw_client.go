@@ -35,7 +35,9 @@ func (r *RawClient) Get(ctx context.Context, projectId string, languageId string
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/dubbing/project/%v/language/%v/transcript", projectId, languageId)
@@ -73,7 +75,9 @@ func (r *RawClient) UpdateSegment(ctx context.Context, projectId string, languag
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/dubbing/project/%v/language/%v/transcript/segment/%v", projectId, languageId, segmentId)
@@ -113,7 +117,9 @@ func (r *RawClient) UpdateSegments(ctx context.Context, projectId string, langua
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/dubbing/project/%v/language/%v/transcript/segments", projectId, languageId)
@@ -153,7 +159,9 @@ func (r *RawClient) Regenerate(ctx context.Context, projectId string, languageId
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/dubbing/project/%v/language/%v/transcript/regenerate", projectId, languageId)

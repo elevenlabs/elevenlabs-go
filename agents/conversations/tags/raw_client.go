@@ -35,7 +35,9 @@ func (r *RawClient) Assign(ctx context.Context, conversationId string, request *
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/conversations/%v/tags", conversationId)
@@ -73,7 +75,9 @@ func (r *RawClient) Unassign(ctx context.Context, conversationId string, tagId s
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/conversations/%v/tags/%v", conversationId, tagId)
@@ -109,7 +113,9 @@ func (r *RawClient) List(ctx context.Context, request *conversations.ListTagsReq
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := baseURL + "/v1/convai/tags"
@@ -157,7 +163,9 @@ func (r *RawClient) Create(ctx context.Context, request *conversations.CreateCon
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := baseURL + "/v1/convai/tags"
@@ -200,7 +208,9 @@ func (r *RawClient) Get(ctx context.Context, tagId string, opts ...option.Reques
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/tags/%v", tagId)
@@ -238,7 +248,9 @@ func (r *RawClient) Update(ctx context.Context, tagId string, request *conversat
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/tags/%v", tagId)
@@ -278,7 +290,9 @@ func (r *RawClient) Delete(ctx context.Context, tagId string, opts ...option.Req
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/tags/%v", tagId)

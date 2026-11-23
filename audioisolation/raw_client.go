@@ -35,7 +35,9 @@ func (r *RawClient) Convert(ctx context.Context, request *types.AudioIsolationRe
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := baseURL + "/v1/audio-isolation"
@@ -82,7 +84,9 @@ func (r *RawClient) List(ctx context.Context, request *types.ListAudioIsolationR
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := baseURL + "/v1/audio-isolation/history"
@@ -130,7 +134,9 @@ func (r *RawClient) Delete(ctx context.Context, historyItemId string, opts ...op
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/audio-isolation/history/%v", historyItemId)
@@ -166,7 +172,9 @@ func (r *RawClient) Stream(ctx context.Context, request *types.AudioIsolationStr
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := baseURL + "/v1/audio-isolation/stream"

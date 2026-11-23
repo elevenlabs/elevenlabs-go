@@ -62,7 +62,7 @@ func (c *Client) Stream(ctx context.Context, voiceId string, request *types.Stre
 // Converts text into speech using a voice of your choice and returns a stream of JSONs containing audio as a base64 encoded string together with information on when which character was spoken.
 func (c *Client) StreamWithTimestamps(ctx context.Context, voiceId string, request *types.StreamTextToSpeechWithTimestampsRequest, opts ...option.RequestOption) (*core.Stream[types.StreamingAudioChunkWithTimestampsResponse], error) {
 	options := core.NewRequestOptions(opts...)
-	baseURL := internal.ResolveBaseURL(options.BaseURL, c.baseURL, "https://api.elevenlabs.io")
+	baseURL := internal.ResolveBaseURL(options.BaseURL, internal.ResolveEnvironmentBaseURL(options.Environment, "Base"), c.baseURL, internal.ResolveEnvironmentBaseURL(c.options.Environment, "Base"), "https://api.elevenlabs.io")
 	endpointURL := internal.EncodeURL(baseURL+"/v1/text-to-speech/%v/stream/with-timestamps", voiceId)
 	queryParams, err := internal.QueryValues(request)
 	if err != nil {

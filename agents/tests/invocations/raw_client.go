@@ -35,7 +35,9 @@ func (r *RawClient) List(ctx context.Context, request *tests.ListInvocationsRequ
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := baseURL + "/v1/convai/test-invocations"
@@ -83,7 +85,9 @@ func (r *RawClient) Get(ctx context.Context, testInvocationId string, opts ...op
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/test-invocations/%v", testInvocationId)
@@ -121,7 +125,9 @@ func (r *RawClient) Update(ctx context.Context, testInvocationId string, request
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/test-invocations/%v", testInvocationId)
@@ -161,7 +167,9 @@ func (r *RawClient) Cancel(ctx context.Context, testInvocationId string, opts ..
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/test-invocations/%v/cancel", testInvocationId)
@@ -197,7 +205,9 @@ func (r *RawClient) Resubmit(ctx context.Context, testInvocationId string, reque
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/test-invocations/%v/resubmit", testInvocationId)

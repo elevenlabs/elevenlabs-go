@@ -34,7 +34,9 @@ func (r *RawClient) SetThirdPartyDisablingPolicy(ctx context.Context, request *t
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := baseURL + "/v1/workspaces/api-keys/third-party-disabling"

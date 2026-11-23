@@ -35,7 +35,9 @@ func (r *RawClient) List(ctx context.Context, agentId string, request *agents.Li
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/agents/%v/merge-proposals", agentId)
@@ -83,7 +85,9 @@ func (r *RawClient) Create(ctx context.Context, agentId string, request *agents.
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/agents/%v/merge-proposals", agentId)
@@ -123,7 +127,9 @@ func (r *RawClient) Get(ctx context.Context, agentId string, mergeProposalId str
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/agents/%v/merge-proposals/%v", agentId, mergeProposalId)
@@ -161,7 +167,9 @@ func (r *RawClient) Update(ctx context.Context, agentId string, mergeProposalId 
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/agents/%v/merge-proposals/%v", agentId, mergeProposalId)
@@ -201,7 +209,9 @@ func (r *RawClient) SubmitReview(ctx context.Context, agentId string, mergePropo
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/agents/%v/merge-proposals/%v/reviews", agentId, mergeProposalId)
@@ -241,7 +251,9 @@ func (r *RawClient) AddComment(ctx context.Context, agentId string, mergeProposa
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/agents/%v/merge-proposals/%v/comments", agentId, mergeProposalId)
@@ -281,7 +293,9 @@ func (r *RawClient) Merge(ctx context.Context, agentId string, mergeProposalId s
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/agents/%v/merge-proposals/%v/merge", agentId, mergeProposalId)

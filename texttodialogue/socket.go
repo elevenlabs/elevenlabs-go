@@ -31,7 +31,7 @@ func (c *Client) Realtime(ctx context.Context, request *TextToDialogueConnectReq
 		request = &TextToDialogueConnectRequest{}
 	}
 	options := core.NewRequestOptions(opts...)
-	baseURL := internal.ResolveBaseURL(options.BaseURL, c.options.BaseURL, "https://api.elevenlabs.io")
+	baseURL := internal.ResolveBaseURL(options.BaseURL, internal.ResolveEnvironmentBaseURL(options.Environment, "Production"), c.options.BaseURL, internal.ResolveEnvironmentBaseURL(c.options.Environment, "Production"), "wss://api.elevenlabs.io")
 	query := url.Values{}
 	internal.AddWebSocketQuery(query, "model_id", request.ModelId)
 	internal.AddWebSocketQuery(query, "output_format", request.OutputFormat)

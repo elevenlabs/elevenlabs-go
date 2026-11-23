@@ -29,8 +29,8 @@ type ReceptionCustomerFacingConfigOutput struct {
 	AdditionalLanguages []SupportedLang `json:"additional_languages,omitempty" xml:"additional_languages,omitempty"`
 	// The first message the agent says when starting a conversation
 	FirstMessage *string `json:"first_message,omitempty" xml:"first_message,omitempty"`
-	// When true, callers cannot interrupt the receptionist while the first message is being delivered. Use when the greeting carries a recording or legal notice callers must hear in full.
-	DisableFirstMessageInterruptions *bool `json:"disable_first_message_interruptions,omitempty" xml:"disable_first_message_interruptions,omitempty"`
+	// How the receptionist's greeting plays.
+	FirstMessageMode *FirstMessageMode `json:"first_message_mode,omitempty" xml:"first_message_mode,omitempty"`
 	// Allow the end_call system tool during conversations.
 	EnableEndCallTool *bool `json:"enable_end_call_tool,omitempty" xml:"enable_end_call_tool,omitempty"`
 	// Allow the skip_turn system tool during conversations.
@@ -138,11 +138,11 @@ func (r *ReceptionCustomerFacingConfigOutput) GetFirstMessage() (value *string) 
 	return r.FirstMessage
 }
 
-func (r *ReceptionCustomerFacingConfigOutput) GetDisableFirstMessageInterruptions() (value *bool) {
+func (r *ReceptionCustomerFacingConfigOutput) GetFirstMessageMode() (value *FirstMessageMode) {
 	if r == nil {
 		return
 	}
-	return r.DisableFirstMessageInterruptions
+	return r.FirstMessageMode
 }
 
 func (r *ReceptionCustomerFacingConfigOutput) GetEnableEndCallTool() (value *bool) {
@@ -263,8 +263,8 @@ func (r *ReceptionCustomerFacingConfigOutput) SetFirstMessage(firstMessage *stri
 	r.FirstMessage = firstMessage
 }
 
-func (r *ReceptionCustomerFacingConfigOutput) SetDisableFirstMessageInterruptions(disableFirstMessageInterruptions *bool) {
-	r.DisableFirstMessageInterruptions = disableFirstMessageInterruptions
+func (r *ReceptionCustomerFacingConfigOutput) SetFirstMessageMode(firstMessageMode *FirstMessageMode) {
+	r.FirstMessageMode = firstMessageMode
 }
 
 func (r *ReceptionCustomerFacingConfigOutput) SetEnableEndCallTool(enableEndCallTool *bool) {

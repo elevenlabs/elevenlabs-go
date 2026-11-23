@@ -13,8 +13,9 @@ type AgentConversationTicketResponseModel struct {
 	AgentId         string `json:"agent_id" xml:"agent_id" required:"true"`
 	NeedsClustering bool   `json:"needs_clustering" xml:"needs_clustering" required:"true"`
 	// One-line headline for the agent issue. None only on issues created before titles existed.
-	Title             *string                              `json:"title" xml:"title" required:"true"`
-	IssueType         *AgentConversationTicketIssueType    `json:"issue_type" xml:"issue_type" required:"true"`
+	Title *string `json:"title" xml:"title" required:"true"`
+	// Always null. Issue types are labels, written as `issue_type:<value>`.
+	IssueType         any                                  `json:"issue_type,omitempty" xml:"issue_type,omitempty"`
 	Labels            []string                             `json:"labels" xml:"labels" required:"true"`
 	ConversationIds   []string                             `json:"conversation_ids" xml:"conversation_ids" required:"true"`
 	FirstSeenUnixSecs *int                                 `json:"first_seen_unix_secs" xml:"first_seen_unix_secs" required:"true"`
@@ -79,7 +80,7 @@ func (a *AgentConversationTicketResponseModel) GetTitle() (value *string) {
 	return a.Title
 }
 
-func (a *AgentConversationTicketResponseModel) GetIssueType() (value *AgentConversationTicketIssueType) {
+func (a *AgentConversationTicketResponseModel) GetIssueType() (value any) {
 	if a == nil {
 		return
 	}
@@ -229,7 +230,7 @@ func (a *AgentConversationTicketResponseModel) SetTitle(title *string) {
 	a.Title = title
 }
 
-func (a *AgentConversationTicketResponseModel) SetIssueType(issueType *AgentConversationTicketIssueType) {
+func (a *AgentConversationTicketResponseModel) SetIssueType(issueType any) {
 	a.IssueType = issueType
 }
 

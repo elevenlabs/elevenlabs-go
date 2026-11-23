@@ -58,7 +58,7 @@ func (c *Client) Compose(ctx context.Context, request *types.BodyComposeMusicV1M
 }
 
 // Compose a song from a prompt or a composition plan.
-func (c *Client) ComposeDetailed(ctx context.Context, request *types.BodyComposeMusicWithADetailedResponseV1MusicDetailedPost, opts ...option.RequestOption) (*types.ComposeDetailedMusicResponse, error) {
+func (c *Client) ComposeDetailed(ctx context.Context, request *types.BodyComposeMusicWithADetailedResponseV1MusicDetailedPost, opts ...option.RequestOption) (io.Reader, error) {
 	response, err := c.WithRawResponse.ComposeDetailed(ctx, request, opts...)
 	if err != nil {
 		return nil, err
@@ -69,7 +69,7 @@ func (c *Client) ComposeDetailed(ctx context.Context, request *types.BodyCompose
 // Stream a song and its detailed metadata using Server-Sent Events (SSE).
 func (c *Client) ComposeDetailedStream(ctx context.Context, request *types.BodyStreamComposedMusicWithADetailedResponseV1MusicDetailedStreamPost, opts ...option.RequestOption) (*core.Stream[string], error) {
 	options := core.NewRequestOptions(opts...)
-	endpointURL := internal.ResolveBaseURL(options.BaseURL, c.baseURL, "https://api.elevenlabs.io") + "/v1/music/detailed/stream"
+	endpointURL := internal.ResolveBaseURL(options.BaseURL, internal.ResolveEnvironmentBaseURL(options.Environment, "Base"), c.baseURL, internal.ResolveEnvironmentBaseURL(c.options.Environment, "Base"), "https://api.elevenlabs.io") + "/v1/music/detailed/stream"
 	queryParams, err := internal.QueryValues(request)
 	if err != nil {
 		return nil, err

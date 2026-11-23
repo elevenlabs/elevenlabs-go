@@ -53,7 +53,7 @@ func (c *Client) Stream(ctx context.Context, request *types.BodyTextToDialogueMu
 // Converts a list of text and voice ID pairs into speech (dialogue) and returns a stream of JSON blobs containing audio as a base64 encoded string and timestamps
 func (c *Client) StreamWithTimestamps(ctx context.Context, request *types.BodyTextToDialogueStreamWithTimestamps, opts ...option.RequestOption) (*core.Stream[types.StreamingAudioChunkWithTimestampsAndVoiceSegmentsResponseModel], error) {
 	options := core.NewRequestOptions(opts...)
-	endpointURL := internal.ResolveBaseURL(options.BaseURL, c.baseURL, "https://api.elevenlabs.io") + "/v1/text-to-dialogue/stream/with-timestamps"
+	endpointURL := internal.ResolveBaseURL(options.BaseURL, internal.ResolveEnvironmentBaseURL(options.Environment, "Base"), c.baseURL, internal.ResolveEnvironmentBaseURL(c.options.Environment, "Base"), "https://api.elevenlabs.io") + "/v1/text-to-dialogue/stream/with-timestamps"
 	queryParams, err := internal.QueryValues(request)
 	if err != nil {
 		return nil, err

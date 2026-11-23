@@ -355,7 +355,7 @@ type BodyMergeAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdMe
 	AgentId string `json:"-" url:"-"`
 	// Whether to archive the source branch after merging.
 	ArchiveSourceBranch *bool `json:"archive_source_branch,omitempty" xml:"archive_source_branch,omitempty"`
-	// Force source branch changes onto the target, overriding timestamp-based conflict resolution.
+	// Keep the source branch's value for every conflict.
 	Force *bool `json:"force,omitempty" xml:"force,omitempty"`
 }
 

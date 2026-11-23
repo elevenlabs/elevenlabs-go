@@ -35,11 +35,17 @@ type MergePreviewResponseModel struct {
 	DefaultHoldAudioUrl *string `json:"default_hold_audio_url,omitempty" xml:"default_hold_audio_url,omitempty"`
 	// Dot-paths of config fields where both branches modified the same field relative to their common ancestor (conflicts). Present regardless of which side wins the conflict.
 	OverriddenFields []string `json:"overridden_fields,omitempty" xml:"overridden_fields,omitempty"`
-	// Structured view of the same conflicts as overridden_fields, each carrying the value on the base (common ancestor), source branch, and target branch so the divergence can be presented and resolved field-by-field.
+	// Structured view of the same conflicts as overridden_fields, each carrying the value on the base (common ancestor), source branch, and target branch so the divergence can be presented and resolved field-by-field. A merge or rebase is rejected while any of them has no resolution in `conflict_resolutions`, unless the merge is forced.
 	Conflicts []*FieldConflict `json:"conflicts,omitempty" xml:"conflicts,omitempty"`
 	// True when the merge/rebase would be a no-op, i.e. the merged result is identical to the source branch tip. The rebase endpoint rejects in this case.
 	SourceIdenticalToTarget *bool `json:"source_identical_to_target,omitempty" xml:"source_identical_to_target,omitempty"`
-	extraProperties         map[string]interface{}
+	// Tip version of the source branch (the rebased branch for a rebase) the preview was computed from.
+	SourceTipVersionId *string `json:"source_tip_version_id,omitempty" xml:"source_tip_version_id,omitempty"`
+	// Tip version of the target branch (main for a rebase) the preview was computed from.
+	TargetTipVersionId *string `json:"target_tip_version_id,omitempty" xml:"target_tip_version_id,omitempty"`
+	// Why the merge doesn't combine into a valid configuration while conflicts are left to resolve. The preview then shows the branch the merge writes unchanged.
+	MergeError      *string `json:"merge_error,omitempty" xml:"merge_error,omitempty"`
+	extraProperties map[string]interface{}
 }
 
 func (m *MergePreviewResponseModel) GetAgentId() (value string) {
@@ -168,6 +174,27 @@ func (m *MergePreviewResponseModel) GetSourceIdenticalToTarget() (value *bool) {
 	return m.SourceIdenticalToTarget
 }
 
+func (m *MergePreviewResponseModel) GetSourceTipVersionId() (value *string) {
+	if m == nil {
+		return
+	}
+	return m.SourceTipVersionId
+}
+
+func (m *MergePreviewResponseModel) GetTargetTipVersionId() (value *string) {
+	if m == nil {
+		return
+	}
+	return m.TargetTipVersionId
+}
+
+func (m *MergePreviewResponseModel) GetMergeError() (value *string) {
+	if m == nil {
+		return
+	}
+	return m.MergeError
+}
+
 func (m *MergePreviewResponseModel) SetAgentId(agentId string) {
 	m.AgentId = agentId
 }
@@ -238,6 +265,18 @@ func (m *MergePreviewResponseModel) SetConflicts(conflicts []*FieldConflict) {
 
 func (m *MergePreviewResponseModel) SetSourceIdenticalToTarget(sourceIdenticalToTarget *bool) {
 	m.SourceIdenticalToTarget = sourceIdenticalToTarget
+}
+
+func (m *MergePreviewResponseModel) SetSourceTipVersionId(sourceTipVersionId *string) {
+	m.SourceTipVersionId = sourceTipVersionId
+}
+
+func (m *MergePreviewResponseModel) SetTargetTipVersionId(targetTipVersionId *string) {
+	m.TargetTipVersionId = targetTipVersionId
+}
+
+func (m *MergePreviewResponseModel) SetMergeError(mergeError *string) {
+	m.MergeError = mergeError
 }
 
 func (m *MergePreviewResponseModel) GetExtraProperties() map[string]interface{} {

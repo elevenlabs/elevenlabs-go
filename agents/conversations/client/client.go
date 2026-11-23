@@ -147,7 +147,7 @@ func (c *Client) SendMessage(ctx context.Context, conversationId string, request
 // Send input to a conversation, and stream the events of the request as server-sent events. The last event is `stream_ended`, which has the outcome of the turn. This endpoint is in alpha and may change.
 func (c *Client) SendMessageStream(ctx context.Context, conversationId string, request *agents.SendConversationMessageStreamRequest, opts ...option.RequestOption) (*core.Stream[types.StreamEnvelope], error) {
 	options := core.NewRequestOptions(opts...)
-	baseURL := internal.ResolveBaseURL(options.BaseURL, c.baseURL, "https://api.elevenlabs.io")
+	baseURL := internal.ResolveBaseURL(options.BaseURL, internal.ResolveEnvironmentBaseURL(options.Environment, "Base"), c.baseURL, internal.ResolveEnvironmentBaseURL(c.options.Environment, "Base"), "https://api.elevenlabs.io")
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/conversations/%v/messages/stream", conversationId)
 	headers := internal.MergeHeaders(
 		c.options.ToHeader(),
@@ -191,7 +191,7 @@ func (c *Client) GetTurn(ctx context.Context, conversationId string, turnId stri
 // Stream the events of a turn as server-sent events. Send `Last-Event-ID` to resume after an event. The server keeps events for about an hour. This endpoint is in alpha and may change.
 func (c *Client) StreamTurnEvents(ctx context.Context, conversationId string, turnId string, request *agents.StreamTurnEventsConversationsRequest, opts ...option.RequestOption) (*core.Stream[types.StreamEnvelope], error) {
 	options := core.NewRequestOptions(opts...)
-	baseURL := internal.ResolveBaseURL(options.BaseURL, c.baseURL, "https://api.elevenlabs.io")
+	baseURL := internal.ResolveBaseURL(options.BaseURL, internal.ResolveEnvironmentBaseURL(options.Environment, "Base"), c.baseURL, internal.ResolveEnvironmentBaseURL(c.options.Environment, "Base"), "https://api.elevenlabs.io")
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/conversations/%v/turns/%v/events", conversationId, turnId)
 	headers := internal.MergeHeaders(
 		c.options.ToHeader(),

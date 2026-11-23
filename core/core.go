@@ -17,7 +17,15 @@ type RequestOption interface {
 // This type is primarily used by the generated code and is not meant
 // to be used directly; use the option package instead.
 type RequestOptions struct {
-	BaseURL                    string
+	BaseURL string
+	// Environment holds a value of the SDK root package's Environment type (e.g.
+	// Environments.Production). It is typed interface{} here, rather than that concrete struct,
+	// because core cannot import the root package without an import cycle (the root package's own
+	// client/option re-export shims already import core and option). Matches the Fern oracle's own
+	// convention for this field. Each endpoint reads it back through
+	// internal.ResolveEnvironmentBaseURL, picking the field for that endpoint's base URL; an
+	// explicit BaseURL still wins.
+	Environment                interface{}
 	HTTPClient                 HTTPClient
 	HTTPHeader                 http.Header
 	BodyProperties             map[string]interface{}
@@ -194,6 +202,15 @@ type WithoutWebSocketReconnectOption struct{}
 func (w *WithoutWebSocketReconnectOption) applyRequestOptions(opts *RequestOptions) {
 	opts.WebSocketReconnect = nil
 	opts.DisableWebSocketReconnect = true
+}
+
+// EnvironmentOption implements the RequestOption interface.
+type EnvironmentOption struct {
+	Environment interface{}
+}
+
+func (e *EnvironmentOption) applyRequestOptions(opts *RequestOptions) {
+	opts.Environment = e.Environment
 }
 
 // HTTPClient is an interface for a subset of the *http.Client.

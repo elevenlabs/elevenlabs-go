@@ -37,7 +37,9 @@ func (r *RawClient) List(ctx context.Context, projectId string, opts ...option.R
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/studio/projects/%v/snapshots", projectId)
@@ -75,7 +77,9 @@ func (r *RawClient) Get(ctx context.Context, projectId string, projectSnapshotId
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/studio/projects/%v/snapshots/%v", projectId, projectSnapshotId)
@@ -113,7 +117,9 @@ func (r *RawClient) Stream(ctx context.Context, projectId string, projectSnapsho
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/studio/projects/%v/snapshots/%v/stream", projectId, projectSnapshotId)
@@ -153,7 +159,9 @@ func (r *RawClient) StreamArchive(ctx context.Context, projectId string, project
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/studio/projects/%v/snapshots/%v/archive", projectId, projectSnapshotId)

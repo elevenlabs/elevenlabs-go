@@ -8,9 +8,11 @@ import (
 
 // Each section set here replaces the whole matching section of the policy.
 type AgentPolicyOverrideInput struct {
-	Timezone        *string                `json:"timezone,omitempty" xml:"timezone,omitempty"`
-	Retry           *RetryPolicy           `json:"retry,omitempty" xml:"retry,omitempty"`
-	CallingPeriods  []*CallingPeriod       `json:"calling_periods,omitempty" xml:"calling_periods,omitempty" minItems:"1"`
+	Timezone       *string          `json:"timezone,omitempty" xml:"timezone,omitempty"`
+	Retry          *RetryPolicy     `json:"retry,omitempty" xml:"retry,omitempty"`
+	CallingPeriods []*CallingPeriod `json:"calling_periods,omitempty" xml:"calling_periods,omitempty" minItems:"1"`
+	// Replaces the inherited date overrides; unset inherits them and an empty list clears them.
+	DateOverrides   []*DateOverride        `json:"date_overrides,omitempty" xml:"date_overrides,omitempty" maxItems:"100"`
 	DataCollection  *DataCollectionConfig  `json:"data_collection,omitempty" xml:"data_collection,omitempty"`
 	FollowupContext *FollowupContextPolicy `json:"followup_context,omitempty" xml:"followup_context,omitempty"`
 	extraProperties map[string]interface{}
@@ -37,6 +39,13 @@ func (a *AgentPolicyOverrideInput) GetCallingPeriods() (value []*CallingPeriod) 
 	return a.CallingPeriods
 }
 
+func (a *AgentPolicyOverrideInput) GetDateOverrides() (value []*DateOverride) {
+	if a == nil {
+		return
+	}
+	return a.DateOverrides
+}
+
 func (a *AgentPolicyOverrideInput) GetDataCollection() (value *DataCollectionConfig) {
 	if a == nil {
 		return
@@ -61,6 +70,10 @@ func (a *AgentPolicyOverrideInput) SetRetry(retry *RetryPolicy) {
 
 func (a *AgentPolicyOverrideInput) SetCallingPeriods(callingPeriods []*CallingPeriod) {
 	a.CallingPeriods = callingPeriods
+}
+
+func (a *AgentPolicyOverrideInput) SetDateOverrides(dateOverrides []*DateOverride) {
+	a.DateOverrides = dateOverrides
 }
 
 func (a *AgentPolicyOverrideInput) SetDataCollection(dataCollection *DataCollectionConfig) {

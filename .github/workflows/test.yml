@@ -42,7 +42,7 @@ jobs:
           # the runner's own report of what ran and passed, not a count of files or symbols.
           # Each condition is its own grep so the count does not depend on the order of the event's keys.
           ran=$(grep -F '"Action":"pass"' test-events.json | grep -F '"Test":"' | grep -vc '"Test":"[^"]*/' || true)
-          expected=3932
+          expected=4035
           # `-lt`, not `-ne`: the count guards against the EMITTER producing fewer tests than it
           # generated for. This workflow ships in the customer's repository, so tests they add
           # themselves push the total ABOVE the expected figure, and an exact match would fail a

@@ -35,7 +35,9 @@ func (r *RawClient) List(ctx context.Context, agentId string, request *agents.Li
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/agents/%v/branches", agentId)
@@ -83,7 +85,9 @@ func (r *RawClient) Create(ctx context.Context, agentId string, request *agents.
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/agents/%v/branches", agentId)
@@ -123,7 +127,9 @@ func (r *RawClient) Get(ctx context.Context, agentId string, branchId string, op
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/agents/%v/branches/%v", agentId, branchId)
@@ -161,7 +167,9 @@ func (r *RawClient) Update(ctx context.Context, agentId string, branchId string,
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/agents/%v/branches/%v", agentId, branchId)
@@ -196,12 +204,14 @@ func (r *RawClient) Update(ctx context.Context, agentId string, branchId string,
 	}, nil
 }
 
-// Returns the result of merging the source branch into the target branch without performing the merge. Useful for showing an accurate diff before confirming.
+// Returns the result of merging the source branch into the target branch without performing the merge. When `conflicts` is not empty, the merge itself is rejected unless `conflict_resolutions` settles every conflict or `force` is set; until then the returned configuration shows one side of each conflict only as a placeholder.
 func (r *RawClient) PreviewMerge(ctx context.Context, agentId string, sourceBranchId string, request *agents.PreviewMergeBranchesRequest, opts ...option.RequestOption) (*core.Response[*types.MergePreviewResponseModel], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/agents/%v/branches/%v/merge-preview", agentId, sourceBranchId)
@@ -244,12 +254,14 @@ func (r *RawClient) PreviewMerge(ctx context.Context, agentId string, sourceBran
 	}, nil
 }
 
-// Merge a branch into a target branch
+// Merge a branch into a target branch. If both branches changed the same field, the merge returns 409 unless `conflict_resolutions` settles every conflict the merge preview reports, or `force` is set.
 func (r *RawClient) Merge(ctx context.Context, agentId string, sourceBranchId string, request *agents.BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost, opts ...option.RequestOption) (*core.Response[any], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/agents/%v/branches/%v/merge", agentId, sourceBranchId)
@@ -294,12 +306,14 @@ func (r *RawClient) Merge(ctx context.Context, agentId string, sourceBranchId st
 	}, nil
 }
 
-// Returns the result of pulling changes from a source branch (defaults to main) into the given branch without performing it, preserving the given branch's own changes. Useful for showing an accurate diff before confirming.
+// Returns the result of pulling changes from a source branch (defaults to main) into the given branch without performing it. When `conflicts` is not empty, the rebase itself is rejected unless `conflict_resolutions` settles every conflict; until then the returned configuration keeps the given branch's side of each conflict.
 func (r *RawClient) PreviewRebase(ctx context.Context, agentId string, branchId string, request *agents.PreviewRebaseBranchesRequest, opts ...option.RequestOption) (*core.Response[*types.MergePreviewResponseModel], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/agents/%v/branches/%v/rebase-preview", agentId, branchId)
@@ -342,12 +356,14 @@ func (r *RawClient) PreviewRebase(ctx context.Context, agentId string, branchId 
 	}, nil
 }
 
-// Pull changes from a source branch (defaults to main) into this branch as a new version, preserving this branch's own changes on conflicts.
+// Pull changes from a source branch (defaults to main) into this branch as a new version. If both branches changed the same field, the rebase returns 409 unless `conflict_resolutions` settles every conflict the rebase preview reports.
 func (r *RawClient) Rebase(ctx context.Context, agentId string, branchId string, request *agents.BodyRebaseABranchOntoMainV1ConvaiAgentsAgentIdBranchesBranchIdRebasePost, opts ...option.RequestOption) (*core.Response[any], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/convai/agents/%v/branches/%v/rebase", agentId, branchId)

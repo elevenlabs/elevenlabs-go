@@ -199,9 +199,10 @@ func TestCreateWire(t *testing.T) {
 		option.WithBaseURL(server.URL),
 	))
 
-	var request reception.ProvisionResellerWorkspaceRequest
+	var request reception.ReceptionProvisionResellerWorkspaceRequest
 	if err := json.Unmarshal([]byte(`{
   "business_name": "value",
+  "vertical": "salon_barbershop",
   "subscription": {
     "tier_id": "value",
     "billing_period": "monthly_period"
@@ -314,9 +315,10 @@ func TestCreateWireError422(t *testing.T) {
 		option.WithMaxAttempts(1),
 	))
 
-	var request reception.ProvisionResellerWorkspaceRequest
+	var request reception.ReceptionProvisionResellerWorkspaceRequest
 	if err := json.Unmarshal([]byte(`{
   "business_name": "value",
+  "vertical": "salon_barbershop",
   "subscription": {
     "tier_id": "value",
     "billing_period": "monthly_period"

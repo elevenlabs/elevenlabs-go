@@ -35,7 +35,9 @@ func (r *RawClient) Get(ctx context.Context, dubbingId string, languageCode stri
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/dubbing/%v/transcripts/%v/format/%v", dubbingId, languageCode, formatType)

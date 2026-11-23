@@ -30,6 +30,8 @@ const (
 	LlmGpt6Luna                       Llm = "gpt-6-luna"
 	LlmGpt61Sol                       Llm = "gpt-6.1-sol"
 	LlmGpt61Terra                     Llm = "gpt-6.1-terra"
+	LlmGpt62Astra                     Llm = "gpt-6.2-astra"
+	LlmGpt62Sol                       Llm = "gpt-6.2-sol"
 	LlmGpt5Mini                       Llm = "gpt-5-mini"
 	LlmGpt5Nano                       Llm = "gpt-5-nano"
 	LlmGpt35Turbo                     Llm = "gpt-3.5-turbo"
@@ -51,6 +53,7 @@ const (
 	LlmGemini38Flash                  Llm = "gemini-3.8-flash"
 	LlmGemini4Argon                   Llm = "gemini-4-argon"
 	LlmGemini4Hydrogen                Llm = "gemini-4-hydrogen"
+	LlmGemini4Neon                    Llm = "gemini-4-neon"
 	LlmClaudeSonnet45                 Llm = "claude-sonnet-4-5"
 	LlmClaudeOpus46                   Llm = "claude-opus-4-6"
 	LlmClaudeOpus47                   Llm = "claude-opus-4-7"
@@ -169,6 +172,10 @@ func NewLlmFromString(s string) (Llm, error) {
 		return LlmGpt61Sol, nil
 	case "gpt-6.1-terra":
 		return LlmGpt61Terra, nil
+	case "gpt-6.2-astra":
+		return LlmGpt62Astra, nil
+	case "gpt-6.2-sol":
+		return LlmGpt62Sol, nil
 	case "gpt-5-mini":
 		return LlmGpt5Mini, nil
 	case "gpt-5-nano":
@@ -211,6 +218,8 @@ func NewLlmFromString(s string) (Llm, error) {
 		return LlmGemini4Argon, nil
 	case "gemini-4-hydrogen":
 		return LlmGemini4Hydrogen, nil
+	case "gemini-4-neon":
+		return LlmGemini4Neon, nil
 	case "claude-sonnet-4-5":
 		return LlmClaudeSonnet45, nil
 	case "claude-opus-4-6":

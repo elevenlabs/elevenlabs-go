@@ -35,7 +35,9 @@ func (r *RawClient) Set(ctx context.Context, pronunciationDictionaryId string, r
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/pronunciation-dictionaries/%v/set-rules", pronunciationDictionaryId)
@@ -75,7 +77,9 @@ func (r *RawClient) Add(ctx context.Context, pronunciationDictionaryId string, r
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/pronunciation-dictionaries/%v/add-rules", pronunciationDictionaryId)
@@ -115,7 +119,9 @@ func (r *RawClient) Remove(ctx context.Context, pronunciationDictionaryId string
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
+		internal.ResolveEnvironmentBaseURL(options.Environment, "Base"),
 		r.baseURL,
+		internal.ResolveEnvironmentBaseURL(r.options.Environment, "Base"),
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := internal.EncodeURL(baseURL+"/v1/pronunciation-dictionaries/%v/remove-rules", pronunciationDictionaryId)

@@ -37,7 +37,7 @@ func (c *Client) Realtime(ctx context.Context, request *TextToSpeechMultiContext
 		request = &TextToSpeechMultiContextConnectRequest{}
 	}
 	options := core.NewRequestOptions(opts...)
-	baseURL := internal.ResolveBaseURL(options.BaseURL, c.options.BaseURL, "https://api.elevenlabs.io")
+	baseURL := internal.ResolveBaseURL(options.BaseURL, internal.ResolveEnvironmentBaseURL(options.Environment, "Production"), c.options.BaseURL, internal.ResolveEnvironmentBaseURL(c.options.Environment, "Production"), "wss://api.elevenlabs.io")
 	query := url.Values{}
 	internal.AddWebSocketQuery(query, "authorization", request.Authorization)
 	internal.AddWebSocketQuery(query, "single_use_token", request.SingleUseToken)

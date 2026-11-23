@@ -1,6 +1,7 @@
 package option
 
 import (
+	elevenlabs "github.com/elevenlabs/elevenlabs-go"
 	core "github.com/elevenlabs/elevenlabs-go/core"
 	http "net/http"
 	url "net/url"
@@ -120,4 +121,12 @@ func WithWebSocketReconnect(reconnect core.ReconnectOptions) *core.WebSocketReco
 // later sends fail.
 func WithoutWebSocketReconnect() *core.WithoutWebSocketReconnectOption {
 	return &core.WithoutWebSocketReconnectOption{}
+}
+
+// WithEnvironment sets the environment for the client, which determines
+// the base URL for each endpoint.
+func WithEnvironment(environment elevenlabs.Environment) *core.EnvironmentOption {
+	return &core.EnvironmentOption{
+		Environment: environment,
+	}
 }
