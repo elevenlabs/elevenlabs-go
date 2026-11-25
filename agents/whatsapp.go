@@ -110,13 +110,13 @@ func (b *BodyMakeAnOutboundCallViaWhatsAppV1ConvaiWhatsappOutboundCallPost) Mars
 }
 
 type BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePost struct {
-	WhatsappPhoneNumberId            string                                                                                   `json:"whatsapp_phone_number_id" xml:"whatsapp_phone_number_id" required:"true"`
-	WhatsappUserId                   string                                                                                   `json:"whatsapp_user_id" xml:"whatsapp_user_id" required:"true"`
-	TemplateName                     string                                                                                   `json:"template_name" xml:"template_name" required:"true"`
-	TemplateLanguageCode             string                                                                                   `json:"template_language_code" xml:"template_language_code" required:"true"`
-	TemplateParams                   []*SendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem `json:"template_params" xml:"template_params" required:"true"`
-	AgentId                          string                                                                                   `json:"agent_id" xml:"agent_id" required:"true"`
-	ConversationInitiationClientData *types.ConversationInitiationClientDataRequestInput                                      `json:"conversation_initiation_client_data,omitempty" xml:"conversation_initiation_client_data,omitempty"`
+	WhatsappPhoneNumberId            string                                                                                       `json:"whatsapp_phone_number_id" xml:"whatsapp_phone_number_id" required:"true"`
+	WhatsappUserId                   string                                                                                       `json:"whatsapp_user_id" xml:"whatsapp_user_id" required:"true"`
+	TemplateName                     string                                                                                       `json:"template_name" xml:"template_name" required:"true"`
+	TemplateLanguageCode             string                                                                                       `json:"template_language_code" xml:"template_language_code" required:"true"`
+	TemplateParams                   []*BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem `json:"template_params" xml:"template_params" required:"true"`
+	AgentId                          string                                                                                       `json:"agent_id" xml:"agent_id" required:"true"`
+	ConversationInitiationClientData *types.ConversationInitiationClientDataRequestInput                                          `json:"conversation_initiation_client_data,omitempty" xml:"conversation_initiation_client_data,omitempty"`
 }
 
 func (b *BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePost) GetWhatsappPhoneNumberId() (value string) {
@@ -147,7 +147,7 @@ func (b *BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePost
 	return b.TemplateLanguageCode
 }
 
-func (b *BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePost) GetTemplateParams() (value []*SendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) {
+func (b *BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePost) GetTemplateParams() (value []*BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) {
 	if b == nil {
 		return
 	}
@@ -184,7 +184,7 @@ func (b *BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePost
 	b.TemplateLanguageCode = templateLanguageCode
 }
 
-func (b *BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePost) SetTemplateParams(templateParams []*SendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) {
+func (b *BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePost) SetTemplateParams(templateParams []*BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) {
 	b.TemplateParams = templateParams
 }
 
@@ -222,60 +222,60 @@ func (b *BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePost
 	return json.Marshal(marshaler)
 }
 
-type SendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem struct {
+type BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem struct {
 	Type   string
 	Body   *types.WhatsAppTemplateBodyComponentParams
 	Button *types.WhatsAppTemplateButtonComponentParams
 	Header *types.WhatsAppTemplateHeaderComponentParams
 }
 
-func (s *SendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) GetBody() *types.WhatsAppTemplateBodyComponentParams {
-	if s == nil {
+func (b *BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) GetBody() *types.WhatsAppTemplateBodyComponentParams {
+	if b == nil {
 		return nil
 	}
-	if s.Body == nil {
+	if b.Body == nil {
 		return nil
 	}
-	return s.Body
+	return b.Body
 }
 
-func (s *SendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) GetButton() *types.WhatsAppTemplateButtonComponentParams {
-	if s == nil {
+func (b *BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) GetButton() *types.WhatsAppTemplateButtonComponentParams {
+	if b == nil {
 		return nil
 	}
-	if s.Button == nil {
+	if b.Button == nil {
 		return nil
 	}
-	return s.Button
+	return b.Button
 }
 
-func (s *SendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) GetHeader() *types.WhatsAppTemplateHeaderComponentParams {
-	if s == nil {
+func (b *BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) GetHeader() *types.WhatsAppTemplateHeaderComponentParams {
+	if b == nil {
 		return nil
 	}
-	if s.Header == nil {
+	if b.Header == nil {
 		return nil
 	}
-	return s.Header
+	return b.Header
 }
 
-func (s *SendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) GetType() string {
-	if s == nil {
+func (b *BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) GetType() string {
+	if b == nil {
 		return ""
 	}
-	return s.Type
+	return b.Type
 }
 
-func (s *SendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) UnmarshalJSON(data []byte) error {
+func (b *BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) UnmarshalJSON(data []byte) error {
 	var unmarshaler struct {
 		Type string `json:"type"`
 	}
 	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	s.Type = unmarshaler.Type
+	b.Type = unmarshaler.Type
 	if unmarshaler.Type == "" {
-		return fmt.Errorf("%T did not include discriminant type", s)
+		return fmt.Errorf("%T did not include discriminant type", b)
 	}
 	switch unmarshaler.Type {
 	case "body":
@@ -283,89 +283,89 @@ func (s *SendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemp
 		if err := json.Unmarshal(data, &value); err != nil {
 			return err
 		}
-		s.Body = value
+		b.Body = value
 	case "button":
 		value := new(types.WhatsAppTemplateButtonComponentParams)
 		if err := json.Unmarshal(data, &value); err != nil {
 			return err
 		}
-		s.Button = value
+		b.Button = value
 	case "header":
 		value := new(types.WhatsAppTemplateHeaderComponentParams)
 		if err := json.Unmarshal(data, &value); err != nil {
 			return err
 		}
-		s.Header = value
+		b.Header = value
 	}
 	return nil
 }
 
-func (s SendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) MarshalJSON() ([]byte, error) {
-	if err := s.validate(); err != nil {
+func (b BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) MarshalJSON() ([]byte, error) {
+	if err := b.validate(); err != nil {
 		return nil, err
 	}
-	if s.Body != nil {
-		return internal.MarshalJSONWithDiscriminant(s.Body, "type", "body")
+	if b.Body != nil {
+		return internal.MarshalJSONWithDiscriminant(b.Body, "type", "body")
 	}
-	if s.Button != nil {
-		return internal.MarshalJSONWithDiscriminant(s.Button, "type", "button")
+	if b.Button != nil {
+		return internal.MarshalJSONWithDiscriminant(b.Button, "type", "button")
 	}
-	if s.Header != nil {
-		return internal.MarshalJSONWithDiscriminant(s.Header, "type", "header")
+	if b.Header != nil {
+		return internal.MarshalJSONWithDiscriminant(b.Header, "type", "header")
 	}
-	return nil, fmt.Errorf("type %T does not define a non-empty union type", s)
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", b)
 }
 
-type SendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItemVisitor interface {
+type BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItemVisitor interface {
 	VisitBody(*types.WhatsAppTemplateBodyComponentParams) error
 	VisitButton(*types.WhatsAppTemplateButtonComponentParams) error
 	VisitHeader(*types.WhatsAppTemplateHeaderComponentParams) error
 }
 
-func (s *SendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) Accept(visitor SendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItemVisitor) error {
-	if s.Body != nil {
-		return visitor.VisitBody(s.Body)
+func (b *BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) Accept(visitor BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItemVisitor) error {
+	if b.Body != nil {
+		return visitor.VisitBody(b.Body)
 	}
-	if s.Button != nil {
-		return visitor.VisitButton(s.Button)
+	if b.Button != nil {
+		return visitor.VisitButton(b.Button)
 	}
-	if s.Header != nil {
-		return visitor.VisitHeader(s.Header)
+	if b.Header != nil {
+		return visitor.VisitHeader(b.Header)
 	}
-	return fmt.Errorf("type %T does not define a non-empty union type", s)
+	return fmt.Errorf("type %T does not define a non-empty union type", b)
 }
 
-func (s *SendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) validate() error {
-	if s == nil {
-		return fmt.Errorf("type %T is nil", s)
+func (b *BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem) validate() error {
+	if b == nil {
+		return fmt.Errorf("type %T is nil", b)
 	}
 	var fields []string
-	if s.Body != nil {
+	if b.Body != nil {
 		fields = append(fields, "body")
 	}
-	if s.Button != nil {
+	if b.Button != nil {
 		fields = append(fields, "button")
 	}
-	if s.Header != nil {
+	if b.Header != nil {
 		fields = append(fields, "header")
 	}
 	if len(fields) == 0 {
-		if s.Type != "" {
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", s, s.Type)
+		if b.Type != "" {
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", b, b.Type)
 		}
-		return fmt.Errorf("type %T is empty", s)
+		return fmt.Errorf("type %T is empty", b)
 	}
 	if len(fields) > 1 {
-		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", s, fields)
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", b, fields)
 	}
-	if s.Type != "" {
+	if b.Type != "" {
 		field := fields[0]
-		if s.Type != field {
+		if b.Type != field {
 			return fmt.Errorf(
 				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
-				s,
-				s.Type,
-				s,
+				b,
+				b.Type,
+				b,
 			)
 		}
 	}

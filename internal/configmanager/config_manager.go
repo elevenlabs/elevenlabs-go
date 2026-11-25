@@ -32,13 +32,13 @@ type ConfigManager struct {
 	content                    apiconfig.Config
 	snapshots                  apiconfig.Config
 	chapters                   apiconfig.Config
+	audioNative                apiconfig.Config
 	project                    apiconfig.Config
 	language                   apiconfig.Config
 	transcript                 apiconfig.Config
 	dubbing                    apiconfig.Config
 	transcripts                apiconfig.Config
 	models                     apiconfig.Config
-	audioNative                apiconfig.Config
 	contentProvenance          apiconfig.Config
 	rules                      apiconfig.Config
 	apiKeys                    apiconfig.Config
@@ -149,6 +149,7 @@ type ConfigManager struct {
 	textToDialogueMultiContext apiconfig.Config
 	textToSpeechMultiContext   apiconfig.Config
 	translation                apiconfig.Config
+	subtitling                 apiconfig.Config
 }
 
 // NewConfigManager creates a new configuration manager with the provided config and optional OAuth token service.
@@ -179,13 +180,13 @@ func NewConfigManager(config apiconfig.Config) *ConfigManager {
 		content:                    config,
 		snapshots:                  config,
 		chapters:                   config,
+		audioNative:                config,
 		project:                    config,
 		language:                   config,
 		transcript:                 config,
 		dubbing:                    config,
 		transcripts:                config,
 		models:                     config,
-		audioNative:                config,
 		contentProvenance:          config,
 		rules:                      config,
 		apiKeys:                    config,
@@ -296,6 +297,7 @@ func NewConfigManager(config apiconfig.Config) *ConfigManager {
 		textToDialogueMultiContext: config,
 		textToSpeechMultiContext:   config,
 		translation:                config,
+		subtitling:                 config,
 	}
 }
 
@@ -326,13 +328,13 @@ func (c *ConfigManager) SetBaseURL(baseURL string) {
 	c.content.SetBaseURL(baseURL)
 	c.snapshots.SetBaseURL(baseURL)
 	c.chapters.SetBaseURL(baseURL)
+	c.audioNative.SetBaseURL(baseURL)
 	c.project.SetBaseURL(baseURL)
 	c.language.SetBaseURL(baseURL)
 	c.transcript.SetBaseURL(baseURL)
 	c.dubbing.SetBaseURL(baseURL)
 	c.transcripts.SetBaseURL(baseURL)
 	c.models.SetBaseURL(baseURL)
-	c.audioNative.SetBaseURL(baseURL)
 	c.contentProvenance.SetBaseURL(baseURL)
 	c.rules.SetBaseURL(baseURL)
 	c.apiKeys.SetBaseURL(baseURL)
@@ -443,6 +445,7 @@ func (c *ConfigManager) SetBaseURL(baseURL string) {
 	c.textToDialogueMultiContext.SetBaseURL(baseURL)
 	c.textToSpeechMultiContext.SetBaseURL(baseURL)
 	c.translation.SetBaseURL(baseURL)
+	c.subtitling.SetBaseURL(baseURL)
 }
 
 // SetTimeout updates the Timeout configuration parameter across all services.
@@ -472,13 +475,13 @@ func (c *ConfigManager) SetTimeout(timeout time.Duration) {
 	c.content.SetTimeout(timeout)
 	c.snapshots.SetTimeout(timeout)
 	c.chapters.SetTimeout(timeout)
+	c.audioNative.SetTimeout(timeout)
 	c.project.SetTimeout(timeout)
 	c.language.SetTimeout(timeout)
 	c.transcript.SetTimeout(timeout)
 	c.dubbing.SetTimeout(timeout)
 	c.transcripts.SetTimeout(timeout)
 	c.models.SetTimeout(timeout)
-	c.audioNative.SetTimeout(timeout)
 	c.contentProvenance.SetTimeout(timeout)
 	c.rules.SetTimeout(timeout)
 	c.apiKeys.SetTimeout(timeout)
@@ -589,6 +592,7 @@ func (c *ConfigManager) SetTimeout(timeout time.Duration) {
 	c.textToDialogueMultiContext.SetTimeout(timeout)
 	c.textToSpeechMultiContext.SetTimeout(timeout)
 	c.translation.SetTimeout(timeout)
+	c.subtitling.SetTimeout(timeout)
 }
 
 // SetRetryConfig updates the retry configuration across all services.
@@ -618,13 +622,13 @@ func (c *ConfigManager) SetRetryConfig(retry apiconfig.RetryConfig) {
 	c.content.SetRetryConfig(retry)
 	c.snapshots.SetRetryConfig(retry)
 	c.chapters.SetRetryConfig(retry)
+	c.audioNative.SetRetryConfig(retry)
 	c.project.SetRetryConfig(retry)
 	c.language.SetRetryConfig(retry)
 	c.transcript.SetRetryConfig(retry)
 	c.dubbing.SetRetryConfig(retry)
 	c.transcripts.SetRetryConfig(retry)
 	c.models.SetRetryConfig(retry)
-	c.audioNative.SetRetryConfig(retry)
 	c.contentProvenance.SetRetryConfig(retry)
 	c.rules.SetRetryConfig(retry)
 	c.apiKeys.SetRetryConfig(retry)
@@ -735,6 +739,7 @@ func (c *ConfigManager) SetRetryConfig(retry apiconfig.RetryConfig) {
 	c.textToDialogueMultiContext.SetRetryConfig(retry)
 	c.textToSpeechMultiContext.SetRetryConfig(retry)
 	c.translation.SetRetryConfig(retry)
+	c.subtitling.SetRetryConfig(retry)
 }
 
 // GetHistory returns the configuration for the History service.
@@ -881,6 +886,12 @@ func (c *ConfigManager) GetChapters() *apiconfig.Config {
 	return &c.chapters
 }
 
+// GetAudioNative returns the configuration for the AudioNative service.
+// Returns a pointer to the service-specific config for use in API calls.
+func (c *ConfigManager) GetAudioNative() *apiconfig.Config {
+	return &c.audioNative
+}
+
 // GetProject returns the configuration for the Project service.
 // Returns a pointer to the service-specific config for use in API calls.
 func (c *ConfigManager) GetProject() *apiconfig.Config {
@@ -915,12 +926,6 @@ func (c *ConfigManager) GetTranscripts() *apiconfig.Config {
 // Returns a pointer to the service-specific config for use in API calls.
 func (c *ConfigManager) GetModels() *apiconfig.Config {
 	return &c.models
-}
-
-// GetAudioNative returns the configuration for the AudioNative service.
-// Returns a pointer to the service-specific config for use in API calls.
-func (c *ConfigManager) GetAudioNative() *apiconfig.Config {
-	return &c.audioNative
 }
 
 // GetContentProvenance returns the configuration for the ContentProvenance service.
@@ -1581,6 +1586,12 @@ func (c *ConfigManager) GetTextToSpeechMultiContext() *apiconfig.Config {
 // Returns a pointer to the service-specific config for use in API calls.
 func (c *ConfigManager) GetTranslation() *apiconfig.Config {
 	return &c.translation
+}
+
+// GetSubtitling returns the configuration for the Subtitling service.
+// Returns a pointer to the service-specific config for use in API calls.
+func (c *ConfigManager) GetSubtitling() *apiconfig.Config {
+	return &c.subtitling
 }
 
 // GetBaseURL returns the currently configured base URL.

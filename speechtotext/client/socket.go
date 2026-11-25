@@ -30,6 +30,7 @@ type SpeechToTextConnectRequest struct {
 	NoVerbatim               *bool
 	MultilangMode            *bool
 	Diarize                  *bool
+	InferSpeakerNames        *bool
 	EntityDetection          *types.V1SpeechToTextRealtimeSpeechToTextRequestEntityDetection
 	EntityRedaction          *types.V1SpeechToTextRealtimeSpeechToTextRequestEntityRedaction
 	EntityRedactionMode      *types.SpeechToTextRealtimeEntityRedactionMode
@@ -65,6 +66,7 @@ func (c *Client) Realtime(ctx context.Context, request *SpeechToTextConnectReque
 	internal.AddWebSocketQuery(query, "no_verbatim", request.NoVerbatim)
 	internal.AddWebSocketQuery(query, "multilang_mode", request.MultilangMode)
 	internal.AddWebSocketQuery(query, "diarize", request.Diarize)
+	internal.AddWebSocketQuery(query, "infer_speaker_names", request.InferSpeakerNames)
 	internal.AddWebSocketQuery(query, "entity_detection", request.EntityDetection)
 	internal.AddWebSocketQuery(query, "entity_redaction", request.EntityRedaction)
 	internal.AddWebSocketQuery(query, "entity_redaction_mode", request.EntityRedactionMode)

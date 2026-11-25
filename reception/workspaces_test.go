@@ -4,10 +4,12 @@ import (
 	"testing"
 )
 
-func TestProvisionResellerWorkspaceRequestRoundTrip(t *testing.T) {
+func TestReceptionProvisionResellerWorkspaceRequestRoundTrip(t *testing.T) {
 	t.Parallel()
 	const wire = `{
   "business_name": "value",
+  "vertical": "salon_barbershop",
+  "charge_customer": true,
   "subscription": {
     "tier_id": "value",
     "billing_period": "monthly_period"
@@ -22,5 +24,5 @@ func TestProvisionResellerWorkspaceRequestRoundTrip(t *testing.T) {
   "complete_onboarding": true,
   "idempotency_key": "value"
 }`
-	assertRoundTrip(t, wire, new(ProvisionResellerWorkspaceRequest))
+	assertRoundTrip(t, wire, new(ReceptionProvisionResellerWorkspaceRequest))
 }

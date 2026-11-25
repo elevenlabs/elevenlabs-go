@@ -134,6 +134,10 @@ func TestCreateTestsRequestBodyRoundTrip(t *testing.T) {
               "output_total": {
                 "tokens": 123,
                 "price": 9.99
+              },
+              "output_total_reasoning_portion": {
+                "tokens": 123,
+                "price": 9.99
               }
             }
           }
@@ -291,6 +295,10 @@ func TestCreateTestsRequestBodyRoundTrip(t *testing.T) {
               "price": 9.99
             },
             "output_total": {
+              "tokens": 123,
+              "price": 9.99
+            },
+            "output_total_reasoning_portion": {
               "tokens": 123,
               "price": 9.99
             }
@@ -497,6 +505,10 @@ func TestGetTestsResponseRoundTrip(t *testing.T) {
               "output_total": {
                 "tokens": 123,
                 "price": 9.99
+              },
+              "output_total_reasoning_portion": {
+                "tokens": 123,
+                "price": 9.99
               }
             }
           }
@@ -654,6 +666,10 @@ func TestGetTestsResponseRoundTrip(t *testing.T) {
               "price": 9.99
             },
             "output_total": {
+              "tokens": 123,
+              "price": 9.99
+            },
+            "output_total_reasoning_portion": {
               "tokens": 123,
               "price": 9.99
             }
@@ -849,6 +865,10 @@ func TestUpdateTestsResponseRoundTrip(t *testing.T) {
               "output_total": {
                 "tokens": 123,
                 "price": 9.99
+              },
+              "output_total_reasoning_portion": {
+                "tokens": 123,
+                "price": 9.99
               }
             }
           }
@@ -1006,6 +1026,10 @@ func TestUpdateTestsResponseRoundTrip(t *testing.T) {
               "price": 9.99
             },
             "output_total": {
+              "tokens": 123,
+              "price": 9.99
+            },
+            "output_total_reasoning_portion": {
               "tokens": 123,
               "price": 9.99
             }
@@ -1193,6 +1217,10 @@ func TestUpdateTestsRequestBodyRoundTrip(t *testing.T) {
               "output_total": {
                 "tokens": 123,
                 "price": 9.99
+              },
+              "output_total_reasoning_portion": {
+                "tokens": 123,
+                "price": 9.99
               }
             }
           }
@@ -1350,6 +1378,10 @@ func TestUpdateTestsRequestBodyRoundTrip(t *testing.T) {
               "price": 9.99
             },
             "output_total": {
+              "tokens": 123,
+              "price": 9.99
+            },
+            "output_total_reasoning_portion": {
               "tokens": 123,
               "price": 9.99
             }

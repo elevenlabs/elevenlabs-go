@@ -13,8 +13,10 @@ type ProvisionResellerWorkspaceResponse struct {
 	ReceptionistCount int     `json:"receptionist_count" xml:"receptionist_count" required:"true"`
 	CallsLast30Days   int     `json:"calls_last_30_days" xml:"calls_last_30_days" required:"true"`
 	CreatedAtUnix     int     `json:"created_at_unix" xml:"created_at_unix" required:"true"`
-	// The reseller-managed subscription, when this workspace has one. None means nothing is sold here yet and a tier can be assigned.
+	// The reseller-managed subscription, when this workspace has one. None means the reseller sells nothing here: no tier is assigned yet, or the workspace pays for its own subscription (see charge_customer).
 	Subscription *ResellerWorkspaceSubscription `json:"subscription,omitempty" xml:"subscription,omitempty"`
+	// The workspace pays for its own subscription, so its tier can't be assigned or changed here.
+	ChargeCustomer *bool `json:"charge_customer,omitempty" xml:"charge_customer,omitempty"`
 	// A charge for this workspace is unpaid. Assigning or changing a tier is refused until it clears, so surface it rather than letting it fail.
 	HasPaymentIssue *bool `json:"has_payment_issue,omitempty" xml:"has_payment_issue,omitempty"`
 	// When onboarding finished. Until then the onboarding wizard may replace or remove the workspace's business data.
@@ -72,6 +74,13 @@ func (p *ProvisionResellerWorkspaceResponse) GetSubscription() (value *ResellerW
 	return p.Subscription
 }
 
+func (p *ProvisionResellerWorkspaceResponse) GetChargeCustomer() (value *bool) {
+	if p == nil {
+		return
+	}
+	return p.ChargeCustomer
+}
+
 func (p *ProvisionResellerWorkspaceResponse) GetHasPaymentIssue() (value *bool) {
 	if p == nil {
 		return
@@ -119,6 +128,10 @@ func (p *ProvisionResellerWorkspaceResponse) SetCreatedAtUnix(createdAtUnix int)
 
 func (p *ProvisionResellerWorkspaceResponse) SetSubscription(subscription *ResellerWorkspaceSubscription) {
 	p.Subscription = subscription
+}
+
+func (p *ProvisionResellerWorkspaceResponse) SetChargeCustomer(chargeCustomer *bool) {
+	p.ChargeCustomer = chargeCustomer
 }
 
 func (p *ProvisionResellerWorkspaceResponse) SetHasPaymentIssue(hasPaymentIssue *bool) {

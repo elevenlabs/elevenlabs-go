@@ -1,0 +1,34 @@
+package types
+
+import (
+	"fmt"
+)
+
+// The type of the knowledge base
+type ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemType string
+
+const (
+	ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemTypeFile   ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemType = "file"
+	ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemTypeUrl    ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemType = "url"
+	ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemTypeText   ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemType = "text"
+	ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemTypeFolder ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemType = "folder"
+)
+
+func NewConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemTypeFromString(s string) (ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemType, error) {
+	switch s {
+	case "file":
+		return ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemTypeFile, nil
+	case "url":
+		return ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemTypeUrl, nil
+	case "text":
+		return ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemTypeText, nil
+	case "folder":
+		return ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemTypeFolder, nil
+	}
+	var t ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemType
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (e ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemType) Ptr() *ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemType {
+	return &e
+}

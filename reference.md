@@ -19,6 +19,7 @@ Get generated items
 - `sortDirection`
 - `search`
 - `source`
+- `sources`
 
 ### `Get`
 
@@ -650,6 +651,17 @@ Add shared voice
 
 List similar voices
 
+**Parameters:**
+
+- `category`
+- `gender`
+- `age`
+- `useCases`
+- `minNoticePeriodDays`
+- `includeCustomRates`
+- `includeLiveModerated`
+- `ownerId`
+
 ### `GetShared`
 
 `GET /v1/shared-voices`
@@ -985,6 +997,40 @@ Convert Chapter
 - `projectId` (required)
 - `chapterId` (required)
 
+## AudioNative
+
+### `Create`
+
+`POST /v1/audio-native`
+
+Create audio native project
+
+### `GetSettings`
+
+`GET /v1/audio-native/{project_id}/settings`
+
+Get Audio Native Project Settings
+
+**Parameters:**
+
+- `projectId` (required)
+
+### `Update`
+
+`POST /v1/audio-native/{project_id}/content`
+
+Update audio native project
+
+**Parameters:**
+
+- `projectId` (required)
+
+### `UpdateContentFromUrl`
+
+`POST /v1/audio-native/content`
+
+Update Audio-Native Content From Url
+
 ## Project
 
 ### `List`
@@ -1260,40 +1306,6 @@ Delete Transcript By Id
 `GET /v1/models`
 
 List models
-
-## AudioNative
-
-### `Create`
-
-`POST /v1/audio-native`
-
-Create audio native project
-
-### `GetSettings`
-
-`GET /v1/audio-native/{project_id}/settings`
-
-Get Audio Native Project Settings
-
-**Parameters:**
-
-- `projectId` (required)
-
-### `Update`
-
-`POST /v1/audio-native/{project_id}/content`
-
-Update audio native project
-
-**Parameters:**
-
-- `projectId` (required)
-
-### `UpdateContentFromUrl`
-
-`POST /v1/audio-native/content`
-
-Update Audio-Native Content From Url
 
 ## ContentProvenance
 
@@ -2725,7 +2737,6 @@ List Agent Conversation Tickets
 - `sortBy`
 - `ownerUserId`
 - `assigneeUserId`
-- `issueType`
 - `label`
 - `mergedIntoTicketId`
 - `search`
@@ -2757,7 +2768,6 @@ List Workspace Conversation Tickets
 - `sortBy`
 - `ownerUserId`
 - `assigneeUserId`
-- `issueType`
 - `label`
 - `mergedIntoTicketId`
 - `search`

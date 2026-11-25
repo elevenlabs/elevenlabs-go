@@ -109,7 +109,7 @@ func (r *RawClient) Create(ctx context.Context, serviceAccountUserId string, req
 }
 
 // Update an existing API key for a service account
-func (r *RawClient) Update(ctx context.Context, serviceAccountUserId string, apiKeyId string, request *serviceaccounts.EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch, opts ...option.RequestOption) (*core.Response[any], error) {
+func (r *RawClient) Update(ctx context.Context, serviceAccountUserId string, apiKeyId string, request *serviceaccounts.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch, opts ...option.RequestOption) (*core.Response[any], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,

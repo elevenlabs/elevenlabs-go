@@ -291,7 +291,7 @@ func (r *RawClient) Share(ctx context.Context, publicUserId string, voiceId stri
 }
 
 // Returns a list of shared voices similar to the provided audio sample. If neither similarity_threshold nor top_k is provided, we will apply default values.
-func (r *RawClient) FindSimilarVoices(ctx context.Context, request *types.ListSimilarVoicesRequest, opts ...option.RequestOption) (*core.Response[*types.GetLibraryVoicesResponse], error) {
+func (r *RawClient) FindSimilarVoices(ctx context.Context, listSimilarVoicesRequest *types.ListSimilarVoicesRequest, opts ...option.RequestOption) (*core.Response[*types.GetLibraryVoicesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -299,12 +299,19 @@ func (r *RawClient) FindSimilarVoices(ctx context.Context, request *types.ListSi
 		"https://api.elevenlabs.io",
 	)
 	endpointURL := baseURL + "/v1/similar-voices"
+	queryParams, err := internal.QueryValues(listSimilarVoicesRequest)
+	if err != nil {
+		return nil, err
+	}
+	if len(queryParams) > 0 {
+		endpointURL += "?" + queryParams.Encode()
+	}
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
 	writer := internal.NewMultipartWriter()
-	if err := writer.WriteStruct(request); err != nil {
+	if err := writer.WriteStruct(listSimilarVoicesRequest); err != nil {
 		return nil, err
 	}
 	if err := writer.Close(); err != nil {

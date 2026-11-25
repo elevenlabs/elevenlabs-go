@@ -27,6 +27,7 @@ import (
 	"github.com/elevenlabs/elevenlabs-go/speechtospeech"
 	speechtotextclient "github.com/elevenlabs/elevenlabs-go/speechtotext/client"
 	studioclient "github.com/elevenlabs/elevenlabs-go/studio/client"
+	"github.com/elevenlabs/elevenlabs-go/subtitling"
 	"github.com/elevenlabs/elevenlabs-go/texttodialogue"
 	texttodialoguemulticontext "github.com/elevenlabs/elevenlabs-go/texttodialoguemulticontext"
 	"github.com/elevenlabs/elevenlabs-go/texttosoundeffects"
@@ -79,6 +80,7 @@ type Client struct {
 	Reception                  *receptionclient.Client
 	TextToDialogueMultiContext *texttodialoguemulticontext.Client
 	TextToSpeechMultiContext   *texttospeechmulticontext.Client
+	Subtitling                 *subtitling.Client
 	Translation                *translation.Client
 	options                    *core.RequestOptions
 	baseURL                    string
@@ -128,6 +130,7 @@ func NewClient(opts ...option.RequestOption) *Client {
 		Reception:                  receptionclient.NewClient(options),
 		TextToDialogueMultiContext: texttodialoguemulticontext.NewClient(options),
 		TextToSpeechMultiContext:   texttospeechmulticontext.NewClient(options),
+		Subtitling:                 subtitling.NewClient(options),
 		Translation:                translation.NewClient(options),
 		options:                    options,
 		baseURL:                    options.BaseURL,

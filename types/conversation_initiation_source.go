@@ -26,11 +26,13 @@ const (
 	ConversationInitiationSourceWhatsapp              ConversationInitiationSource = "whatsapp"
 	ConversationInitiationSourceTwilioSms             ConversationInitiationSource = "twilio_sms"
 	ConversationInitiationSourceFlutterSdk            ConversationInitiationSource = "flutter_sdk"
+	ConversationInitiationSourceUnitySdk              ConversationInitiationSource = "unity_sdk"
 	ConversationInitiationSourceZendeskIntegration    ConversationInitiationSource = "zendesk_integration"
 	ConversationInitiationSourceSlackIntegration      ConversationInitiationSource = "slack_integration"
 	ConversationInitiationSourceTelegramIntegration   ConversationInitiationSource = "telegram_integration"
 	ConversationInitiationSourceIntercomIntegration   ConversationInitiationSource = "intercom_integration"
 	ConversationInitiationSourceFreshdeskIntegration  ConversationInitiationSource = "freshdesk_integration"
+	ConversationInitiationSourcePlainIntegration      ConversationInitiationSource = "plain_integration"
 	ConversationInitiationSourceSalesforceIntegration ConversationInitiationSource = "salesforce_integration"
 	ConversationInitiationSourceTemplatePreview       ConversationInitiationSource = "template_preview"
 	ConversationInitiationSourceGenesysBotConnector   ConversationInitiationSource = "genesys_bot_connector"
@@ -76,6 +78,8 @@ func NewConversationInitiationSourceFromString(s string) (ConversationInitiation
 		return ConversationInitiationSourceTwilioSms, nil
 	case "flutter_sdk":
 		return ConversationInitiationSourceFlutterSdk, nil
+	case "unity_sdk":
+		return ConversationInitiationSourceUnitySdk, nil
 	case "zendesk_integration":
 		return ConversationInitiationSourceZendeskIntegration, nil
 	case "slack_integration":
@@ -86,6 +90,8 @@ func NewConversationInitiationSourceFromString(s string) (ConversationInitiation
 		return ConversationInitiationSourceIntercomIntegration, nil
 	case "freshdesk_integration":
 		return ConversationInitiationSourceFreshdeskIntegration, nil
+	case "plain_integration":
+		return ConversationInitiationSourcePlainIntegration, nil
 	case "salesforce_integration":
 		return ConversationInitiationSourceSalesforceIntegration, nil
 	case "template_preview":

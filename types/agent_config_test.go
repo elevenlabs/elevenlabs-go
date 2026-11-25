@@ -296,6 +296,9 @@ func TestAgentConfigRoundTrip(t *testing.T) {
       "auth_connection": {
         "auth_connection_id": "value"
       },
+      "mtls_auth_connection": {
+        "auth_connection_id": "value"
+      },
       "request_headers": {
         "key": "value"
       },
@@ -803,6 +806,9 @@ func TestAgentConfigRoundTrip2(t *testing.T) {
         "secret_id": "value"
       },
       "auth_connection": {
+        "auth_connection_id": "value"
+      },
+      "mtls_auth_connection": {
         "auth_connection_id": "value"
       },
       "request_headers": {

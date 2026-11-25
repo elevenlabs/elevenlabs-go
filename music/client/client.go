@@ -58,7 +58,7 @@ func (c *Client) Compose(ctx context.Context, request *types.BodyComposeMusicV1M
 }
 
 // Compose a song from a prompt or a composition plan.
-func (c *Client) ComposeDetailed(ctx context.Context, request *types.BodyComposeMusicWithADetailedResponseV1MusicDetailedPost, opts ...option.RequestOption) (*types.ComposeDetailedMusicResponse, error) {
+func (c *Client) ComposeDetailed(ctx context.Context, request *types.BodyComposeMusicWithADetailedResponseV1MusicDetailedPost, opts ...option.RequestOption) (io.Reader, error) {
 	response, err := c.WithRawResponse.ComposeDetailed(ctx, request, opts...)
 	if err != nil {
 		return nil, err

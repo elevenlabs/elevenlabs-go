@@ -31,7 +31,7 @@ func NewRawClient(options *core.RequestOptions) *RawClient {
 }
 
 // Replaces all existing rules on the pronunciation dictionary with the provided ones.
-func (r *RawClient) Set(ctx context.Context, pronunciationDictionaryId string, request *pronunciationdictionaries.PronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost, opts ...option.RequestOption) (*core.Response[*types.PronunciationDictionaryRulesResponseModel], error) {
+func (r *RawClient) Set(ctx context.Context, pronunciationDictionaryId string, request *pronunciationdictionaries.BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost, opts ...option.RequestOption) (*core.Response[*types.PronunciationDictionaryRulesResponseModel], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,

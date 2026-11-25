@@ -230,7 +230,7 @@ func TestBodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePost
 	assertRoundTrip(t, wire, new(BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePost))
 }
 
-func TestSendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItemRoundTrip(t *testing.T) {
+func TestBodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItemRoundTrip(t *testing.T) {
 	t.Parallel()
 	const wire = `{
   "type": "header",
@@ -242,5 +242,5 @@ func TestSendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemp
     }
   ]
 }`
-	assertRoundTrip(t, wire, new(SendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem))
+	assertRoundTrip(t, wire, new(BodySendAnOutboundMessageViaWhatsAppV1ConvaiWhatsappOutboundMessagePostTemplateParamsItem))
 }

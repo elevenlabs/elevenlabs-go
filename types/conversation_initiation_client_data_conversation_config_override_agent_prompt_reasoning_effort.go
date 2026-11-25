@@ -1,0 +1,43 @@
+package types
+
+import (
+	"fmt"
+)
+
+// Reasoning effort of the model. Only available for some models.
+type ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffort string
+
+const (
+	ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffortNone    ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffort = "none"
+	ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffortMinimal ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffort = "minimal"
+	ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffortLow     ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffort = "low"
+	ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffortMedium  ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffort = "medium"
+	ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffortHigh    ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffort = "high"
+	ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffortXhigh   ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffort = "xhigh"
+	ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffortMax     ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffort = "max"
+)
+
+func NewConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffortFromString(s string) (ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffort, error) {
+	switch s {
+	case "none":
+		return ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffortNone, nil
+	case "minimal":
+		return ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffortMinimal, nil
+	case "low":
+		return ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffortLow, nil
+	case "medium":
+		return ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffortMedium, nil
+	case "high":
+		return ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffortHigh, nil
+	case "xhigh":
+		return ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffortXhigh, nil
+	case "max":
+		return ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffortMax, nil
+	}
+	var t ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffort
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (e ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffort) Ptr() *ConversationInitiationClientDataConversationConfigOverrideAgentPromptReasoningEffort {
+	return &e
+}

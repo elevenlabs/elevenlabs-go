@@ -234,116 +234,168 @@ func (b *BodyUpdateAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposa
 	return json.Marshal(marshaler)
 }
 
-type ReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost struct {
-	State types.MergeProposalReviewState `json:"state" xml:"state" required:"true"`
+type BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost struct {
+	// Unique identifier for the merge_proposal.
+	MergeProposalId string `json:"-" url:"-"`
+	// The id of an agent. This is returned on agent creation.
+	AgentId string                         `json:"-" url:"-"`
+	State   types.MergeProposalReviewState `json:"state" xml:"state" required:"true"`
 	// Optional comment to leave with the review.
 	Comment *string `json:"comment,omitempty" xml:"comment,omitempty" maxLength:"4096"`
 }
 
-func (r *ReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) GetState() (value types.MergeProposalReviewState) {
-	if r == nil {
+func (b *BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) GetMergeProposalId() (value string) {
+	if b == nil {
 		return
 	}
-	return r.State
+	return b.MergeProposalId
 }
 
-func (r *ReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) GetComment() (value *string) {
-	if r == nil {
+func (b *BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) GetAgentId() (value string) {
+	if b == nil {
 		return
 	}
-	return r.Comment
+	return b.AgentId
 }
 
-func (r *ReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) SetState(state types.MergeProposalReviewState) {
-	r.State = state
+func (b *BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) GetState() (value types.MergeProposalReviewState) {
+	if b == nil {
+		return
+	}
+	return b.State
 }
 
-func (r *ReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) SetComment(comment *string) {
-	r.Comment = comment
+func (b *BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) GetComment() (value *string) {
+	if b == nil {
+		return
+	}
+	return b.Comment
 }
 
-func (r *ReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) GetExtraProperties() map[string]interface{} {
+func (b *BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) SetMergeProposalId(mergeProposalId string) {
+	b.MergeProposalId = mergeProposalId
+}
+
+func (b *BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) SetAgentId(agentId string) {
+	b.AgentId = agentId
+}
+
+func (b *BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) SetState(state types.MergeProposalReviewState) {
+	b.State = state
+}
+
+func (b *BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) SetComment(comment *string) {
+	b.Comment = comment
+}
+
+func (b *BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) GetExtraProperties() map[string]interface{} {
 	return nil
 }
 
-func (r ReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) String() string {
-	jsonData, err := json.MarshalIndent(r, "", "  ")
+func (b BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) String() string {
+	jsonData, err := json.MarshalIndent(b, "", "  ")
 	if err != nil {
-		return "error converting struct: ReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost to string"
+		return "error converting struct: BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost to string"
 	}
 	return string(jsonData)
 }
 
-func (r *ReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) UnmarshalJSON(data []byte) error {
-	if err := unmarshal.ValidateRequiredJSONKeys(data, r); err != nil {
+func (b *BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) UnmarshalJSON(data []byte) error {
+	if err := unmarshal.ValidateRequiredJSONKeys(data, b); err != nil {
 		return err
 	}
-	type alias ReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost
+	type alias BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost
 	var tmp alias
 	if err := json.Unmarshal(data, &tmp); err != nil {
 		return err
 	}
-	*r = ReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost(tmp)
+	*b = BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost(tmp)
 	return nil
 }
 
-func (r *ReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) MarshalJSON() ([]byte, error) {
-	type embed ReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost
+func (b *BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost) MarshalJSON() ([]byte, error) {
+	type embed BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost
 	var marshaler = struct {
 		embed
 	}{
-		embed: embed(*r),
+		embed: embed(*b),
 	}
 	return json.Marshal(marshaler)
 }
 
-type OnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost struct {
+type BodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost struct {
+	// Unique identifier for the merge_proposal.
+	MergeProposalId string `json:"-" url:"-"`
+	// The id of an agent. This is returned on agent creation.
+	AgentId string `json:"-" url:"-"`
 	// The comment text. Markdown is supported.
 	Body string `json:"body" xml:"body" required:"true" maxLength:"4096" minLength:"1"`
 }
 
-func (o *OnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost) GetBody() (value string) {
-	if o == nil {
+func (b *BodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost) GetMergeProposalId() (value string) {
+	if b == nil {
 		return
 	}
-	return o.Body
+	return b.MergeProposalId
 }
 
-func (o *OnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost) SetBody(body string) {
-	o.Body = body
+func (b *BodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost) GetAgentId() (value string) {
+	if b == nil {
+		return
+	}
+	return b.AgentId
 }
 
-func (o *OnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost) GetExtraProperties() map[string]interface{} {
+func (b *BodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost) GetBody() (value string) {
+	if b == nil {
+		return
+	}
+	return b.Body
+}
+
+func (b *BodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost) SetMergeProposalId(mergeProposalId string) {
+	b.MergeProposalId = mergeProposalId
+}
+
+func (b *BodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost) SetAgentId(agentId string) {
+	b.AgentId = agentId
+}
+
+func (b *BodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost) SetBody(body string) {
+	b.Body = body
+}
+
+func (b *BodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost) GetExtraProperties() map[string]interface{} {
 	return nil
 }
 
-func (o OnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost) String() string {
-	jsonData, err := json.MarshalIndent(o, "", "  ")
+func (b BodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost) String() string {
+	jsonData, err := json.MarshalIndent(b, "", "  ")
 	if err != nil {
-		return "error converting struct: OnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost to string"
+		return "error converting struct: BodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost to string"
 	}
 	return string(jsonData)
 }
 
-func (o *OnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost) UnmarshalJSON(data []byte) error {
-	if err := unmarshal.ValidateRequiredJSONKeys(data, o); err != nil {
+func (b *BodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost) UnmarshalJSON(data []byte) error {
+	if err := unmarshal.ValidateRequiredJSONKeys(data, b); err != nil {
 		return err
 	}
-	type alias OnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost
+	type alias BodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost
 	var tmp alias
 	if err := json.Unmarshal(data, &tmp); err != nil {
 		return err
 	}
-	*o = OnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost(tmp)
+	*b = BodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost(tmp)
 	return nil
 }
 
-func (o *OnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost) MarshalJSON() ([]byte, error) {
-	type embed OnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost
+func (b *BodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost) MarshalJSON() ([]byte, error) {
+	type embed BodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost
 	var marshaler = struct {
 		embed
 	}{
-		embed: embed(*o),
+		embed: embed(*b),
 	}
 	return json.Marshal(marshaler)
 }
@@ -355,7 +407,7 @@ type BodyMergeAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdMe
 	AgentId string `json:"-" url:"-"`
 	// Whether to archive the source branch after merging.
 	ArchiveSourceBranch *bool `json:"archive_source_branch,omitempty" xml:"archive_source_branch,omitempty"`
-	// Force source branch changes onto the target, overriding timestamp-based conflict resolution.
+	// Keep the source branch's value for every conflict.
 	Force *bool `json:"force,omitempty" xml:"force,omitempty"`
 }
 

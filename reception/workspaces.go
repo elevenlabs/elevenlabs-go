@@ -7,8 +7,12 @@ import (
 	big "math/big"
 )
 
-type ProvisionResellerWorkspaceRequest struct {
+type ReceptionProvisionResellerWorkspaceRequest struct {
 	BusinessName string `json:"business_name" xml:"business_name" required:"true" maxLength:"100" minLength:"1"`
+	// The business's vertical, used with `complete_onboarding`. Without it, onboarding picks the vertical as usual.
+	Vertical *types.ReceptionVertical `json:"vertical,omitempty" xml:"vertical,omitempty"`
+	// Bill the workspace's own customer instead of the reseller: it checks out and sees its billing itself, and the reseller earns a commission. Only for a reseller on standard billing.
+	ChargeCustomer *bool `json:"charge_customer,omitempty" xml:"charge_customer,omitempty"`
 	// Paid tier to subscribe to. Omitted leaves the workspace with no subscription.
 	Subscription *types.ProvisionResellerWorkspaceSubscription `json:"subscription,omitempty" xml:"subscription,omitempty"`
 	// A free number from the reseller's phone pool, reserved for the workspace until onboarding binds it to the receptionist.
@@ -21,94 +25,116 @@ type ProvisionResellerWorkspaceRequest struct {
 	IdempotencyKey *string `json:"idempotency_key,omitempty" xml:"idempotency_key,omitempty" maxLength:"255"`
 }
 
-func (p *ProvisionResellerWorkspaceRequest) GetBusinessName() (value string) {
-	if p == nil {
+func (r *ReceptionProvisionResellerWorkspaceRequest) GetBusinessName() (value string) {
+	if r == nil {
 		return
 	}
-	return p.BusinessName
+	return r.BusinessName
 }
 
-func (p *ProvisionResellerWorkspaceRequest) GetSubscription() (value *types.ProvisionResellerWorkspaceSubscription) {
-	if p == nil {
+func (r *ReceptionProvisionResellerWorkspaceRequest) GetVertical() (value *types.ReceptionVertical) {
+	if r == nil {
 		return
 	}
-	return p.Subscription
+	return r.Vertical
 }
 
-func (p *ProvisionResellerWorkspaceRequest) GetPhoneNumber() (value *string) {
-	if p == nil {
+func (r *ReceptionProvisionResellerWorkspaceRequest) GetChargeCustomer() (value *bool) {
+	if r == nil {
 		return
 	}
-	return p.PhoneNumber
+	return r.ChargeCustomer
 }
 
-func (p *ProvisionResellerWorkspaceRequest) GetMembers() (value []*types.TeamInviteRequest) {
-	if p == nil {
+func (r *ReceptionProvisionResellerWorkspaceRequest) GetSubscription() (value *types.ProvisionResellerWorkspaceSubscription) {
+	if r == nil {
 		return
 	}
-	return p.Members
+	return r.Subscription
 }
 
-func (p *ProvisionResellerWorkspaceRequest) GetCompleteOnboarding() (value *bool) {
-	if p == nil {
+func (r *ReceptionProvisionResellerWorkspaceRequest) GetPhoneNumber() (value *string) {
+	if r == nil {
 		return
 	}
-	return p.CompleteOnboarding
+	return r.PhoneNumber
 }
 
-func (p *ProvisionResellerWorkspaceRequest) GetIdempotencyKey() (value *string) {
-	if p == nil {
+func (r *ReceptionProvisionResellerWorkspaceRequest) GetMembers() (value []*types.TeamInviteRequest) {
+	if r == nil {
 		return
 	}
-	return p.IdempotencyKey
+	return r.Members
 }
 
-func (p *ProvisionResellerWorkspaceRequest) SetBusinessName(businessName string) {
-	p.BusinessName = businessName
+func (r *ReceptionProvisionResellerWorkspaceRequest) GetCompleteOnboarding() (value *bool) {
+	if r == nil {
+		return
+	}
+	return r.CompleteOnboarding
 }
 
-func (p *ProvisionResellerWorkspaceRequest) SetSubscription(subscription *types.ProvisionResellerWorkspaceSubscription) {
-	p.Subscription = subscription
+func (r *ReceptionProvisionResellerWorkspaceRequest) GetIdempotencyKey() (value *string) {
+	if r == nil {
+		return
+	}
+	return r.IdempotencyKey
 }
 
-func (p *ProvisionResellerWorkspaceRequest) SetPhoneNumber(phoneNumber *string) {
-	p.PhoneNumber = phoneNumber
+func (r *ReceptionProvisionResellerWorkspaceRequest) SetBusinessName(businessName string) {
+	r.BusinessName = businessName
 }
 
-func (p *ProvisionResellerWorkspaceRequest) SetMembers(members []*types.TeamInviteRequest) {
-	p.Members = members
+func (r *ReceptionProvisionResellerWorkspaceRequest) SetVertical(vertical *types.ReceptionVertical) {
+	r.Vertical = vertical
 }
 
-func (p *ProvisionResellerWorkspaceRequest) SetCompleteOnboarding(completeOnboarding *bool) {
-	p.CompleteOnboarding = completeOnboarding
+func (r *ReceptionProvisionResellerWorkspaceRequest) SetChargeCustomer(chargeCustomer *bool) {
+	r.ChargeCustomer = chargeCustomer
 }
 
-func (p *ProvisionResellerWorkspaceRequest) SetIdempotencyKey(idempotencyKey *string) {
-	p.IdempotencyKey = idempotencyKey
+func (r *ReceptionProvisionResellerWorkspaceRequest) SetSubscription(subscription *types.ProvisionResellerWorkspaceSubscription) {
+	r.Subscription = subscription
 }
 
-func (p *ProvisionResellerWorkspaceRequest) GetExtraProperties() map[string]interface{} {
+func (r *ReceptionProvisionResellerWorkspaceRequest) SetPhoneNumber(phoneNumber *string) {
+	r.PhoneNumber = phoneNumber
+}
+
+func (r *ReceptionProvisionResellerWorkspaceRequest) SetMembers(members []*types.TeamInviteRequest) {
+	r.Members = members
+}
+
+func (r *ReceptionProvisionResellerWorkspaceRequest) SetCompleteOnboarding(completeOnboarding *bool) {
+	r.CompleteOnboarding = completeOnboarding
+}
+
+func (r *ReceptionProvisionResellerWorkspaceRequest) SetIdempotencyKey(idempotencyKey *string) {
+	r.IdempotencyKey = idempotencyKey
+}
+
+func (r *ReceptionProvisionResellerWorkspaceRequest) GetExtraProperties() map[string]interface{} {
 	return nil
 }
 
-func (p ProvisionResellerWorkspaceRequest) String() string {
-	jsonData, err := json.MarshalIndent(p, "", "  ")
+func (r ReceptionProvisionResellerWorkspaceRequest) String() string {
+	jsonData, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
-		return "error converting struct: ProvisionResellerWorkspaceRequest to string"
+		return "error converting struct: ReceptionProvisionResellerWorkspaceRequest to string"
 	}
 	return string(jsonData)
 }
 
-func (p *ProvisionResellerWorkspaceRequest) UnmarshalJSON(data []byte) error {
-	return unmarshal.UnmarshalNullable(data, p)
+func (r *ReceptionProvisionResellerWorkspaceRequest) UnmarshalJSON(data []byte) error {
+	return unmarshal.UnmarshalNullable(data, r)
 }
 
-func (p *ProvisionResellerWorkspaceRequest) MarshalJSON() ([]byte, error) {
-	type embed ProvisionResellerWorkspaceRequest
+func (r *ReceptionProvisionResellerWorkspaceRequest) MarshalJSON() ([]byte, error) {
+	type embed ReceptionProvisionResellerWorkspaceRequest
 	var marshaler = struct {
 		embed
 	}{
-		embed: embed(*p),
+		embed: embed(*r),
 	}
 	return json.Marshal(marshaler)
 }

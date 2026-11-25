@@ -10,6 +10,7 @@ type QueryArrayJsonSchemaPropertyOutputItems struct {
 	LiteralJsonSchemaProperty      *LiteralJsonSchemaProperty
 	ObjectJsonSchemaPropertyOutput *ObjectJsonSchemaPropertyOutput
 	ArrayJsonSchemaPropertyOutput  *ArrayJsonSchemaPropertyOutput
+	AnyOfJsonSchemaPropertyOutput  *AnyOfJsonSchemaPropertyOutput
 	typ                            string
 }
 
@@ -41,6 +42,16 @@ func (q *QueryArrayJsonSchemaPropertyOutputItems) GetArrayJsonSchemaPropertyOutp
 		return nil
 	}
 	return q.ArrayJsonSchemaPropertyOutput
+}
+
+func (q *QueryArrayJsonSchemaPropertyOutputItems) GetAnyOfJsonSchemaPropertyOutput() *AnyOfJsonSchemaPropertyOutput {
+	if q == nil {
+		return nil
+	}
+	if q.AnyOfJsonSchemaPropertyOutput == nil {
+		return nil
+	}
+	return q.AnyOfJsonSchemaPropertyOutput
 }
 
 func (q *QueryArrayJsonSchemaPropertyOutputItems) UnmarshalJSON(data []byte) error {
@@ -106,6 +117,12 @@ func (q *QueryArrayJsonSchemaPropertyOutputItems) UnmarshalJSON(data []byte) err
 			return nil
 		}
 	}
+	var valueAnyOfJsonSchemaPropertyOutput *AnyOfJsonSchemaPropertyOutput
+	if err := json.Unmarshal(data, &valueAnyOfJsonSchemaPropertyOutput); err == nil {
+		q.typ = "AnyOfJsonSchemaPropertyOutput"
+		q.AnyOfJsonSchemaPropertyOutput = valueAnyOfJsonSchemaPropertyOutput
+		return nil
+	}
 
 	// Retried without their key guards, for a payload that matched none of them.
 	var valueObjectJsonSchemaPropertyOutputFallback *ObjectJsonSchemaPropertyOutput
@@ -133,6 +150,9 @@ func (q QueryArrayJsonSchemaPropertyOutputItems) MarshalJSON() ([]byte, error) {
 	if q.typ == "ArrayJsonSchemaPropertyOutput" || q.ArrayJsonSchemaPropertyOutput != nil {
 		return json.Marshal(q.ArrayJsonSchemaPropertyOutput)
 	}
+	if q.typ == "AnyOfJsonSchemaPropertyOutput" || q.AnyOfJsonSchemaPropertyOutput != nil {
+		return json.Marshal(q.AnyOfJsonSchemaPropertyOutput)
+	}
 	return nil, fmt.Errorf("type %T does not include a non-empty union type", q)
 }
 
@@ -140,6 +160,7 @@ type QueryArrayJsonSchemaPropertyOutputItemsVisitor interface {
 	VisitLiteralJsonSchemaProperty(*LiteralJsonSchemaProperty) error
 	VisitObjectJsonSchemaPropertyOutput(*ObjectJsonSchemaPropertyOutput) error
 	VisitArrayJsonSchemaPropertyOutput(*ArrayJsonSchemaPropertyOutput) error
+	VisitAnyOfJsonSchemaPropertyOutput(*AnyOfJsonSchemaPropertyOutput) error
 }
 
 func (q *QueryArrayJsonSchemaPropertyOutputItems) Accept(visitor QueryArrayJsonSchemaPropertyOutputItemsVisitor) error {
@@ -151,6 +172,9 @@ func (q *QueryArrayJsonSchemaPropertyOutputItems) Accept(visitor QueryArrayJsonS
 	}
 	if q.typ == "ArrayJsonSchemaPropertyOutput" || q.ArrayJsonSchemaPropertyOutput != nil {
 		return visitor.VisitArrayJsonSchemaPropertyOutput(q.ArrayJsonSchemaPropertyOutput)
+	}
+	if q.typ == "AnyOfJsonSchemaPropertyOutput" || q.AnyOfJsonSchemaPropertyOutput != nil {
+		return visitor.VisitAnyOfJsonSchemaPropertyOutput(q.AnyOfJsonSchemaPropertyOutput)
 	}
 	return fmt.Errorf("type %T does not include a non-empty union type", q)
 }

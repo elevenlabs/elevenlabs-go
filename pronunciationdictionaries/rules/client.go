@@ -33,7 +33,7 @@ func NewClient(options *core.RequestOptions) *Client {
 }
 
 // Replaces all existing rules on the pronunciation dictionary with the provided ones.
-func (c *Client) Set(ctx context.Context, pronunciationDictionaryId string, request *pronunciationdictionaries.PronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost, opts ...option.RequestOption) (*types.PronunciationDictionaryRulesResponseModel, error) {
+func (c *Client) Set(ctx context.Context, pronunciationDictionaryId string, request *pronunciationdictionaries.BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost, opts ...option.RequestOption) (*types.PronunciationDictionaryRulesResponseModel, error) {
 	response, err := c.WithRawResponse.Set(ctx, pronunciationDictionaryId, request, opts...)
 	if err != nil {
 		return nil, err

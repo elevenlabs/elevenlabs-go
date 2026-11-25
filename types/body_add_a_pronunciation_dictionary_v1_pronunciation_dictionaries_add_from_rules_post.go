@@ -15,7 +15,7 @@ type BodyAddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPost 
 	// A description of the pronunciation dictionary, used for identification only.
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// Should be one of 'admin', 'editor' or 'viewer'. If not provided, defaults to no access.
-	WorkspaceAccess *AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccess `json:"workspace_access,omitempty" xml:"workspace_access,omitempty"`
+	WorkspaceAccess *BodyAddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccess `json:"workspace_access,omitempty" xml:"workspace_access,omitempty"`
 }
 
 func (b *BodyAddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPost) GetRules() (value []*BodyAddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostRulesItem) {
@@ -39,7 +39,7 @@ func (b *BodyAddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesP
 	return b.Description
 }
 
-func (b *BodyAddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPost) GetWorkspaceAccess() (value *AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccess) {
+func (b *BodyAddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPost) GetWorkspaceAccess() (value *BodyAddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccess) {
 	if b == nil {
 		return
 	}
@@ -58,7 +58,7 @@ func (b *BodyAddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesP
 	b.Description = description
 }
 
-func (b *BodyAddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPost) SetWorkspaceAccess(workspaceAccess *AddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccess) {
+func (b *BodyAddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPost) SetWorkspaceAccess(workspaceAccess *BodyAddAPronunciationDictionaryV1PronunciationDictionariesAddFromRulesPostWorkspaceAccess) {
 	b.WorkspaceAccess = workspaceAccess
 }
 

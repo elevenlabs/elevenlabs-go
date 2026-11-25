@@ -68,11 +68,36 @@ func TestBodyUpdateAgentBranchV1ConvaiAgentsAgentIdBranchesBranchIdPatchRoundTri
 	assertRoundTrip(t, wire, new(BodyUpdateAgentBranchV1ConvaiAgentsAgentIdBranchesBranchIdPatch))
 }
 
-func TestMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePostRoundTrip(t *testing.T) {
+func TestBodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePostRoundTrip(t *testing.T) {
 	t.Parallel()
 	const wire = `{
   "archive_source_branch": true,
-  "force": true
+  "force": true,
+  "conflict_resolutions": [
+    {
+      "conflict_id": "value",
+      "choice": "source",
+      "custom_value": "value"
+    }
+  ],
+  "source_tip_id": "value",
+  "target_tip_id": "value"
 }`
-	assertRoundTrip(t, wire, new(MergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost))
+	assertRoundTrip(t, wire, new(BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost))
+}
+
+func TestBodyRebaseABranchOntoMainV1ConvaiAgentsAgentIdBranchesBranchIdRebasePostRoundTrip(t *testing.T) {
+	t.Parallel()
+	const wire = `{
+  "conflict_resolutions": [
+    {
+      "conflict_id": "value",
+      "choice": "source",
+      "custom_value": "value"
+    }
+  ],
+  "branch_tip_id": "value",
+  "source_tip_id": "value"
+}`
+	assertRoundTrip(t, wire, new(BodyRebaseABranchOntoMainV1ConvaiAgentsAgentIdBranchesBranchIdRebasePost))
 }

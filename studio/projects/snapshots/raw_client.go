@@ -109,7 +109,7 @@ func (r *RawClient) Get(ctx context.Context, projectId string, projectSnapshotId
 }
 
 // Stream the audio from a Studio project snapshot.
-func (r *RawClient) Stream(ctx context.Context, projectId string, projectSnapshotId string, request *projects.StreamStudioProjectAudioV1StudioProjectsProjectIdSnapshotsProjectSnapshotIdStreamPost, opts ...option.RequestOption) (*core.Response[string], error) {
+func (r *RawClient) Stream(ctx context.Context, projectId string, projectSnapshotId string, request *projects.BodyStreamStudioProjectAudioV1StudioProjectsProjectIdSnapshotsProjectSnapshotIdStreamPost, opts ...option.RequestOption) (*core.Response[string], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,

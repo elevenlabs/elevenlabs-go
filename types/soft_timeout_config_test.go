@@ -15,6 +15,7 @@ func TestSoftTimeoutConfigRoundTrip(t *testing.T) {
   "use_llm_generated_message": true,
   "randomize_fillers": true,
   "max_soft_timeouts_per_generation": 8,
+  "pause_after_filler": true,
   "llm_generated_message_prompt_override": "value",
   "disable_until_first_user_message": true
 }`

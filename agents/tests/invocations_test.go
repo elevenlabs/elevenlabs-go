@@ -54,6 +54,7 @@ func TestResubmitTestsRequestModelRoundTrip(t *testing.T) {
           "use_llm_generated_message": true,
           "randomize_fillers": true,
           "max_soft_timeouts_per_generation": 8,
+          "pause_after_filler": true,
           "llm_generated_message_prompt_override": "value",
           "disable_until_first_user_message": true
         },
@@ -513,6 +514,9 @@ func TestResubmitTestsRequestModelRoundTrip(t *testing.T) {
               "secret_id": "value"
             },
             "auth_connection": {
+              "auth_connection_id": "value"
+            },
+            "mtls_auth_connection": {
               "auth_connection_id": "value"
             },
             "request_headers": {
@@ -1204,6 +1208,9 @@ func TestResubmitTestsRequestModelRoundTrip(t *testing.T) {
           }
         },
         "auto_resolve_after_inactive_minutes": 123,
+        "environments": [
+          "value"
+        ],
         "notifiers": [
           {
             "type": "webhook",

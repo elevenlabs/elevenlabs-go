@@ -498,11 +498,10 @@ var (
 	listTriageTicketsRequestFieldSortBy             = big.NewInt(1 << 5)
 	listTriageTicketsRequestFieldOwnerUserId        = big.NewInt(1 << 6)
 	listTriageTicketsRequestFieldAssigneeUserId     = big.NewInt(1 << 7)
-	listTriageTicketsRequestFieldIssueType          = big.NewInt(1 << 8)
-	listTriageTicketsRequestFieldLabel              = big.NewInt(1 << 9)
-	listTriageTicketsRequestFieldMergedIntoTicketId = big.NewInt(1 << 10)
-	listTriageTicketsRequestFieldSearch             = big.NewInt(1 << 11)
-	listTriageTicketsRequestFieldCursor             = big.NewInt(1 << 12)
+	listTriageTicketsRequestFieldLabel              = big.NewInt(1 << 8)
+	listTriageTicketsRequestFieldMergedIntoTicketId = big.NewInt(1 << 9)
+	listTriageTicketsRequestFieldSearch             = big.NewInt(1 << 10)
+	listTriageTicketsRequestFieldCursor             = big.NewInt(1 << 11)
 )
 
 type ListTriageTicketsRequest struct {
@@ -514,7 +513,6 @@ type ListTriageTicketsRequest struct {
 	SortBy             *types.AgentConversationTicketSortBy     `json:"-" url:"sort_by,omitempty"`
 	OwnerUserId        *string                                  `json:"-" url:"owner_user_id,omitempty"`
 	AssigneeUserId     *string                                  `json:"-" url:"assignee_user_id,omitempty"`
-	IssueType          *types.AgentConversationTicketIssueType  `json:"-" url:"issue_type,omitempty"`
 	Label              *string                                  `json:"-" url:"label,omitempty"`
 	MergedIntoTicketId *string                                  `json:"-" url:"merged_into_ticket_id,omitempty"`
 	Search             *string                                  `json:"-" url:"search,omitempty"`
@@ -587,13 +585,6 @@ func (l *ListTriageTicketsRequest) SetAssigneeUserId(assigneeUserId *string) {
 	l.require(listTriageTicketsRequestFieldAssigneeUserId)
 }
 
-// SetIssueType sets the IssueType field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (l *ListTriageTicketsRequest) SetIssueType(issueType *types.AgentConversationTicketIssueType) {
-	l.IssueType = issueType
-	l.require(listTriageTicketsRequestFieldIssueType)
-}
-
 // SetLabel sets the Label field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (l *ListTriageTicketsRequest) SetLabel(label *string) {
@@ -631,11 +622,10 @@ var (
 	listForWorkspaceTriageTicketsRequestFieldSortBy             = big.NewInt(1 << 5)
 	listForWorkspaceTriageTicketsRequestFieldOwnerUserId        = big.NewInt(1 << 6)
 	listForWorkspaceTriageTicketsRequestFieldAssigneeUserId     = big.NewInt(1 << 7)
-	listForWorkspaceTriageTicketsRequestFieldIssueType          = big.NewInt(1 << 8)
-	listForWorkspaceTriageTicketsRequestFieldLabel              = big.NewInt(1 << 9)
-	listForWorkspaceTriageTicketsRequestFieldMergedIntoTicketId = big.NewInt(1 << 10)
-	listForWorkspaceTriageTicketsRequestFieldSearch             = big.NewInt(1 << 11)
-	listForWorkspaceTriageTicketsRequestFieldCursor             = big.NewInt(1 << 12)
+	listForWorkspaceTriageTicketsRequestFieldLabel              = big.NewInt(1 << 8)
+	listForWorkspaceTriageTicketsRequestFieldMergedIntoTicketId = big.NewInt(1 << 9)
+	listForWorkspaceTriageTicketsRequestFieldSearch             = big.NewInt(1 << 10)
+	listForWorkspaceTriageTicketsRequestFieldCursor             = big.NewInt(1 << 11)
 )
 
 type ListForWorkspaceTriageTicketsRequest struct {
@@ -647,7 +637,6 @@ type ListForWorkspaceTriageTicketsRequest struct {
 	SortBy             *types.AgentConversationTicketSortBy     `json:"-" url:"sort_by,omitempty"`
 	OwnerUserId        *string                                  `json:"-" url:"owner_user_id,omitempty"`
 	AssigneeUserId     *string                                  `json:"-" url:"assignee_user_id,omitempty"`
-	IssueType          *types.AgentConversationTicketIssueType  `json:"-" url:"issue_type,omitempty"`
 	Label              *string                                  `json:"-" url:"label,omitempty"`
 	MergedIntoTicketId *string                                  `json:"-" url:"merged_into_ticket_id,omitempty"`
 	Search             *string                                  `json:"-" url:"search,omitempty"`
@@ -718,13 +707,6 @@ func (l *ListForWorkspaceTriageTicketsRequest) SetOwnerUserId(ownerUserId *strin
 func (l *ListForWorkspaceTriageTicketsRequest) SetAssigneeUserId(assigneeUserId *string) {
 	l.AssigneeUserId = assigneeUserId
 	l.require(listForWorkspaceTriageTicketsRequestFieldAssigneeUserId)
-}
-
-// SetIssueType sets the IssueType field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (l *ListForWorkspaceTriageTicketsRequest) SetIssueType(issueType *types.AgentConversationTicketIssueType) {
-	l.IssueType = issueType
-	l.require(listForWorkspaceTriageTicketsRequestFieldIssueType)
 }
 
 // SetLabel sets the Label field and marks it as non-optional;

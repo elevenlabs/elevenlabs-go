@@ -15,6 +15,9 @@ func TestCustomLlmRoundTrip(t *testing.T) {
   "auth_connection": {
     "auth_connection_id": "value"
   },
+  "mtls_auth_connection": {
+    "auth_connection_id": "value"
+  },
   "request_headers": {
     "key": "value"
   },
@@ -33,6 +36,9 @@ func TestCustomLlmRoundTrip2(t *testing.T) {
     "secret_id": "value"
   },
   "auth_connection": {
+    "auth_connection_id": "value"
+  },
+  "mtls_auth_connection": {
     "auth_connection_id": "value"
   },
   "request_headers": {

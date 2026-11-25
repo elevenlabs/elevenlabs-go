@@ -36,6 +36,7 @@ func TestListWire(t *testing.T) {
         "pending_downgrade_tier": "value",
         "pending_downgrade_at_unix": 123
       },
+      "charge_customer": true,
       "has_payment_issue": true,
       "onboarding_completed_at_unix": 123
     }
@@ -79,6 +80,7 @@ func TestListWire(t *testing.T) {
         "pending_downgrade_tier": "value",
         "pending_downgrade_at_unix": 123
       },
+      "charge_customer": true,
       "has_payment_issue": true,
       "onboarding_completed_at_unix": 123
     }
@@ -103,6 +105,7 @@ func TestListWire(t *testing.T) {
         "pending_downgrade_tier": "value",
         "pending_downgrade_at_unix": 123
       },
+      "charge_customer": true,
       "has_payment_issue": true,
       "onboarding_completed_at_unix": 123
     }
@@ -184,6 +187,7 @@ func TestCreateWire(t *testing.T) {
     "pending_downgrade_tier": "value",
     "pending_downgrade_at_unix": 123
   },
+  "charge_customer": true,
   "has_payment_issue": true,
   "onboarding_completed_at_unix": 123,
   "member_results": [
@@ -199,9 +203,11 @@ func TestCreateWire(t *testing.T) {
 		option.WithBaseURL(server.URL),
 	))
 
-	var request reception.ProvisionResellerWorkspaceRequest
+	var request reception.ReceptionProvisionResellerWorkspaceRequest
 	if err := json.Unmarshal([]byte(`{
   "business_name": "value",
+  "vertical": "salon_barbershop",
+  "charge_customer": true,
   "subscription": {
     "tier_id": "value",
     "billing_period": "monthly_period"
@@ -241,6 +247,7 @@ func TestCreateWire(t *testing.T) {
     "pending_downgrade_tier": "value",
     "pending_downgrade_at_unix": 123
   },
+  "charge_customer": true,
   "has_payment_issue": true,
   "onboarding_completed_at_unix": 123,
   "member_results": [
@@ -266,6 +273,7 @@ func TestCreateWire(t *testing.T) {
     "pending_downgrade_tier": "value",
     "pending_downgrade_at_unix": 123
   },
+  "charge_customer": true,
   "has_payment_issue": true,
   "onboarding_completed_at_unix": 123,
   "member_results": [
@@ -314,9 +322,11 @@ func TestCreateWireError422(t *testing.T) {
 		option.WithMaxAttempts(1),
 	))
 
-	var request reception.ProvisionResellerWorkspaceRequest
+	var request reception.ReceptionProvisionResellerWorkspaceRequest
 	if err := json.Unmarshal([]byte(`{
   "business_name": "value",
+  "vertical": "salon_barbershop",
+  "charge_customer": true,
   "subscription": {
     "tier_id": "value",
     "billing_period": "monthly_period"

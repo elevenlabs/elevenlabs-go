@@ -13,8 +13,10 @@ type ResellerWorkspaceSummary struct {
 	ReceptionistCount int     `json:"receptionist_count" xml:"receptionist_count" required:"true"`
 	CallsLast30Days   int     `json:"calls_last_30_days" xml:"calls_last_30_days" required:"true"`
 	CreatedAtUnix     int     `json:"created_at_unix" xml:"created_at_unix" required:"true"`
-	// The reseller-managed subscription, when this workspace has one. None means nothing is sold here yet and a tier can be assigned.
+	// The reseller-managed subscription, when this workspace has one. None means the reseller sells nothing here: no tier is assigned yet, or the workspace pays for its own subscription (see charge_customer).
 	Subscription *ResellerWorkspaceSubscription `json:"subscription,omitempty" xml:"subscription,omitempty"`
+	// The workspace pays for its own subscription, so its tier can't be assigned or changed here.
+	ChargeCustomer *bool `json:"charge_customer,omitempty" xml:"charge_customer,omitempty"`
 	// A charge for this workspace is unpaid. Assigning or changing a tier is refused until it clears, so surface it rather than letting it fail.
 	HasPaymentIssue *bool `json:"has_payment_issue,omitempty" xml:"has_payment_issue,omitempty"`
 	// When onboarding finished. Until then the onboarding wizard may replace or remove the workspace's business data.
@@ -71,6 +73,13 @@ func (r *ResellerWorkspaceSummary) GetSubscription() (value *ResellerWorkspaceSu
 	return r.Subscription
 }
 
+func (r *ResellerWorkspaceSummary) GetChargeCustomer() (value *bool) {
+	if r == nil {
+		return
+	}
+	return r.ChargeCustomer
+}
+
 func (r *ResellerWorkspaceSummary) GetHasPaymentIssue() (value *bool) {
 	if r == nil {
 		return
@@ -111,6 +120,10 @@ func (r *ResellerWorkspaceSummary) SetCreatedAtUnix(createdAtUnix int) {
 
 func (r *ResellerWorkspaceSummary) SetSubscription(subscription *ResellerWorkspaceSubscription) {
 	r.Subscription = subscription
+}
+
+func (r *ResellerWorkspaceSummary) SetChargeCustomer(chargeCustomer *bool) {
+	r.ChargeCustomer = chargeCustomer
 }
 
 func (r *ResellerWorkspaceSummary) SetHasPaymentIssue(hasPaymentIssue *bool) {

@@ -8,99 +8,115 @@ import (
 	"github.com/elevenlabs/elevenlabs-go/types"
 )
 
-type PronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost struct {
+type BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost struct {
+	// The id of the pronunciation dictionary
+	PronunciationDictionaryId string `json:"-" url:"-"`
 	// List of pronunciation rules. Rule can be either:
 	// an alias rule: {'string_to_replace': 'a', 'type': 'alias', 'alias': 'b', }
 	// or a phoneme rule: {'string_to_replace': 'a', 'type': 'phoneme', 'phoneme': 'b', 'alphabet': 'ipa' }
-	Rules []*DictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem `json:"rules" xml:"rules" required:"true"`
+	Rules []*BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem `json:"rules" xml:"rules" required:"true"`
 }
 
-func (p *PronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost) GetRules() (value []*DictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem) {
-	if p == nil {
+func (b *BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost) GetPronunciationDictionaryId() (value string) {
+	if b == nil {
 		return
 	}
-	return p.Rules
+	return b.PronunciationDictionaryId
 }
 
-func (p *PronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost) SetRules(rules []*DictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem) {
-	p.Rules = rules
+func (b *BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost) GetRules() (value []*BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem) {
+	if b == nil {
+		return
+	}
+	return b.Rules
 }
 
-func (p *PronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost) GetExtraProperties() map[string]interface{} {
+func (b *BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost) SetPronunciationDictionaryId(pronunciationDictionaryId string) {
+	b.PronunciationDictionaryId = pronunciationDictionaryId
+}
+
+func (b *BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost) SetRules(rules []*BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem) {
+	b.Rules = rules
+}
+
+func (b *BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost) GetExtraProperties() map[string]interface{} {
 	return nil
 }
 
-func (p PronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost) String() string {
-	jsonData, err := json.MarshalIndent(p, "", "  ")
+func (b BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost) String() string {
+	jsonData, err := json.MarshalIndent(b, "", "  ")
 	if err != nil {
-		return "error converting struct: PronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost to string"
+		return "error converting struct: BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost to string"
 	}
 	return string(jsonData)
 }
 
-func (p *PronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost) UnmarshalJSON(data []byte) error {
-	type unmarshaler PronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (b *BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost) UnmarshalJSON(data []byte) error {
+	if err := unmarshal.ValidateRequiredJSONKeys(data, b); err != nil {
 		return err
 	}
-	*p = PronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost(value)
+	type alias BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost
+	var tmp alias
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+	*b = BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost(tmp)
 	return nil
 }
 
-func (p *PronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost) MarshalJSON() ([]byte, error) {
-	type embed PronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost
+func (b *BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost) MarshalJSON() ([]byte, error) {
+	type embed BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost
 	var marshaler = struct {
 		embed
 	}{
-		embed: embed(*p),
+		embed: embed(*b),
 	}
 	return json.Marshal(marshaler)
 }
 
-type DictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem struct {
+type BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem struct {
 	Type    string
 	Alias   *types.PronunciationDictionaryAliasRuleRequestModel
 	Phoneme *types.PronunciationDictionaryPhonemeRuleRequestModel
 }
 
-func (d *DictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem) GetAlias() *types.PronunciationDictionaryAliasRuleRequestModel {
-	if d == nil {
+func (b *BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem) GetAlias() *types.PronunciationDictionaryAliasRuleRequestModel {
+	if b == nil {
 		return nil
 	}
-	if d.Alias == nil {
+	if b.Alias == nil {
 		return nil
 	}
-	return d.Alias
+	return b.Alias
 }
 
-func (d *DictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem) GetPhoneme() *types.PronunciationDictionaryPhonemeRuleRequestModel {
-	if d == nil {
+func (b *BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem) GetPhoneme() *types.PronunciationDictionaryPhonemeRuleRequestModel {
+	if b == nil {
 		return nil
 	}
-	if d.Phoneme == nil {
+	if b.Phoneme == nil {
 		return nil
 	}
-	return d.Phoneme
+	return b.Phoneme
 }
 
-func (d *DictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem) GetType() string {
-	if d == nil {
+func (b *BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem) GetType() string {
+	if b == nil {
 		return ""
 	}
-	return d.Type
+	return b.Type
 }
 
-func (d *DictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem) UnmarshalJSON(data []byte) error {
+func (b *BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem) UnmarshalJSON(data []byte) error {
 	var unmarshaler struct {
 		Type string `json:"type"`
 	}
 	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	d.Type = unmarshaler.Type
+	b.Type = unmarshaler.Type
 	if unmarshaler.Type == "" {
-		return fmt.Errorf("%T did not include discriminant type", d)
+		return fmt.Errorf("%T did not include discriminant type", b)
 	}
 	switch unmarshaler.Type {
 	case "alias":
@@ -108,73 +124,73 @@ func (d *DictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesP
 		if err := json.Unmarshal(data, &value); err != nil {
 			return err
 		}
-		d.Alias = value
+		b.Alias = value
 	case "phoneme":
 		value := new(types.PronunciationDictionaryPhonemeRuleRequestModel)
 		if err := json.Unmarshal(data, &value); err != nil {
 			return err
 		}
-		d.Phoneme = value
+		b.Phoneme = value
 	}
 	return nil
 }
 
-func (d DictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem) MarshalJSON() ([]byte, error) {
-	if err := d.validate(); err != nil {
+func (b BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem) MarshalJSON() ([]byte, error) {
+	if err := b.validate(); err != nil {
 		return nil, err
 	}
-	if d.Alias != nil {
-		return internal.MarshalJSONWithDiscriminant(d.Alias, "type", "alias")
+	if b.Alias != nil {
+		return internal.MarshalJSONWithDiscriminant(b.Alias, "type", "alias")
 	}
-	if d.Phoneme != nil {
-		return internal.MarshalJSONWithDiscriminant(d.Phoneme, "type", "phoneme")
+	if b.Phoneme != nil {
+		return internal.MarshalJSONWithDiscriminant(b.Phoneme, "type", "phoneme")
 	}
-	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", b)
 }
 
-type DictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItemVisitor interface {
+type BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItemVisitor interface {
 	VisitAlias(*types.PronunciationDictionaryAliasRuleRequestModel) error
 	VisitPhoneme(*types.PronunciationDictionaryPhonemeRuleRequestModel) error
 }
 
-func (d *DictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem) Accept(visitor DictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItemVisitor) error {
-	if d.Alias != nil {
-		return visitor.VisitAlias(d.Alias)
+func (b *BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem) Accept(visitor BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItemVisitor) error {
+	if b.Alias != nil {
+		return visitor.VisitAlias(b.Alias)
 	}
-	if d.Phoneme != nil {
-		return visitor.VisitPhoneme(d.Phoneme)
+	if b.Phoneme != nil {
+		return visitor.VisitPhoneme(b.Phoneme)
 	}
-	return fmt.Errorf("type %T does not define a non-empty union type", d)
+	return fmt.Errorf("type %T does not define a non-empty union type", b)
 }
 
-func (d *DictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem) validate() error {
-	if d == nil {
-		return fmt.Errorf("type %T is nil", d)
+func (b *BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem) validate() error {
+	if b == nil {
+		return fmt.Errorf("type %T is nil", b)
 	}
 	var fields []string
-	if d.Alias != nil {
+	if b.Alias != nil {
 		fields = append(fields, "alias")
 	}
-	if d.Phoneme != nil {
+	if b.Phoneme != nil {
 		fields = append(fields, "phoneme")
 	}
 	if len(fields) == 0 {
-		if d.Type != "" {
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Type)
+		if b.Type != "" {
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", b, b.Type)
 		}
-		return fmt.Errorf("type %T is empty", d)
+		return fmt.Errorf("type %T is empty", b)
 	}
 	if len(fields) > 1 {
-		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", d, fields)
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", b, fields)
 	}
-	if d.Type != "" {
+	if b.Type != "" {
 		field := fields[0]
-		if d.Type != field {
+		if b.Type != field {
 			return fmt.Errorf(
 				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
-				d,
-				d.Type,
-				d,
+				b,
+				b.Type,
+				b,
 			)
 		}
 	}

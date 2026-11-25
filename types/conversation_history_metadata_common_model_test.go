@@ -52,6 +52,10 @@ func TestConversationHistoryMetadataCommonModelRoundTrip(t *testing.T) {
             "output_total": {
               "tokens": 123,
               "price": 9.99
+            },
+            "output_total_reasoning_portion": {
+              "tokens": 123,
+              "price": 9.99
             }
           }
         }
@@ -72,6 +76,10 @@ func TestConversationHistoryMetadataCommonModelRoundTrip(t *testing.T) {
               "price": 9.99
             },
             "output_total": {
+              "tokens": 123,
+              "price": 9.99
+            },
+            "output_total_reasoning_portion": {
               "tokens": 123,
               "price": 9.99
             }

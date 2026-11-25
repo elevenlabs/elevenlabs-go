@@ -83,6 +83,7 @@ type SmbToolConfigParams struct {
 	SearchClients                      *SearchClientsParams
 	SendCustomEmail                    *SendCustomEmailParams
 	SetBookingSlug                     *SetBookingSlugParams
+	SmbConfirmChange                   *ConfirmChangeParams
 	SubmitBusinessInfo                 *SubmitBusinessInfoParams
 	TriggerUserVerification            *TriggerUserVerificationParams
 	UpdateAgentConfig                  *UpdateAgentConfigParams
@@ -855,6 +856,16 @@ func (s *SmbToolConfigParams) GetSetBookingSlug() *SetBookingSlugParams {
 	return s.SetBookingSlug
 }
 
+func (s *SmbToolConfigParams) GetSmbConfirmChange() *ConfirmChangeParams {
+	if s == nil {
+		return nil
+	}
+	if s.SmbConfirmChange == nil {
+		return nil
+	}
+	return s.SmbConfirmChange
+}
+
 func (s *SmbToolConfigParams) GetSubmitBusinessInfo() *SubmitBusinessInfoParams {
 	if s == nil {
 		return nil
@@ -1524,6 +1535,12 @@ func (s *SmbToolConfigParams) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		s.SetBookingSlug = value
+	case "smb_confirm_change":
+		value := new(ConfirmChangeParams)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		s.SmbConfirmChange = value
 	case "submit_business_info":
 		value := new(SubmitBusinessInfoParams)
 		if err := json.Unmarshal(data, &value); err != nil {
@@ -1877,6 +1894,9 @@ func (s SmbToolConfigParams) MarshalJSON() ([]byte, error) {
 	if s.SetBookingSlug != nil {
 		return internal.MarshalJSONWithDiscriminant(s.SetBookingSlug, "smb_tool_type", "set_booking_slug")
 	}
+	if s.SmbConfirmChange != nil {
+		return internal.MarshalJSONWithDiscriminant(s.SmbConfirmChange, "smb_tool_type", "smb_confirm_change")
+	}
 	if s.SubmitBusinessInfo != nil {
 		return internal.MarshalJSONWithDiscriminant(s.SubmitBusinessInfo, "smb_tool_type", "submit_business_info")
 	}
@@ -2016,6 +2036,7 @@ type SmbToolConfigParamsVisitor interface {
 	VisitSearchClients(*SearchClientsParams) error
 	VisitSendCustomEmail(*SendCustomEmailParams) error
 	VisitSetBookingSlug(*SetBookingSlugParams) error
+	VisitSmbConfirmChange(*ConfirmChangeParams) error
 	VisitSubmitBusinessInfo(*SubmitBusinessInfoParams) error
 	VisitTriggerUserVerification(*TriggerUserVerificationParams) error
 	VisitUpdateAgentConfig(*UpdateAgentConfigParams) error
@@ -2263,6 +2284,9 @@ func (s *SmbToolConfigParams) Accept(visitor SmbToolConfigParamsVisitor) error {
 	}
 	if s.SetBookingSlug != nil {
 		return visitor.VisitSetBookingSlug(s.SetBookingSlug)
+	}
+	if s.SmbConfirmChange != nil {
+		return visitor.VisitSmbConfirmChange(s.SmbConfirmChange)
 	}
 	if s.SubmitBusinessInfo != nil {
 		return visitor.VisitSubmitBusinessInfo(s.SubmitBusinessInfo)
@@ -2556,6 +2580,9 @@ func (s *SmbToolConfigParams) validate() error {
 	}
 	if s.SetBookingSlug != nil {
 		fields = append(fields, "set_booking_slug")
+	}
+	if s.SmbConfirmChange != nil {
+		fields = append(fields, "smb_confirm_change")
 	}
 	if s.SubmitBusinessInfo != nil {
 		fields = append(fields, "submit_business_info")
