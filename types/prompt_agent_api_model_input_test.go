@@ -220,6 +220,9 @@ func TestPromptAgentApiModelInputRoundTrip(t *testing.T) {
     "auth_connection": {
       "auth_connection_id": "value"
     },
+    "mtls_auth_connection": {
+      "auth_connection_id": "value"
+    },
     "request_headers": {
       "key": "value"
     },

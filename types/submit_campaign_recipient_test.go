@@ -13,6 +13,7 @@ func TestSubmitCampaignRecipientRoundTrip(t *testing.T) {
   ],
   "whatsapp_user_id": "value",
   "id": "value",
+  "timezone_override": "value",
   "conversation_initiation_client_data": {
     "conversation_config_override": {
       "asr": {

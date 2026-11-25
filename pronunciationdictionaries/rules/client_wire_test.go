@@ -29,8 +29,9 @@ func TestSetWire(t *testing.T) {
 		option.WithBaseURL(server.URL),
 	))
 
-	var request pronunciationdictionaries.PronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost
+	var request pronunciationdictionaries.BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost
 	if err := json.Unmarshal([]byte(`{
+  "pronunciation_dictionary_id": "value",
   "rules": [
     {
       "string_to_replace": "value",
@@ -41,7 +42,7 @@ func TestSetWire(t *testing.T) {
     }
   ]
 }`), &request); err != nil {
-		t.Fatalf("unmarshal request: %v", err)
+		t.Fatalf("unmarshal request body: %v", err)
 	}
 	result, err := client.Set(context.Background(), string("value"), &request)
 	if err != nil {
@@ -99,8 +100,9 @@ func TestSetWireError422(t *testing.T) {
 		option.WithMaxAttempts(1),
 	))
 
-	var request pronunciationdictionaries.PronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost
+	var request pronunciationdictionaries.BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost
 	if err := json.Unmarshal([]byte(`{
+  "pronunciation_dictionary_id": "value",
   "rules": [
     {
       "string_to_replace": "value",
@@ -111,7 +113,7 @@ func TestSetWireError422(t *testing.T) {
     }
   ]
 }`), &request); err != nil {
-		t.Fatalf("unmarshal request: %v", err)
+		t.Fatalf("unmarshal request body: %v", err)
 	}
 	_, err := client.Set(context.Background(), string("value"), &request)
 	if err == nil {

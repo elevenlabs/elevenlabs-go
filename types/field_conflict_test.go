@@ -11,7 +11,9 @@ func TestFieldConflictRoundTrip(t *testing.T) {
   "section": "conversation_config",
   "base_value": {},
   "source_value": {},
-  "target_value": {}
+  "target_value": {},
+  "id": "value",
+  "accepts_custom_value": true
 }`
 	assertRoundTrip(t, wire, new(FieldConflict))
 }

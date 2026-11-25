@@ -68,7 +68,7 @@ func (c *Client) Update(ctx context.Context, agentId string, branchId string, re
 	return response.Body, nil
 }
 
-// Returns the result of merging the source branch into the target branch without performing the merge. Useful for showing an accurate diff before confirming.
+// Returns the result of merging the source branch into the target branch without performing the merge. When `conflicts` is not empty, the merge itself is rejected unless `conflict_resolutions` settles every conflict or `force` is set; until then the returned configuration shows one side of each conflict only as a placeholder.
 func (c *Client) PreviewMerge(ctx context.Context, agentId string, sourceBranchId string, request *agents.PreviewMergeBranchesRequest, opts ...option.RequestOption) (*types.MergePreviewResponseModel, error) {
 	response, err := c.WithRawResponse.PreviewMerge(ctx, agentId, sourceBranchId, request, opts...)
 	if err != nil {
@@ -77,7 +77,7 @@ func (c *Client) PreviewMerge(ctx context.Context, agentId string, sourceBranchI
 	return response.Body, nil
 }
 
-// Merge a branch into a target branch
+// Merge a branch into a target branch. If both branches changed the same field, the merge returns 409 unless `conflict_resolutions` settles every conflict the merge preview reports, or `force` is set.
 func (c *Client) Merge(ctx context.Context, agentId string, sourceBranchId string, request *agents.BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost, opts ...option.RequestOption) (any, error) {
 	response, err := c.WithRawResponse.Merge(ctx, agentId, sourceBranchId, request, opts...)
 	if err != nil {
@@ -86,7 +86,7 @@ func (c *Client) Merge(ctx context.Context, agentId string, sourceBranchId strin
 	return response.Body, nil
 }
 
-// Returns the result of pulling changes from a source branch (defaults to main) into the given branch without performing it, preserving the given branch's own changes. Useful for showing an accurate diff before confirming.
+// Returns the result of pulling changes from a source branch (defaults to main) into the given branch without performing it. When `conflicts` is not empty, the rebase itself is rejected unless `conflict_resolutions` settles every conflict; until then the returned configuration keeps the given branch's side of each conflict.
 func (c *Client) PreviewRebase(ctx context.Context, agentId string, branchId string, request *agents.PreviewRebaseBranchesRequest, opts ...option.RequestOption) (*types.MergePreviewResponseModel, error) {
 	response, err := c.WithRawResponse.PreviewRebase(ctx, agentId, branchId, request, opts...)
 	if err != nil {
@@ -95,7 +95,7 @@ func (c *Client) PreviewRebase(ctx context.Context, agentId string, branchId str
 	return response.Body, nil
 }
 
-// Pull changes from a source branch (defaults to main) into this branch as a new version, preserving this branch's own changes on conflicts.
+// Pull changes from a source branch (defaults to main) into this branch as a new version. If both branches changed the same field, the rebase returns 409 unless `conflict_resolutions` settles every conflict the rebase preview reports.
 func (c *Client) Rebase(ctx context.Context, agentId string, branchId string, request *agents.BodyRebaseABranchOntoMainV1ConvaiAgentsAgentIdBranchesBranchIdRebasePost, opts ...option.RequestOption) (any, error) {
 	response, err := c.WithRawResponse.Rebase(ctx, agentId, branchId, request, opts...)
 	if err != nil {

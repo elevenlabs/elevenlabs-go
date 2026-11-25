@@ -69,7 +69,7 @@ func (c *Client) Update(ctx context.Context, agentId string, mergeProposalId str
 }
 
 // Approve a merge_proposal or request changes on it. A user's latest review replaces their previous one. Non-admins need an approval from another user before the merge is allowed.
-func (c *Client) SubmitReview(ctx context.Context, agentId string, mergeProposalId string, request *agents.ReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost, opts ...option.RequestOption) (*types.AgentMergeProposalResponse, error) {
+func (c *Client) SubmitReview(ctx context.Context, agentId string, mergeProposalId string, request *agents.BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost, opts ...option.RequestOption) (*types.AgentMergeProposalResponse, error) {
 	response, err := c.WithRawResponse.SubmitReview(ctx, agentId, mergeProposalId, request, opts...)
 	if err != nil {
 		return nil, err
@@ -78,7 +78,7 @@ func (c *Client) SubmitReview(ctx context.Context, agentId string, mergeProposal
 }
 
 // Leave a comment on a merge_proposal without recording a review verdict. Unlike reviews, comments accumulate and can still be added once the merge_proposal is merged or closed.
-func (c *Client) AddComment(ctx context.Context, agentId string, mergeProposalId string, request *agents.OnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost, opts ...option.RequestOption) (*types.AgentMergeProposalResponse, error) {
+func (c *Client) AddComment(ctx context.Context, agentId string, mergeProposalId string, request *agents.BodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost, opts ...option.RequestOption) (*types.AgentMergeProposalResponse, error) {
 	response, err := c.WithRawResponse.AddComment(ctx, agentId, mergeProposalId, request, opts...)
 	if err != nil {
 		return nil, err

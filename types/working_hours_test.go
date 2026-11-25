@@ -75,21 +75,3 @@ func TestWorkingHoursRoundTrip4(t *testing.T) {
 }`
 	assertRoundTrip(t, wire, new(WorkingHours))
 }
-
-func TestWorkingHoursRoundTrip5(t *testing.T) {
-	t.Parallel()
-	const wire = `{
-  "hours": {
-    "key": [
-      {
-        "start_hour": 123,
-        "start_minute": 123,
-        "end_hour": 24,
-        "end_minute": 123
-      }
-    ]
-  },
-  "timezone": "value"
-}`
-	assertRoundTrip(t, wire, new(WorkingHours))
-}

@@ -15,6 +15,8 @@ type SubmitCampaignRecipient struct {
 	WhatsappUserId *string `json:"whatsapp_user_id,omitempty" xml:"whatsapp_user_id,omitempty" maxLength:"256"`
 	// Your identifier for the recipient, returned as its lead's `recipient_id`.
 	Id *string `json:"id,omitempty" xml:"id,omitempty" maxLength:"256"`
+	// IANA timezone to read the calling windows and callback times in for this recipient, overriding the campaign's.
+	TimezoneOverride *string `json:"timezone_override,omitempty" xml:"timezone_override,omitempty"`
 	// Dynamic variables and overrides for this recipient's calls.
 	ConversationInitiationClientData *ConversationInitiationClientDataRequestInput `json:"conversation_initiation_client_data,omitempty" xml:"conversation_initiation_client_data,omitempty"`
 	extraProperties                  map[string]interface{}
@@ -48,6 +50,13 @@ func (s *SubmitCampaignRecipient) GetId() (value *string) {
 	return s.Id
 }
 
+func (s *SubmitCampaignRecipient) GetTimezoneOverride() (value *string) {
+	if s == nil {
+		return
+	}
+	return s.TimezoneOverride
+}
+
 func (s *SubmitCampaignRecipient) GetConversationInitiationClientData() (value *ConversationInitiationClientDataRequestInput) {
 	if s == nil {
 		return
@@ -69,6 +78,10 @@ func (s *SubmitCampaignRecipient) SetWhatsappUserId(whatsappUserId *string) {
 
 func (s *SubmitCampaignRecipient) SetId(id *string) {
 	s.Id = id
+}
+
+func (s *SubmitCampaignRecipient) SetTimezoneOverride(timezoneOverride *string) {
+	s.TimezoneOverride = timezoneOverride
 }
 
 func (s *SubmitCampaignRecipient) SetConversationInitiationClientData(conversationInitiationClientData *ConversationInitiationClientDataRequestInput) {

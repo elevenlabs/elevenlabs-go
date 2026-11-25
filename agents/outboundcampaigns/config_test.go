@@ -21,6 +21,13 @@ func TestReplaceWorkspaceConfigRequestRoundTrip(t *testing.T) {
         "rotate_step_seconds": 123,
         "max_consecutive_failures_per_number": 30
       },
+      "date_overrides": [
+        {
+          "start_date": "2024-01-01",
+          "end_date": "2024-01-01",
+          "name": "value"
+        }
+      ],
       "data_collection": {
         "callback_time": "value",
         "redirect_phone_number": "value",
@@ -49,6 +56,13 @@ func TestReplaceWorkspaceConfigRequestRoundTrip(t *testing.T) {
           "rotate_step_seconds": 123,
           "max_consecutive_failures_per_number": 30
         },
+        "date_overrides": [
+          {
+            "start_date": "2024-01-01",
+            "end_date": "2024-01-01",
+            "name": "value"
+          }
+        ],
         "data_collection": {
           "callback_time": "value",
           "redirect_phone_number": "value",
@@ -77,6 +91,13 @@ func TestReplaceWorkspaceConfigRequestRoundTrip(t *testing.T) {
         "rotate_step_seconds": 123,
         "max_consecutive_failures_per_number": 30
       },
+      "date_overrides": [
+        {
+          "start_date": "2024-01-01",
+          "end_date": "2024-01-01",
+          "name": "value"
+        }
+      ],
       "data_collection": {
         "callback_time": "value",
         "redirect_phone_number": "value",

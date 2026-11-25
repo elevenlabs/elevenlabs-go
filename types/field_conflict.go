@@ -15,8 +15,12 @@ type FieldConflict struct {
 	// Value on the source branch tip.
 	SourceValue any `json:"source_value,omitempty" xml:"source_value,omitempty"`
 	// Value on the target branch tip.
-	TargetValue     any `json:"target_value,omitempty" xml:"target_value,omitempty"`
-	extraProperties map[string]interface{}
+	TargetValue any `json:"target_value,omitempty" xml:"target_value,omitempty"`
+	// Stable identifier of this conflict within a merge.
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// Whether a resolution of this conflict may use `custom` with a `custom_value` instead of keeping a side.
+	AcceptsCustomValue *bool `json:"accepts_custom_value,omitempty" xml:"accepts_custom_value,omitempty"`
+	extraProperties    map[string]interface{}
 }
 
 func (f *FieldConflict) GetPath() (value string) {
@@ -54,6 +58,20 @@ func (f *FieldConflict) GetTargetValue() (value any) {
 	return f.TargetValue
 }
 
+func (f *FieldConflict) GetId() (value *string) {
+	if f == nil {
+		return
+	}
+	return f.Id
+}
+
+func (f *FieldConflict) GetAcceptsCustomValue() (value *bool) {
+	if f == nil {
+		return
+	}
+	return f.AcceptsCustomValue
+}
+
 func (f *FieldConflict) SetPath(path string) {
 	f.Path = path
 }
@@ -72,6 +90,14 @@ func (f *FieldConflict) SetSourceValue(sourceValue any) {
 
 func (f *FieldConflict) SetTargetValue(targetValue any) {
 	f.TargetValue = targetValue
+}
+
+func (f *FieldConflict) SetId(id *string) {
+	f.Id = id
+}
+
+func (f *FieldConflict) SetAcceptsCustomValue(acceptsCustomValue *bool) {
+	f.AcceptsCustomValue = acceptsCustomValue
 }
 
 func (f *FieldConflict) GetExtraProperties() map[string]interface{} {

@@ -15,7 +15,7 @@ func TestGetAgentConversationTicketsPageResponseModelRoundTrip(t *testing.T) {
       "agent_id": "value",
       "needs_clustering": true,
       "title": "value",
-      "issue_type": "knowledge_gap",
+      "issue_type": {},
       "labels": [
         "value"
       ],

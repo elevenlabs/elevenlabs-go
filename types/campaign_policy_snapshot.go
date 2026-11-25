@@ -11,6 +11,7 @@ type CampaignPolicySnapshot struct {
 	Timezone       string                 `json:"timezone" xml:"timezone" required:"true"`
 	Retry          *RetryPolicy           `json:"retry" xml:"retry" required:"true"`
 	CallingPeriods []*CallingPeriodPolicy `json:"calling_periods" xml:"calling_periods" required:"true"`
+	DateOverrides  []*DateOverridePolicy  `json:"date_overrides,omitempty" xml:"date_overrides,omitempty"`
 	DataCollection *DataCollectionPolicy  `json:"data_collection" xml:"data_collection" required:"true"`
 	// Which `campaign__` dynamic variables follow-up calls get.
 	FollowupContext *FollowupContextPolicy `json:"followup_context" xml:"followup_context" required:"true"`
@@ -38,6 +39,13 @@ func (c *CampaignPolicySnapshot) GetCallingPeriods() (value []*CallingPeriodPoli
 	return c.CallingPeriods
 }
 
+func (c *CampaignPolicySnapshot) GetDateOverrides() (value []*DateOverridePolicy) {
+	if c == nil {
+		return
+	}
+	return c.DateOverrides
+}
+
 func (c *CampaignPolicySnapshot) GetDataCollection() (value *DataCollectionPolicy) {
 	if c == nil {
 		return
@@ -62,6 +70,10 @@ func (c *CampaignPolicySnapshot) SetRetry(retry *RetryPolicy) {
 
 func (c *CampaignPolicySnapshot) SetCallingPeriods(callingPeriods []*CallingPeriodPolicy) {
 	c.CallingPeriods = callingPeriods
+}
+
+func (c *CampaignPolicySnapshot) SetDateOverrides(dateOverrides []*DateOverridePolicy) {
+	c.DateOverrides = dateOverrides
 }
 
 func (c *CampaignPolicySnapshot) SetDataCollection(dataCollection *DataCollectionPolicy) {

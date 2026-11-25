@@ -108,7 +108,7 @@ func (r *RawClient) Get(ctx context.Context, projectId string, chapterId string,
 }
 
 // Stream the audio from a chapter snapshot. Use `GET /v1/studio/projects/{project_id}/chapters/{chapter_id}/snapshots` to return the snapshots of a chapter.
-func (r *RawClient) Stream(ctx context.Context, projectId string, chapterId string, chapterSnapshotId string, request *chapters.AudioV1StudioProjectsProjectIdChaptersChapterIdSnapshotsChapterSnapshotIdStreamPost, opts ...option.RequestOption) (*core.Response[io.Reader], error) {
+func (r *RawClient) Stream(ctx context.Context, projectId string, chapterId string, chapterSnapshotId string, request *chapters.BodyStreamChapterAudioV1StudioProjectsProjectIdChaptersChapterIdSnapshotsChapterSnapshotIdStreamPost, opts ...option.RequestOption) (*core.Response[io.Reader], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,

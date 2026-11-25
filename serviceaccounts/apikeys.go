@@ -165,970 +165,994 @@ func (b *BodyCreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiK
 }
 
 // The permissions of the XI API.
-type CreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissions struct {
+type BodyCreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissions struct {
 	PermissionTypeList []types.PermissionType
 	AllStringLiteral   string
 	typ                string
 }
 
-func (c *CreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissions) GetPermissionTypeList() []types.PermissionType {
-	if c == nil {
+func (b *BodyCreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissions) GetPermissionTypeList() []types.PermissionType {
+	if b == nil {
 		return nil
 	}
-	return c.PermissionTypeList
+	return b.PermissionTypeList
 }
 
-func (c *CreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissions) GetAllStringLiteral() string {
-	if c == nil {
+func (b *BodyCreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissions) GetAllStringLiteral() string {
+	if b == nil {
 		return ""
 	}
-	return c.AllStringLiteral
+	return b.AllStringLiteral
 }
 
-func (c *CreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissions) UnmarshalJSON(data []byte) error {
+func (b *BodyCreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissions) UnmarshalJSON(data []byte) error {
 	var valuePermissionTypeList []types.PermissionType
 	if err := json.Unmarshal(data, &valuePermissionTypeList); err == nil {
-		c.typ = "PermissionTypeList"
-		c.PermissionTypeList = valuePermissionTypeList
+		b.typ = "PermissionTypeList"
+		b.PermissionTypeList = valuePermissionTypeList
 		return nil
 	}
 	var valueAllStringLiteral string
 	if err := json.Unmarshal(data, &valueAllStringLiteral); err == nil {
-		c.typ = "AllStringLiteral"
-		c.AllStringLiteral = valueAllStringLiteral
-		if c.AllStringLiteral != "all" {
-			return fmt.Errorf("unexpected value for literal on type %T; expected all got %v", c, c.AllStringLiteral)
+		b.typ = "AllStringLiteral"
+		b.AllStringLiteral = valueAllStringLiteral
+		if b.AllStringLiteral != "all" {
+			return fmt.Errorf("unexpected value for literal on type %T; expected all got %v", b, b.AllStringLiteral)
 		}
 		return nil
 	}
-	return fmt.Errorf("%s cannot be deserialized as a %T", data, c)
+	return fmt.Errorf("%s cannot be deserialized as a %T", data, b)
 }
 
-func (c CreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissions) MarshalJSON() ([]byte, error) {
-	if c.typ == "PermissionTypeList" || c.PermissionTypeList != nil {
-		return json.Marshal(c.PermissionTypeList)
+func (b BodyCreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissions) MarshalJSON() ([]byte, error) {
+	if b.typ == "PermissionTypeList" || b.PermissionTypeList != nil {
+		return json.Marshal(b.PermissionTypeList)
 	}
-	if c.typ == "AllStringLiteral" || c.AllStringLiteral != "" {
-		return json.Marshal(c.AllStringLiteral)
+	if b.typ == "AllStringLiteral" || b.AllStringLiteral != "" {
+		return json.Marshal(b.AllStringLiteral)
 	}
-	return nil, fmt.Errorf("type %T does not include a non-empty union type", c)
+	return nil, fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-type CreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissionsVisitor interface {
+type BodyCreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissionsVisitor interface {
 	VisitPermissionTypeList([]types.PermissionType) error
 	VisitAllStringLiteral(string) error
 }
 
-func (c *CreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissions) Accept(visitor CreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissionsVisitor) error {
-	if c.typ == "PermissionTypeList" || c.PermissionTypeList != nil {
-		return visitor.VisitPermissionTypeList(c.PermissionTypeList)
+func (b *BodyCreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissions) Accept(visitor BodyCreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissionsVisitor) error {
+	if b.typ == "PermissionTypeList" || b.PermissionTypeList != nil {
+		return visitor.VisitPermissionTypeList(b.PermissionTypeList)
 	}
-	if c.typ == "AllStringLiteral" || c.AllStringLiteral != "" {
-		return visitor.VisitAllStringLiteral(c.AllStringLiteral)
+	if b.typ == "AllStringLiteral" || b.AllStringLiteral != "" {
+		return visitor.VisitAllStringLiteral(b.AllStringLiteral)
 	}
-	return fmt.Errorf("type %T does not include a non-empty union type", c)
+	return fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-func NewCreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissionsWithAllStringLiteral() *CreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissions {
-	return &CreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissions{typ: "AllStringLiteral", AllStringLiteral: "all"}
+func NewBodyCreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissionsWithAllStringLiteral() *BodyCreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissions {
+	return &BodyCreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPostPermissions{typ: "AllStringLiteral", AllStringLiteral: "all"}
 }
 
-type EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch struct {
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch struct {
+	ApiKeyId             string `json:"-" url:"-"`
+	ServiceAccountUserId string `json:"-" url:"-"`
 	// Whether to enable or disable the API key.
-	IsEnabled *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled `json:"is_enabled,omitempty" xml:"is_enabled,omitempty"`
+	IsEnabled *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled `json:"is_enabled,omitempty" xml:"is_enabled,omitempty"`
 	// The name of the XI API key to use (used for identification purposes only).
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
 	// The permissions of the XI API.
-	Permissions *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissions `json:"permissions,omitempty" xml:"permissions,omitempty"`
+	Permissions *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissions `json:"permissions,omitempty" xml:"permissions,omitempty"`
 	// The character limit of the XI API key. If provided this will limit the usage of this api key to n characters per month where n is the chosen value. Requests that incur charges will fail after reaching this monthly limit.
-	CharacterLimit *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimit `json:"character_limit,omitempty" xml:"character_limit,omitempty"`
+	CharacterLimit *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimit `json:"character_limit,omitempty" xml:"character_limit,omitempty"`
 	// List of IP addresses or CIDR ranges allowed to use this API key. Each entry may be a CIDR range (e.g. '10.0.0.0/24') or a bare IP address (normalized to /32 or /128). On create, omit or pass null to allow all IPs. On update, omit to leave the allowlist unchanged, or pass "clear" to remove it.
-	AllowedIps *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIps `json:"allowed_ips,omitempty" xml:"allowed_ips,omitempty"`
+	AllowedIps *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIps `json:"allowed_ips,omitempty" xml:"allowed_ips,omitempty"`
 	// Whether the holder of this key may disable it via the self-disable endpoint. On create, omit or pass null to use the workspace's default (enabled for non-Enterprise plans, disabled for Enterprise plans). On update, omit to leave it unchanged, or pass "clear" to reset it to the workspace default. Only honored for workspaces with self-disable access enabled.
-	ThirdPartyDisableAllowed *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowed `json:"third_party_disable_allowed,omitempty" xml:"third_party_disable_allowed,omitempty"`
+	ThirdPartyDisableAllowed *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowed `json:"third_party_disable_allowed,omitempty" xml:"third_party_disable_allowed,omitempty"`
 	// Maximum concurrent text-to-speech/speech-to-speech requests for this API key. Only available for enterprise customers.
-	TtsConcurrencyLimit *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimit `json:"tts_concurrency_limit,omitempty" xml:"tts_concurrency_limit,omitempty"`
+	TtsConcurrencyLimit *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimit `json:"tts_concurrency_limit,omitempty" xml:"tts_concurrency_limit,omitempty"`
 	// Maximum concurrent dubbing requests for this API key. Only available for enterprise customers.
-	DubbingConcurrencyLimit *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimit `json:"dubbing_concurrency_limit,omitempty" xml:"dubbing_concurrency_limit,omitempty"`
+	DubbingConcurrencyLimit *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimit `json:"dubbing_concurrency_limit,omitempty" xml:"dubbing_concurrency_limit,omitempty"`
 	// Maximum concurrent music generation requests for this API key. Only available for enterprise customers.
-	MusicConcurrencyLimit *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimit `json:"music_concurrency_limit,omitempty" xml:"music_concurrency_limit,omitempty"`
+	MusicConcurrencyLimit *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimit `json:"music_concurrency_limit,omitempty" xml:"music_concurrency_limit,omitempty"`
 	// Unix timestamp (in seconds) after which this API key stops working. When set, it must be at least 15 minutes and at most 90 days in the future. On create, omit or pass null for a key that never expires. On update, omit to leave it unchanged, or pass "clear" to remove the expiry (never expires). A workspace may disallow never-expiring keys, or allow them only on service account API keys; creating one or clearing an expiry then fails.
-	ExpiresAtUnix *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnix `json:"expires_at_unix,omitempty" xml:"expires_at_unix,omitempty"`
+	ExpiresAtUnix *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnix `json:"expires_at_unix,omitempty" xml:"expires_at_unix,omitempty"`
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetIsEnabled() (value *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled) {
-	if e == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetApiKeyId() (value string) {
+	if b == nil {
 		return
 	}
-	return e.IsEnabled
+	return b.ApiKeyId
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetName() (value *string) {
-	if e == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetServiceAccountUserId() (value string) {
+	if b == nil {
 		return
 	}
-	return e.Name
+	return b.ServiceAccountUserId
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetPermissions() (value *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissions) {
-	if e == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetIsEnabled() (value *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled) {
+	if b == nil {
 		return
 	}
-	return e.Permissions
+	return b.IsEnabled
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetCharacterLimit() (value *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimit) {
-	if e == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetName() (value *string) {
+	if b == nil {
 		return
 	}
-	return e.CharacterLimit
+	return b.Name
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetAllowedIps() (value *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIps) {
-	if e == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetPermissions() (value *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissions) {
+	if b == nil {
 		return
 	}
-	return e.AllowedIps
+	return b.Permissions
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetThirdPartyDisableAllowed() (value *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowed) {
-	if e == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetCharacterLimit() (value *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimit) {
+	if b == nil {
 		return
 	}
-	return e.ThirdPartyDisableAllowed
+	return b.CharacterLimit
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetTtsConcurrencyLimit() (value *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimit) {
-	if e == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetAllowedIps() (value *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIps) {
+	if b == nil {
 		return
 	}
-	return e.TtsConcurrencyLimit
+	return b.AllowedIps
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetDubbingConcurrencyLimit() (value *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimit) {
-	if e == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetThirdPartyDisableAllowed() (value *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowed) {
+	if b == nil {
 		return
 	}
-	return e.DubbingConcurrencyLimit
+	return b.ThirdPartyDisableAllowed
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetMusicConcurrencyLimit() (value *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimit) {
-	if e == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetTtsConcurrencyLimit() (value *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimit) {
+	if b == nil {
 		return
 	}
-	return e.MusicConcurrencyLimit
+	return b.TtsConcurrencyLimit
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetExpiresAtUnix() (value *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnix) {
-	if e == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetDubbingConcurrencyLimit() (value *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimit) {
+	if b == nil {
 		return
 	}
-	return e.ExpiresAtUnix
+	return b.DubbingConcurrencyLimit
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetIsEnabled(isEnabled *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled) {
-	e.IsEnabled = isEnabled
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetMusicConcurrencyLimit() (value *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimit) {
+	if b == nil {
+		return
+	}
+	return b.MusicConcurrencyLimit
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetName(name *string) {
-	e.Name = name
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetExpiresAtUnix() (value *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnix) {
+	if b == nil {
+		return
+	}
+	return b.ExpiresAtUnix
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetPermissions(permissions *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissions) {
-	e.Permissions = permissions
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetApiKeyId(apiKeyId string) {
+	b.ApiKeyId = apiKeyId
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetCharacterLimit(characterLimit *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimit) {
-	e.CharacterLimit = characterLimit
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetServiceAccountUserId(serviceAccountUserId string) {
+	b.ServiceAccountUserId = serviceAccountUserId
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetAllowedIps(allowedIps *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIps) {
-	e.AllowedIps = allowedIps
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetIsEnabled(isEnabled *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled) {
+	b.IsEnabled = isEnabled
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetThirdPartyDisableAllowed(thirdPartyDisableAllowed *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowed) {
-	e.ThirdPartyDisableAllowed = thirdPartyDisableAllowed
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetName(name *string) {
+	b.Name = name
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetTtsConcurrencyLimit(ttsConcurrencyLimit *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimit) {
-	e.TtsConcurrencyLimit = ttsConcurrencyLimit
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetPermissions(permissions *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissions) {
+	b.Permissions = permissions
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetDubbingConcurrencyLimit(dubbingConcurrencyLimit *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimit) {
-	e.DubbingConcurrencyLimit = dubbingConcurrencyLimit
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetCharacterLimit(characterLimit *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimit) {
+	b.CharacterLimit = characterLimit
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetMusicConcurrencyLimit(musicConcurrencyLimit *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimit) {
-	e.MusicConcurrencyLimit = musicConcurrencyLimit
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetAllowedIps(allowedIps *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIps) {
+	b.AllowedIps = allowedIps
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetExpiresAtUnix(expiresAtUnix *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnix) {
-	e.ExpiresAtUnix = expiresAtUnix
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetThirdPartyDisableAllowed(thirdPartyDisableAllowed *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowed) {
+	b.ThirdPartyDisableAllowed = thirdPartyDisableAllowed
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetExtraProperties() map[string]interface{} {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetTtsConcurrencyLimit(ttsConcurrencyLimit *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimit) {
+	b.TtsConcurrencyLimit = ttsConcurrencyLimit
+}
+
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetDubbingConcurrencyLimit(dubbingConcurrencyLimit *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimit) {
+	b.DubbingConcurrencyLimit = dubbingConcurrencyLimit
+}
+
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetMusicConcurrencyLimit(musicConcurrencyLimit *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimit) {
+	b.MusicConcurrencyLimit = musicConcurrencyLimit
+}
+
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) SetExpiresAtUnix(expiresAtUnix *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnix) {
+	b.ExpiresAtUnix = expiresAtUnix
+}
+
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) GetExtraProperties() map[string]interface{} {
 	return nil
 }
 
-func (e EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) String() string {
-	jsonData, err := json.MarshalIndent(e, "", "  ")
+func (b BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) String() string {
+	jsonData, err := json.MarshalIndent(b, "", "  ")
 	if err != nil {
-		return "error converting struct: EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch to string"
+		return "error converting struct: BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch to string"
 	}
 	return string(jsonData)
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) UnmarshalJSON(data []byte) error {
-	return unmarshal.UnmarshalNullable(data, e)
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) UnmarshalJSON(data []byte) error {
+	return unmarshal.UnmarshalNullable(data, b)
 }
 
-func (e *EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) MarshalJSON() ([]byte, error) {
-	type embed EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch) MarshalJSON() ([]byte, error) {
+	type embed BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch
 	var marshaler = struct {
 		embed
 	}{
-		embed: embed(*e),
+		embed: embed(*b),
 	}
 	return json.Marshal(marshaler)
 }
 
 // Whether to enable or disable the API key.
-type AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled struct {
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled struct {
 	Boolean               bool
 	NoUpdateStringLiteral string
 	typ                   string
 }
 
-func (a *AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled) GetBoolean() bool {
-	if a == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled) GetBoolean() bool {
+	if b == nil {
 		return false
 	}
-	return a.Boolean
+	return b.Boolean
 }
 
-func (a *AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled) GetNoUpdateStringLiteral() string {
-	if a == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled) GetNoUpdateStringLiteral() string {
+	if b == nil {
 		return ""
 	}
-	return a.NoUpdateStringLiteral
+	return b.NoUpdateStringLiteral
 }
 
-func (a *AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled) UnmarshalJSON(data []byte) error {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled) UnmarshalJSON(data []byte) error {
 	var valueBoolean bool
 	if err := json.Unmarshal(data, &valueBoolean); err == nil {
-		a.typ = "Boolean"
-		a.Boolean = valueBoolean
+		b.typ = "Boolean"
+		b.Boolean = valueBoolean
 		return nil
 	}
 	var valueNoUpdateStringLiteral string
 	if err := json.Unmarshal(data, &valueNoUpdateStringLiteral); err == nil {
-		a.typ = "NoUpdateStringLiteral"
-		a.NoUpdateStringLiteral = valueNoUpdateStringLiteral
-		if a.NoUpdateStringLiteral != "no_update" {
-			return fmt.Errorf("unexpected value for literal on type %T; expected no_update got %v", a, a.NoUpdateStringLiteral)
+		b.typ = "NoUpdateStringLiteral"
+		b.NoUpdateStringLiteral = valueNoUpdateStringLiteral
+		if b.NoUpdateStringLiteral != "no_update" {
+			return fmt.Errorf("unexpected value for literal on type %T; expected no_update got %v", b, b.NoUpdateStringLiteral)
 		}
 		return nil
 	}
-	return fmt.Errorf("%s cannot be deserialized as a %T", data, a)
+	return fmt.Errorf("%s cannot be deserialized as a %T", data, b)
 }
 
-func (a AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled) MarshalJSON() ([]byte, error) {
-	if a.typ == "Boolean" || a.Boolean != false {
-		return json.Marshal(a.Boolean)
+func (b BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled) MarshalJSON() ([]byte, error) {
+	if b.typ == "Boolean" || b.Boolean != false {
+		return json.Marshal(b.Boolean)
 	}
-	if a.typ == "NoUpdateStringLiteral" || a.NoUpdateStringLiteral != "" {
-		return json.Marshal(a.NoUpdateStringLiteral)
+	if b.typ == "NoUpdateStringLiteral" || b.NoUpdateStringLiteral != "" {
+		return json.Marshal(b.NoUpdateStringLiteral)
 	}
-	return nil, fmt.Errorf("type %T does not include a non-empty union type", a)
+	return nil, fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-type AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabledVisitor interface {
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabledVisitor interface {
 	VisitBoolean(bool) error
 	VisitNoUpdateStringLiteral(string) error
 }
 
-func (a *AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled) Accept(visitor AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabledVisitor) error {
-	if a.typ == "Boolean" || a.Boolean != false {
-		return visitor.VisitBoolean(a.Boolean)
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled) Accept(visitor BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabledVisitor) error {
+	if b.typ == "Boolean" || b.Boolean != false {
+		return visitor.VisitBoolean(b.Boolean)
 	}
-	if a.typ == "NoUpdateStringLiteral" || a.NoUpdateStringLiteral != "" {
-		return visitor.VisitNoUpdateStringLiteral(a.NoUpdateStringLiteral)
+	if b.typ == "NoUpdateStringLiteral" || b.NoUpdateStringLiteral != "" {
+		return visitor.VisitNoUpdateStringLiteral(b.NoUpdateStringLiteral)
 	}
-	return fmt.Errorf("type %T does not include a non-empty union type", a)
+	return fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-func NewAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabledWithNoUpdateStringLiteral() *AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled {
-	return &AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled{typ: "NoUpdateStringLiteral", NoUpdateStringLiteral: "no_update"}
+func NewBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabledWithNoUpdateStringLiteral() *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled {
+	return &BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchIsEnabled{typ: "NoUpdateStringLiteral", NoUpdateStringLiteral: "no_update"}
 }
 
 // The permissions of the XI API.
-type AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissions struct {
-	PermissionTypeList                                                            []types.PermissionType
-	ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne
-	typ                                                                           string
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissions struct {
+	PermissionTypeList                                                                                  []types.PermissionType
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne
+	typ                                                                                                 string
 }
 
-func (a *AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissions) GetPermissionTypeList() []types.PermissionType {
-	if a == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissions) GetPermissionTypeList() []types.PermissionType {
+	if b == nil {
 		return nil
 	}
-	return a.PermissionTypeList
+	return b.PermissionTypeList
 }
 
-func (a *AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissions) GetApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne() ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne {
-	if a == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissions) GetBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne() BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne {
+	if b == nil {
 		return ""
 	}
-	return a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne
+	return b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne
 }
 
-func (a *AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissions) UnmarshalJSON(data []byte) error {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissions) UnmarshalJSON(data []byte) error {
 	var valuePermissionTypeList []types.PermissionType
 	if err := json.Unmarshal(data, &valuePermissionTypeList); err == nil {
-		a.typ = "PermissionTypeList"
-		a.PermissionTypeList = valuePermissionTypeList
+		b.typ = "PermissionTypeList"
+		b.PermissionTypeList = valuePermissionTypeList
 		return nil
 	}
-	var valueApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne
-	if err := json.Unmarshal(data, &valueApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne); err == nil {
-		a.typ = "ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne"
-		a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne = valueApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne
+	var valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne
+	if err := json.Unmarshal(data, &valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne); err == nil {
+		b.typ = "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne"
+		b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne = valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne
 		return nil
 	}
-	return fmt.Errorf("%s cannot be deserialized as a %T", data, a)
+	return fmt.Errorf("%s cannot be deserialized as a %T", data, b)
 }
 
-func (a AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissions) MarshalJSON() ([]byte, error) {
-	if a.typ == "PermissionTypeList" || a.PermissionTypeList != nil {
-		return json.Marshal(a.PermissionTypeList)
+func (b BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissions) MarshalJSON() ([]byte, error) {
+	if b.typ == "PermissionTypeList" || b.PermissionTypeList != nil {
+		return json.Marshal(b.PermissionTypeList)
 	}
-	if a.typ == "ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne" || a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne != "" {
-		return json.Marshal(a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne)
+	if b.typ == "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne" || b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne != "" {
+		return json.Marshal(b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne)
 	}
-	return nil, fmt.Errorf("type %T does not include a non-empty union type", a)
+	return nil, fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-type AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsVisitor interface {
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsVisitor interface {
 	VisitPermissionTypeList([]types.PermissionType) error
-	VisitApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne(ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne) error
+	VisitBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne(BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne) error
 }
 
-func (a *AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissions) Accept(visitor AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsVisitor) error {
-	if a.typ == "PermissionTypeList" || a.PermissionTypeList != nil {
-		return visitor.VisitPermissionTypeList(a.PermissionTypeList)
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissions) Accept(visitor BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsVisitor) error {
+	if b.typ == "PermissionTypeList" || b.PermissionTypeList != nil {
+		return visitor.VisitPermissionTypeList(b.PermissionTypeList)
 	}
-	if a.typ == "ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne" || a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne != "" {
-		return visitor.VisitApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne(a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne)
+	if b.typ == "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne" || b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne != "" {
+		return visitor.VisitBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne(b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne)
 	}
-	return fmt.Errorf("type %T does not include a non-empty union type", a)
+	return fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-type ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne string
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne string
 
 const (
-	ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOneAll      ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne = "all"
-	ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOneNoUpdate ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne = "no_update"
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOneAll      BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne = "all"
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOneNoUpdate BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne = "no_update"
 )
 
-func NewApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOneFromString(s string) (ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne, error) {
+func NewBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOneFromString(s string) (BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne, error) {
 	switch s {
 	case "all":
-		return ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOneAll, nil
+		return BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOneAll, nil
 	case "no_update":
-		return ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOneNoUpdate, nil
+		return BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOneNoUpdate, nil
 	}
-	var t ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne
+	var t BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (e ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne) Ptr() *ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne {
+func (e BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne) Ptr() *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne {
 	return &e
 }
 
 // The character limit of the XI API key. If provided this will limit the usage of this api key to n characters per month where n is the chosen value. Requests that incur charges will fail after reaching this monthly limit.
-type ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimit struct {
-	Integer                                                                          int
-	ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne
-	typ                                                                              string
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimit struct {
+	Integer                                                                                                int
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne
+	typ                                                                                                    string
 }
 
-func (a *ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimit) GetInteger() int {
-	if a == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimit) GetInteger() int {
+	if b == nil {
 		return 0
 	}
-	return a.Integer
+	return b.Integer
 }
 
-func (a *ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimit) GetApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne() ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne {
-	if a == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimit) GetBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne() BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne {
+	if b == nil {
 		return ""
 	}
-	return a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne
+	return b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne
 }
 
-func (a *ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimit) UnmarshalJSON(data []byte) error {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimit) UnmarshalJSON(data []byte) error {
 	var valueInteger int
 	if err := json.Unmarshal(data, &valueInteger); err == nil {
-		a.typ = "Integer"
-		a.Integer = valueInteger
+		b.typ = "Integer"
+		b.Integer = valueInteger
 		return nil
 	}
-	var valueApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne
-	if err := json.Unmarshal(data, &valueApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne); err == nil {
-		a.typ = "ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne"
-		a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne = valueApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne
+	var valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne
+	if err := json.Unmarshal(data, &valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne); err == nil {
+		b.typ = "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne"
+		b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne = valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne
 		return nil
 	}
-	return fmt.Errorf("%s cannot be deserialized as a %T", data, a)
+	return fmt.Errorf("%s cannot be deserialized as a %T", data, b)
 }
 
-func (a ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimit) MarshalJSON() ([]byte, error) {
-	if a.typ == "Integer" || a.Integer != 0 {
-		return json.Marshal(a.Integer)
+func (b BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimit) MarshalJSON() ([]byte, error) {
+	if b.typ == "Integer" || b.Integer != 0 {
+		return json.Marshal(b.Integer)
 	}
-	if a.typ == "ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne" || a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne != "" {
-		return json.Marshal(a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne)
+	if b.typ == "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne" || b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne != "" {
+		return json.Marshal(b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne)
 	}
-	return nil, fmt.Errorf("type %T does not include a non-empty union type", a)
+	return nil, fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-type ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitVisitor interface {
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitVisitor interface {
 	VisitInteger(int) error
-	VisitApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne(ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne) error
+	VisitBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne(BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne) error
 }
 
-func (a *ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimit) Accept(visitor ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitVisitor) error {
-	if a.typ == "Integer" || a.Integer != 0 {
-		return visitor.VisitInteger(a.Integer)
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimit) Accept(visitor BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitVisitor) error {
+	if b.typ == "Integer" || b.Integer != 0 {
+		return visitor.VisitInteger(b.Integer)
 	}
-	if a.typ == "ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne" || a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne != "" {
-		return visitor.VisitApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne(a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne)
+	if b.typ == "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne" || b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne != "" {
+		return visitor.VisitBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne(b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne)
 	}
-	return fmt.Errorf("type %T does not include a non-empty union type", a)
+	return fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-type ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne string
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne string
 
 const (
-	ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOneClear    ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne = "clear"
-	ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOneNoUpdate ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne = "no_update"
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOneClear    BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne = "clear"
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOneNoUpdate BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne = "no_update"
 )
 
-func NewApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOneFromString(s string) (ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne, error) {
+func NewBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOneFromString(s string) (BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne, error) {
 	switch s {
 	case "clear":
-		return ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOneClear, nil
+		return BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOneClear, nil
 	case "no_update":
-		return ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOneNoUpdate, nil
+		return BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOneNoUpdate, nil
 	}
-	var t ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne
+	var t BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (e ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne) Ptr() *ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne {
+func (e BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne) Ptr() *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne {
 	return &e
 }
 
 // List of IP addresses or CIDR ranges allowed to use this API key. Each entry may be a CIDR range (e.g. '10.0.0.0/24') or a bare IP address (normalized to /32 or /128). On create, omit or pass null to allow all IPs. On update, omit to leave the allowlist unchanged, or pass "clear" to remove it.
-type AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIps struct {
-	StringList                                                                   []string
-	ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne
-	typ                                                                          string
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIps struct {
+	StringList                                                                                         []string
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne
+	typ                                                                                                string
 }
 
-func (a *AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIps) GetStringList() []string {
-	if a == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIps) GetStringList() []string {
+	if b == nil {
 		return nil
 	}
-	return a.StringList
+	return b.StringList
 }
 
-func (a *AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIps) GetApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne() ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne {
-	if a == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIps) GetBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne() BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne {
+	if b == nil {
 		return ""
 	}
-	return a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne
+	return b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne
 }
 
-func (a *AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIps) UnmarshalJSON(data []byte) error {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIps) UnmarshalJSON(data []byte) error {
 	var valueStringList []string
 	if err := json.Unmarshal(data, &valueStringList); err == nil {
-		a.typ = "StringList"
-		a.StringList = valueStringList
+		b.typ = "StringList"
+		b.StringList = valueStringList
 		return nil
 	}
-	var valueApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne
-	if err := json.Unmarshal(data, &valueApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne); err == nil {
-		a.typ = "ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne"
-		a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne = valueApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne
+	var valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne
+	if err := json.Unmarshal(data, &valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne); err == nil {
+		b.typ = "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne"
+		b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne = valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne
 		return nil
 	}
-	return fmt.Errorf("%s cannot be deserialized as a %T", data, a)
+	return fmt.Errorf("%s cannot be deserialized as a %T", data, b)
 }
 
-func (a AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIps) MarshalJSON() ([]byte, error) {
-	if a.typ == "StringList" || a.StringList != nil {
-		return json.Marshal(a.StringList)
+func (b BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIps) MarshalJSON() ([]byte, error) {
+	if b.typ == "StringList" || b.StringList != nil {
+		return json.Marshal(b.StringList)
 	}
-	if a.typ == "ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne" || a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne != "" {
-		return json.Marshal(a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne)
+	if b.typ == "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne" || b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne != "" {
+		return json.Marshal(b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne)
 	}
-	return nil, fmt.Errorf("type %T does not include a non-empty union type", a)
+	return nil, fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-type AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsVisitor interface {
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsVisitor interface {
 	VisitStringList([]string) error
-	VisitApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne(ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne) error
+	VisitBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne(BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne) error
 }
 
-func (a *AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIps) Accept(visitor AccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsVisitor) error {
-	if a.typ == "StringList" || a.StringList != nil {
-		return visitor.VisitStringList(a.StringList)
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIps) Accept(visitor BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsVisitor) error {
+	if b.typ == "StringList" || b.StringList != nil {
+		return visitor.VisitStringList(b.StringList)
 	}
-	if a.typ == "ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne" || a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne != "" {
-		return visitor.VisitApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne(a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne)
+	if b.typ == "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne" || b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne != "" {
+		return visitor.VisitBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne(b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne)
 	}
-	return fmt.Errorf("type %T does not include a non-empty union type", a)
+	return fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-type ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne string
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne string
 
 const (
-	ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOneClear    ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne = "clear"
-	ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOneNoUpdate ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne = "no_update"
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOneClear    BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne = "clear"
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOneNoUpdate BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne = "no_update"
 )
 
-func NewApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOneFromString(s string) (ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne, error) {
+func NewBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOneFromString(s string) (BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne, error) {
 	switch s {
 	case "clear":
-		return ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOneClear, nil
+		return BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOneClear, nil
 	case "no_update":
-		return ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOneNoUpdate, nil
+		return BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOneNoUpdate, nil
 	}
-	var t ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne
+	var t BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (e ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne) Ptr() *ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne {
+func (e BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne) Ptr() *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne {
 	return &e
 }
 
 // Whether the holder of this key may disable it via the self-disable endpoint. On create, omit or pass null to use the workspace's default (enabled for non-Enterprise plans, disabled for Enterprise plans). On update, omit to leave it unchanged, or pass "clear" to reset it to the workspace default. Only honored for workspaces with self-disable access enabled.
-type V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowed struct {
-	Boolean                                                                            bool
-	ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne
-	typ                                                                                string
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowed struct {
+	Boolean                                                                                                          bool
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne
+	typ                                                                                                              string
 }
 
-func (v *V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowed) GetBoolean() bool {
-	if v == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowed) GetBoolean() bool {
+	if b == nil {
 		return false
 	}
-	return v.Boolean
+	return b.Boolean
 }
 
-func (v *V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowed) GetServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne() ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne {
-	if v == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowed) GetBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne() BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne {
+	if b == nil {
 		return ""
 	}
-	return v.ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne
+	return b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne
 }
 
-func (v *V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowed) UnmarshalJSON(data []byte) error {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowed) UnmarshalJSON(data []byte) error {
 	var valueBoolean bool
 	if err := json.Unmarshal(data, &valueBoolean); err == nil {
-		v.typ = "Boolean"
-		v.Boolean = valueBoolean
+		b.typ = "Boolean"
+		b.Boolean = valueBoolean
 		return nil
 	}
-	var valueServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne
-	if err := json.Unmarshal(data, &valueServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne); err == nil {
-		v.typ = "ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne"
-		v.ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne = valueServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne
+	var valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne
+	if err := json.Unmarshal(data, &valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne); err == nil {
+		b.typ = "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne"
+		b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne = valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne
 		return nil
 	}
-	return fmt.Errorf("%s cannot be deserialized as a %T", data, v)
+	return fmt.Errorf("%s cannot be deserialized as a %T", data, b)
 }
 
-func (v V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowed) MarshalJSON() ([]byte, error) {
-	if v.typ == "Boolean" || v.Boolean != false {
-		return json.Marshal(v.Boolean)
+func (b BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowed) MarshalJSON() ([]byte, error) {
+	if b.typ == "Boolean" || b.Boolean != false {
+		return json.Marshal(b.Boolean)
 	}
-	if v.typ == "ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne" || v.ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne != "" {
-		return json.Marshal(v.ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne)
+	if b.typ == "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne" || b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne != "" {
+		return json.Marshal(b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne)
 	}
-	return nil, fmt.Errorf("type %T does not include a non-empty union type", v)
+	return nil, fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-type V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedVisitor interface {
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedVisitor interface {
 	VisitBoolean(bool) error
-	VisitServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne(ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne) error
+	VisitBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne(BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne) error
 }
 
-func (v *V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowed) Accept(visitor V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedVisitor) error {
-	if v.typ == "Boolean" || v.Boolean != false {
-		return visitor.VisitBoolean(v.Boolean)
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowed) Accept(visitor BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedVisitor) error {
+	if b.typ == "Boolean" || b.Boolean != false {
+		return visitor.VisitBoolean(b.Boolean)
 	}
-	if v.typ == "ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne" || v.ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne != "" {
-		return visitor.VisitServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne(v.ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne)
+	if b.typ == "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne" || b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne != "" {
+		return visitor.VisitBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne(b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne)
 	}
-	return fmt.Errorf("type %T does not include a non-empty union type", v)
+	return fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-type ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne string
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne string
 
 const (
-	ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOneClear    ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne = "clear"
-	ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOneNoUpdate ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne = "no_update"
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOneClear    BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne = "clear"
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOneNoUpdate BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne = "no_update"
 )
 
-func NewServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOneFromString(s string) (ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne, error) {
+func NewBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOneFromString(s string) (BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne, error) {
 	switch s {
 	case "clear":
-		return ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOneClear, nil
+		return BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOneClear, nil
 	case "no_update":
-		return ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOneNoUpdate, nil
+		return BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOneNoUpdate, nil
 	}
-	var t ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne
+	var t BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (e ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne) Ptr() *ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne {
+func (e BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne) Ptr() *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne {
 	return &e
 }
 
 // Maximum concurrent text-to-speech/speech-to-speech requests for this API key. Only available for enterprise customers.
-type ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimit struct {
-	Integer                                                                            int
-	KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne
-	typ                                                                                string
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimit struct {
+	Integer                                                                                                     int
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne
+	typ                                                                                                         string
 }
 
-func (a *ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimit) GetInteger() int {
-	if a == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimit) GetInteger() int {
+	if b == nil {
 		return 0
 	}
-	return a.Integer
+	return b.Integer
 }
 
-func (a *ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimit) GetKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne() KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne {
-	if a == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimit) GetBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne() BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne {
+	if b == nil {
 		return ""
 	}
-	return a.KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne
+	return b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne
 }
 
-func (a *ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimit) UnmarshalJSON(data []byte) error {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimit) UnmarshalJSON(data []byte) error {
 	var valueInteger int
 	if err := json.Unmarshal(data, &valueInteger); err == nil {
-		a.typ = "Integer"
-		a.Integer = valueInteger
+		b.typ = "Integer"
+		b.Integer = valueInteger
 		return nil
 	}
-	var valueKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne
-	if err := json.Unmarshal(data, &valueKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne); err == nil {
-		a.typ = "KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne"
-		a.KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne = valueKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne
+	var valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne
+	if err := json.Unmarshal(data, &valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne); err == nil {
+		b.typ = "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne"
+		b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne = valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne
 		return nil
 	}
-	return fmt.Errorf("%s cannot be deserialized as a %T", data, a)
+	return fmt.Errorf("%s cannot be deserialized as a %T", data, b)
 }
 
-func (a ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimit) MarshalJSON() ([]byte, error) {
-	if a.typ == "Integer" || a.Integer != 0 {
-		return json.Marshal(a.Integer)
+func (b BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimit) MarshalJSON() ([]byte, error) {
+	if b.typ == "Integer" || b.Integer != 0 {
+		return json.Marshal(b.Integer)
 	}
-	if a.typ == "KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne" || a.KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne != "" {
-		return json.Marshal(a.KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne)
+	if b.typ == "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne" || b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne != "" {
+		return json.Marshal(b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne)
 	}
-	return nil, fmt.Errorf("type %T does not include a non-empty union type", a)
+	return nil, fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-type ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitVisitor interface {
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitVisitor interface {
 	VisitInteger(int) error
-	VisitKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne(KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne) error
+	VisitBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne(BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne) error
 }
 
-func (a *ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimit) Accept(visitor ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitVisitor) error {
-	if a.typ == "Integer" || a.Integer != 0 {
-		return visitor.VisitInteger(a.Integer)
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimit) Accept(visitor BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitVisitor) error {
+	if b.typ == "Integer" || b.Integer != 0 {
+		return visitor.VisitInteger(b.Integer)
 	}
-	if a.typ == "KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne" || a.KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne != "" {
-		return visitor.VisitKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne(a.KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne)
+	if b.typ == "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne" || b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne != "" {
+		return visitor.VisitBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne(b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne)
 	}
-	return fmt.Errorf("type %T does not include a non-empty union type", a)
+	return fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-type KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne string
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne string
 
 const (
-	KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOneClear    KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne = "clear"
-	KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOneNoUpdate KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne = "no_update"
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOneClear    BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne = "clear"
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOneNoUpdate BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne = "no_update"
 )
 
-func NewKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOneFromString(s string) (KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne, error) {
+func NewBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOneFromString(s string) (BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne, error) {
 	switch s {
 	case "clear":
-		return KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOneClear, nil
+		return BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOneClear, nil
 	case "no_update":
-		return KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOneNoUpdate, nil
+		return BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOneNoUpdate, nil
 	}
-	var t KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne
+	var t BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (e KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne) Ptr() *KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne {
+func (e BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne) Ptr() *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne {
 	return &e
 }
 
 // Maximum concurrent dubbing requests for this API key. Only available for enterprise customers.
-type KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimit struct {
-	Integer                                                                             int
-	V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne
-	typ                                                                                 string
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimit struct {
+	Integer                                                                                                         int
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne
+	typ                                                                                                             string
 }
 
-func (k *KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimit) GetInteger() int {
-	if k == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimit) GetInteger() int {
+	if b == nil {
 		return 0
 	}
-	return k.Integer
+	return b.Integer
 }
 
-func (k *KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimit) GetV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne() V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne {
-	if k == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimit) GetBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne() BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne {
+	if b == nil {
 		return ""
 	}
-	return k.V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne
+	return b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne
 }
 
-func (k *KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimit) UnmarshalJSON(data []byte) error {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimit) UnmarshalJSON(data []byte) error {
 	var valueInteger int
 	if err := json.Unmarshal(data, &valueInteger); err == nil {
-		k.typ = "Integer"
-		k.Integer = valueInteger
+		b.typ = "Integer"
+		b.Integer = valueInteger
 		return nil
 	}
-	var valueV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne
-	if err := json.Unmarshal(data, &valueV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne); err == nil {
-		k.typ = "V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne"
-		k.V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne = valueV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne
+	var valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne
+	if err := json.Unmarshal(data, &valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne); err == nil {
+		b.typ = "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne"
+		b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne = valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne
 		return nil
 	}
-	return fmt.Errorf("%s cannot be deserialized as a %T", data, k)
+	return fmt.Errorf("%s cannot be deserialized as a %T", data, b)
 }
 
-func (k KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimit) MarshalJSON() ([]byte, error) {
-	if k.typ == "Integer" || k.Integer != 0 {
-		return json.Marshal(k.Integer)
+func (b BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimit) MarshalJSON() ([]byte, error) {
+	if b.typ == "Integer" || b.Integer != 0 {
+		return json.Marshal(b.Integer)
 	}
-	if k.typ == "V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne" || k.V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne != "" {
-		return json.Marshal(k.V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne)
+	if b.typ == "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne" || b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne != "" {
+		return json.Marshal(b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne)
 	}
-	return nil, fmt.Errorf("type %T does not include a non-empty union type", k)
+	return nil, fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-type KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitVisitor interface {
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitVisitor interface {
 	VisitInteger(int) error
-	VisitV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne(V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne) error
+	VisitBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne(BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne) error
 }
 
-func (k *KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimit) Accept(visitor KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitVisitor) error {
-	if k.typ == "Integer" || k.Integer != 0 {
-		return visitor.VisitInteger(k.Integer)
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimit) Accept(visitor BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitVisitor) error {
+	if b.typ == "Integer" || b.Integer != 0 {
+		return visitor.VisitInteger(b.Integer)
 	}
-	if k.typ == "V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne" || k.V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne != "" {
-		return visitor.VisitV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne(k.V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne)
+	if b.typ == "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne" || b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne != "" {
+		return visitor.VisitBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne(b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne)
 	}
-	return fmt.Errorf("type %T does not include a non-empty union type", k)
+	return fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-type V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne string
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne string
 
 const (
-	V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOneClear    V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne = "clear"
-	V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOneNoUpdate V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne = "no_update"
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOneClear    BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne = "clear"
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOneNoUpdate BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne = "no_update"
 )
 
-func NewV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOneFromString(s string) (V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne, error) {
+func NewBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOneFromString(s string) (BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne, error) {
 	switch s {
 	case "clear":
-		return V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOneClear, nil
+		return BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOneClear, nil
 	case "no_update":
-		return V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOneNoUpdate, nil
+		return BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOneNoUpdate, nil
 	}
-	var t V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne
+	var t BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (e V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne) Ptr() *V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne {
+func (e BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne) Ptr() *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne {
 	return &e
 }
 
 // Maximum concurrent music generation requests for this API key. Only available for enterprise customers.
-type KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimit struct {
-	Integer                                                                           int
-	V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne
-	typ                                                                               string
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimit struct {
+	Integer                                                                                                       int
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne
+	typ                                                                                                           string
 }
 
-func (k *KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimit) GetInteger() int {
-	if k == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimit) GetInteger() int {
+	if b == nil {
 		return 0
 	}
-	return k.Integer
+	return b.Integer
 }
 
-func (k *KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimit) GetV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne() V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne {
-	if k == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimit) GetBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne() BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne {
+	if b == nil {
 		return ""
 	}
-	return k.V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne
+	return b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne
 }
 
-func (k *KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimit) UnmarshalJSON(data []byte) error {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimit) UnmarshalJSON(data []byte) error {
 	var valueInteger int
 	if err := json.Unmarshal(data, &valueInteger); err == nil {
-		k.typ = "Integer"
-		k.Integer = valueInteger
+		b.typ = "Integer"
+		b.Integer = valueInteger
 		return nil
 	}
-	var valueV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne
-	if err := json.Unmarshal(data, &valueV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne); err == nil {
-		k.typ = "V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne"
-		k.V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne = valueV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne
+	var valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne
+	if err := json.Unmarshal(data, &valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne); err == nil {
+		b.typ = "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne"
+		b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne = valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne
 		return nil
 	}
-	return fmt.Errorf("%s cannot be deserialized as a %T", data, k)
+	return fmt.Errorf("%s cannot be deserialized as a %T", data, b)
 }
 
-func (k KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimit) MarshalJSON() ([]byte, error) {
-	if k.typ == "Integer" || k.Integer != 0 {
-		return json.Marshal(k.Integer)
+func (b BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimit) MarshalJSON() ([]byte, error) {
+	if b.typ == "Integer" || b.Integer != 0 {
+		return json.Marshal(b.Integer)
 	}
-	if k.typ == "V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne" || k.V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne != "" {
-		return json.Marshal(k.V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne)
+	if b.typ == "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne" || b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne != "" {
+		return json.Marshal(b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne)
 	}
-	return nil, fmt.Errorf("type %T does not include a non-empty union type", k)
+	return nil, fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-type KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitVisitor interface {
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitVisitor interface {
 	VisitInteger(int) error
-	VisitV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne(V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne) error
+	VisitBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne(BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne) error
 }
 
-func (k *KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimit) Accept(visitor KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitVisitor) error {
-	if k.typ == "Integer" || k.Integer != 0 {
-		return visitor.VisitInteger(k.Integer)
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimit) Accept(visitor BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitVisitor) error {
+	if b.typ == "Integer" || b.Integer != 0 {
+		return visitor.VisitInteger(b.Integer)
 	}
-	if k.typ == "V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne" || k.V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne != "" {
-		return visitor.VisitV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne(k.V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne)
+	if b.typ == "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne" || b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne != "" {
+		return visitor.VisitBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne(b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne)
 	}
-	return fmt.Errorf("type %T does not include a non-empty union type", k)
+	return fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-type V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne string
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne string
 
 const (
-	V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOneClear    V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne = "clear"
-	V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOneNoUpdate V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne = "no_update"
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOneClear    BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne = "clear"
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOneNoUpdate BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne = "no_update"
 )
 
-func NewV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOneFromString(s string) (V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne, error) {
+func NewBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOneFromString(s string) (BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne, error) {
 	switch s {
 	case "clear":
-		return V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOneClear, nil
+		return BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOneClear, nil
 	case "no_update":
-		return V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOneNoUpdate, nil
+		return BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOneNoUpdate, nil
 	}
-	var t V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne
+	var t BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (e V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne) Ptr() *V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne {
+func (e BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne) Ptr() *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne {
 	return &e
 }
 
 // Unix timestamp (in seconds) after which this API key stops working. When set, it must be at least 15 minutes and at most 90 days in the future. On create, omit or pass null for a key that never expires. On update, omit to leave it unchanged, or pass "clear" to remove the expiry (never expires). A workspace may disallow never-expiring keys, or allow them only on service account API keys; creating one or clearing an expiry then fails.
-type ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnix struct {
-	Integer                                                                         int
-	ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne
-	typ                                                                             string
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnix struct {
+	Integer                                                                                               int
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne
+	typ                                                                                                   string
 }
 
-func (a *ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnix) GetInteger() int {
-	if a == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnix) GetInteger() int {
+	if b == nil {
 		return 0
 	}
-	return a.Integer
+	return b.Integer
 }
 
-func (a *ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnix) GetApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne() ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne {
-	if a == nil {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnix) GetBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne() BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne {
+	if b == nil {
 		return ""
 	}
-	return a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne
+	return b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne
 }
 
-func (a *ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnix) UnmarshalJSON(data []byte) error {
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnix) UnmarshalJSON(data []byte) error {
 	var valueInteger int
 	if err := json.Unmarshal(data, &valueInteger); err == nil {
-		a.typ = "Integer"
-		a.Integer = valueInteger
+		b.typ = "Integer"
+		b.Integer = valueInteger
 		return nil
 	}
-	var valueApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne
-	if err := json.Unmarshal(data, &valueApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne); err == nil {
-		a.typ = "ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne"
-		a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne = valueApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne
+	var valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne
+	if err := json.Unmarshal(data, &valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne); err == nil {
+		b.typ = "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne"
+		b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne = valueBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne
 		return nil
 	}
-	return fmt.Errorf("%s cannot be deserialized as a %T", data, a)
+	return fmt.Errorf("%s cannot be deserialized as a %T", data, b)
 }
 
-func (a ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnix) MarshalJSON() ([]byte, error) {
-	if a.typ == "Integer" || a.Integer != 0 {
-		return json.Marshal(a.Integer)
+func (b BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnix) MarshalJSON() ([]byte, error) {
+	if b.typ == "Integer" || b.Integer != 0 {
+		return json.Marshal(b.Integer)
 	}
-	if a.typ == "ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne" || a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne != "" {
-		return json.Marshal(a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne)
+	if b.typ == "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne" || b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne != "" {
+		return json.Marshal(b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne)
 	}
-	return nil, fmt.Errorf("type %T does not include a non-empty union type", a)
+	return nil, fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-type ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixVisitor interface {
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixVisitor interface {
 	VisitInteger(int) error
-	VisitApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne(ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne) error
+	VisitBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne(BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne) error
 }
 
-func (a *ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnix) Accept(visitor ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixVisitor) error {
-	if a.typ == "Integer" || a.Integer != 0 {
-		return visitor.VisitInteger(a.Integer)
+func (b *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnix) Accept(visitor BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixVisitor) error {
+	if b.typ == "Integer" || b.Integer != 0 {
+		return visitor.VisitInteger(b.Integer)
 	}
-	if a.typ == "ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne" || a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne != "" {
-		return visitor.VisitApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne(a.ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne)
+	if b.typ == "BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne" || b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne != "" {
+		return visitor.VisitBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne(b.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne)
 	}
-	return fmt.Errorf("type %T does not include a non-empty union type", a)
+	return fmt.Errorf("type %T does not include a non-empty union type", b)
 }
 
-type ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne string
+type BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne string
 
 const (
-	ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOneClear    ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne = "clear"
-	ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOneNoUpdate ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne = "no_update"
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOneClear    BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne = "clear"
+	BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOneNoUpdate BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne = "no_update"
 )
 
-func NewApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOneFromString(s string) (ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne, error) {
+func NewBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOneFromString(s string) (BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne, error) {
 	switch s {
 	case "clear":
-		return ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOneClear, nil
+		return BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOneClear, nil
 	case "no_update":
-		return ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOneNoUpdate, nil
+		return BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOneNoUpdate, nil
 	}
-	var t ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne
+	var t BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (e ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne) Ptr() *ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne {
+func (e BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne) Ptr() *BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne {
 	return &e
 }

@@ -32,21 +32,21 @@ func TestBodyUpdateAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposa
 	assertRoundTrip(t, wire, new(BodyUpdateAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdPatch))
 }
 
-func TestReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPostRoundTrip(t *testing.T) {
+func TestBodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPostRoundTrip(t *testing.T) {
 	t.Parallel()
 	const wire = `{
   "state": "approved",
   "comment": "value"
 }`
-	assertRoundTrip(t, wire, new(ReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost))
+	assertRoundTrip(t, wire, new(BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost))
 }
 
-func TestOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPostRoundTrip(t *testing.T) {
+func TestBodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPostRoundTrip(t *testing.T) {
 	t.Parallel()
 	const wire = `{
   "body": "value"
 }`
-	assertRoundTrip(t, wire, new(OnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost))
+	assertRoundTrip(t, wire, new(BodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost))
 }
 
 func TestBodyMergeAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdMergePostRoundTrip(t *testing.T) {

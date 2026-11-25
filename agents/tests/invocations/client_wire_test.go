@@ -428,6 +428,10 @@ func TestGetWire(t *testing.T) {
                     "output_total": {
                       "tokens": 123,
                       "price": 9.99
+                    },
+                    "output_total_reasoning_portion": {
+                      "tokens": 123,
+                      "price": 9.99
                     }
                   }
                 }
@@ -585,6 +589,10 @@ func TestGetWire(t *testing.T) {
                     "price": 9.99
                   },
                   "output_total": {
+                    "tokens": 123,
+                    "price": 9.99
+                  },
+                  "output_total_reasoning_portion": {
                     "tokens": 123,
                     "price": 9.99
                   }
@@ -766,6 +774,10 @@ func TestGetWire(t *testing.T) {
                 "output_total": {
                   "tokens": 123,
                   "price": 9.99
+                },
+                "output_total_reasoning_portion": {
+                  "tokens": 123,
+                  "price": 9.99
                 }
               }
             }
@@ -857,6 +869,10 @@ func TestGetWire(t *testing.T) {
                 "output_total": {
                   "tokens": 123,
                   "price": 9.99
+                },
+                "output_total_reasoning_portion": {
+                  "tokens": 123,
+                  "price": 9.99
                 }
               }
             }
@@ -877,6 +893,10 @@ func TestGetWire(t *testing.T) {
                   "price": 9.99
                 },
                 "output_total": {
+                  "tokens": 123,
+                  "price": 9.99
+                },
+                "output_total_reasoning_portion": {
                   "tokens": 123,
                   "price": 9.99
                 }
@@ -1115,6 +1135,10 @@ func TestGetWire(t *testing.T) {
                     "output_total": {
                       "tokens": 123,
                       "price": 9.99
+                    },
+                    "output_total_reasoning_portion": {
+                      "tokens": 123,
+                      "price": 9.99
                     }
                   }
                 }
@@ -1272,6 +1296,10 @@ func TestGetWire(t *testing.T) {
                     "price": 9.99
                   },
                   "output_total": {
+                    "tokens": 123,
+                    "price": 9.99
+                  },
+                  "output_total_reasoning_portion": {
                     "tokens": 123,
                     "price": 9.99
                   }
@@ -1453,6 +1481,10 @@ func TestGetWire(t *testing.T) {
                 "output_total": {
                   "tokens": 123,
                   "price": 9.99
+                },
+                "output_total_reasoning_portion": {
+                  "tokens": 123,
+                  "price": 9.99
                 }
               }
             }
@@ -1544,6 +1576,10 @@ func TestGetWire(t *testing.T) {
                 "output_total": {
                   "tokens": 123,
                   "price": 9.99
+                },
+                "output_total_reasoning_portion": {
+                  "tokens": 123,
+                  "price": 9.99
                 }
               }
             }
@@ -1564,6 +1600,10 @@ func TestGetWire(t *testing.T) {
                   "price": 9.99
                 },
                 "output_total": {
+                  "tokens": 123,
+                  "price": 9.99
+                },
+                "output_total_reasoning_portion": {
                   "tokens": 123,
                   "price": 9.99
                 }
@@ -1789,6 +1829,10 @@ func TestGetWire(t *testing.T) {
                     "output_total": {
                       "tokens": 123,
                       "price": 9.99
+                    },
+                    "output_total_reasoning_portion": {
+                      "tokens": 123,
+                      "price": 9.99
                     }
                   }
                 }
@@ -1946,6 +1990,10 @@ func TestGetWire(t *testing.T) {
                     "price": 9.99
                   },
                   "output_total": {
+                    "tokens": 123,
+                    "price": 9.99
+                  },
+                  "output_total_reasoning_portion": {
                     "tokens": 123,
                     "price": 9.99
                   }
@@ -2127,6 +2175,10 @@ func TestGetWire(t *testing.T) {
                 "output_total": {
                   "tokens": 123,
                   "price": 9.99
+                },
+                "output_total_reasoning_portion": {
+                  "tokens": 123,
+                  "price": 9.99
                 }
               }
             }
@@ -2218,6 +2270,10 @@ func TestGetWire(t *testing.T) {
                 "output_total": {
                   "tokens": 123,
                   "price": 9.99
+                },
+                "output_total_reasoning_portion": {
+                  "tokens": 123,
+                  "price": 9.99
                 }
               }
             }
@@ -2238,6 +2294,10 @@ func TestGetWire(t *testing.T) {
                   "price": 9.99
                 },
                 "output_total": {
+                  "tokens": 123,
+                  "price": 9.99
+                },
+                "output_total_reasoning_portion": {
                   "tokens": 123,
                   "price": 9.99
                 }
@@ -2510,6 +2570,10 @@ func TestUpdateWire(t *testing.T) {
                     "output_total": {
                       "tokens": 123,
                       "price": 9.99
+                    },
+                    "output_total_reasoning_portion": {
+                      "tokens": 123,
+                      "price": 9.99
                     }
                   }
                 }
@@ -2667,6 +2731,10 @@ func TestUpdateWire(t *testing.T) {
                     "price": 9.99
                   },
                   "output_total": {
+                    "tokens": 123,
+                    "price": 9.99
+                  },
+                  "output_total_reasoning_portion": {
                     "tokens": 123,
                     "price": 9.99
                   }
@@ -2848,6 +2916,10 @@ func TestUpdateWire(t *testing.T) {
                 "output_total": {
                   "tokens": 123,
                   "price": 9.99
+                },
+                "output_total_reasoning_portion": {
+                  "tokens": 123,
+                  "price": 9.99
                 }
               }
             }
@@ -2939,6 +3011,10 @@ func TestUpdateWire(t *testing.T) {
                 "output_total": {
                   "tokens": 123,
                   "price": 9.99
+                },
+                "output_total_reasoning_portion": {
+                  "tokens": 123,
+                  "price": 9.99
                 }
               }
             }
@@ -2959,6 +3035,10 @@ func TestUpdateWire(t *testing.T) {
                   "price": 9.99
                 },
                 "output_total": {
+                  "tokens": 123,
+                  "price": 9.99
+                },
+                "output_total_reasoning_portion": {
                   "tokens": 123,
                   "price": 9.99
                 }
@@ -3204,6 +3284,10 @@ func TestUpdateWire(t *testing.T) {
                     "output_total": {
                       "tokens": 123,
                       "price": 9.99
+                    },
+                    "output_total_reasoning_portion": {
+                      "tokens": 123,
+                      "price": 9.99
                     }
                   }
                 }
@@ -3361,6 +3445,10 @@ func TestUpdateWire(t *testing.T) {
                     "price": 9.99
                   },
                   "output_total": {
+                    "tokens": 123,
+                    "price": 9.99
+                  },
+                  "output_total_reasoning_portion": {
                     "tokens": 123,
                     "price": 9.99
                   }
@@ -3542,6 +3630,10 @@ func TestUpdateWire(t *testing.T) {
                 "output_total": {
                   "tokens": 123,
                   "price": 9.99
+                },
+                "output_total_reasoning_portion": {
+                  "tokens": 123,
+                  "price": 9.99
                 }
               }
             }
@@ -3633,6 +3725,10 @@ func TestUpdateWire(t *testing.T) {
                 "output_total": {
                   "tokens": 123,
                   "price": 9.99
+                },
+                "output_total_reasoning_portion": {
+                  "tokens": 123,
+                  "price": 9.99
                 }
               }
             }
@@ -3653,6 +3749,10 @@ func TestUpdateWire(t *testing.T) {
                   "price": 9.99
                 },
                 "output_total": {
+                  "tokens": 123,
+                  "price": 9.99
+                },
+                "output_total_reasoning_portion": {
                   "tokens": 123,
                   "price": 9.99
                 }
@@ -3878,6 +3978,10 @@ func TestUpdateWire(t *testing.T) {
                     "output_total": {
                       "tokens": 123,
                       "price": 9.99
+                    },
+                    "output_total_reasoning_portion": {
+                      "tokens": 123,
+                      "price": 9.99
                     }
                   }
                 }
@@ -4035,6 +4139,10 @@ func TestUpdateWire(t *testing.T) {
                     "price": 9.99
                   },
                   "output_total": {
+                    "tokens": 123,
+                    "price": 9.99
+                  },
+                  "output_total_reasoning_portion": {
                     "tokens": 123,
                     "price": 9.99
                   }
@@ -4216,6 +4324,10 @@ func TestUpdateWire(t *testing.T) {
                 "output_total": {
                   "tokens": 123,
                   "price": 9.99
+                },
+                "output_total_reasoning_portion": {
+                  "tokens": 123,
+                  "price": 9.99
                 }
               }
             }
@@ -4307,6 +4419,10 @@ func TestUpdateWire(t *testing.T) {
                 "output_total": {
                   "tokens": 123,
                   "price": 9.99
+                },
+                "output_total_reasoning_portion": {
+                  "tokens": 123,
+                  "price": 9.99
                 }
               }
             }
@@ -4327,6 +4443,10 @@ func TestUpdateWire(t *testing.T) {
                   "price": 9.99
                 },
                 "output_total": {
+                  "tokens": 123,
+                  "price": 9.99
+                },
+                "output_total_reasoning_portion": {
                   "tokens": 123,
                   "price": 9.99
                 }
@@ -4559,6 +4679,7 @@ func TestResubmitWire(t *testing.T) {
           "use_llm_generated_message": true,
           "randomize_fillers": true,
           "max_soft_timeouts_per_generation": 8,
+          "pause_after_filler": true,
           "llm_generated_message_prompt_override": "value",
           "disable_until_first_user_message": true
         },
@@ -5018,6 +5139,9 @@ func TestResubmitWire(t *testing.T) {
               "secret_id": "value"
             },
             "auth_connection": {
+              "auth_connection_id": "value"
+            },
+            "mtls_auth_connection": {
               "auth_connection_id": "value"
             },
             "request_headers": {
@@ -5709,6 +5833,9 @@ func TestResubmitWire(t *testing.T) {
           }
         },
         "auto_resolve_after_inactive_minutes": 123,
+        "environments": [
+          "value"
+        ],
         "notifiers": [
           {
             "type": "webhook",
@@ -5848,6 +5975,7 @@ func TestResubmitWireError422(t *testing.T) {
           "use_llm_generated_message": true,
           "randomize_fillers": true,
           "max_soft_timeouts_per_generation": 8,
+          "pause_after_filler": true,
           "llm_generated_message_prompt_override": "value",
           "disable_until_first_user_message": true
         },
@@ -6307,6 +6435,9 @@ func TestResubmitWireError422(t *testing.T) {
               "secret_id": "value"
             },
             "auth_connection": {
+              "auth_connection_id": "value"
+            },
+            "mtls_auth_connection": {
               "auth_connection_id": "value"
             },
             "request_headers": {
@@ -6998,6 +7129,9 @@ func TestResubmitWireError422(t *testing.T) {
           }
         },
         "auto_resolve_after_inactive_minutes": 123,
+        "environments": [
+          "value"
+        ],
         "notifiers": [
           {
             "type": "webhook",

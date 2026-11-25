@@ -28,7 +28,7 @@ func TestListWire(t *testing.T) {
       "agent_id": "value",
       "needs_clustering": true,
       "title": "value",
-      "issue_type": "knowledge_gap",
+      "issue_type": {},
       "labels": [
         "value"
       ],
@@ -126,7 +126,7 @@ func TestListWire(t *testing.T) {
       "agent_id": "value",
       "needs_clustering": true,
       "title": "value",
-      "issue_type": "knowledge_gap",
+      "issue_type": {},
       "labels": [
         "value"
       ],
@@ -193,7 +193,7 @@ func TestListWire(t *testing.T) {
       "agent_id": "value",
       "needs_clustering": true,
       "title": "value",
-      "issue_type": "knowledge_gap",
+      "issue_type": {},
       "labels": [
         "value"
       ],
@@ -347,7 +347,7 @@ func TestCreateManualWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -430,7 +430,7 @@ func TestCreateManualWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -491,7 +491,7 @@ func TestCreateManualWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -617,7 +617,7 @@ func TestListForWorkspaceWire(t *testing.T) {
       "agent_id": "value",
       "needs_clustering": true,
       "title": "value",
-      "issue_type": "knowledge_gap",
+      "issue_type": {},
       "labels": [
         "value"
       ],
@@ -715,7 +715,7 @@ func TestListForWorkspaceWire(t *testing.T) {
       "agent_id": "value",
       "needs_clustering": true,
       "title": "value",
-      "issue_type": "knowledge_gap",
+      "issue_type": {},
       "labels": [
         "value"
       ],
@@ -782,7 +782,7 @@ func TestListForWorkspaceWire(t *testing.T) {
       "agent_id": "value",
       "needs_clustering": true,
       "title": "value",
-      "issue_type": "knowledge_gap",
+      "issue_type": {},
       "labels": [
         "value"
       ],
@@ -936,7 +936,7 @@ func TestCreateWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -1025,7 +1025,7 @@ func TestCreateWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -1086,7 +1086,7 @@ func TestCreateWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -1303,7 +1303,7 @@ func TestGetWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -1377,7 +1377,7 @@ func TestGetWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -1438,7 +1438,7 @@ func TestGetWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -1546,7 +1546,7 @@ func TestUpdateWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -1631,7 +1631,7 @@ func TestUpdateWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -1692,7 +1692,7 @@ func TestUpdateWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -1874,7 +1874,7 @@ func TestAddCommentWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -1955,7 +1955,7 @@ func TestAddCommentWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -2016,7 +2016,7 @@ func TestAddCommentWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -2138,7 +2138,7 @@ func TestMergeWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -2221,7 +2221,7 @@ func TestMergeWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -2282,7 +2282,7 @@ func TestMergeWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -2406,7 +2406,7 @@ func TestAddTurnCommentWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -2488,7 +2488,7 @@ func TestAddTurnCommentWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],
@@ -2549,7 +2549,7 @@ func TestAddTurnCommentWire(t *testing.T) {
   "agent_id": "value",
   "needs_clustering": true,
   "title": "value",
-  "issue_type": "knowledge_gap",
+  "issue_type": {},
   "labels": [
     "value"
   ],

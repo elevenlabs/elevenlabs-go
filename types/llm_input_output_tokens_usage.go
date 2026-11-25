@@ -6,11 +6,12 @@ import (
 )
 
 type LlmInputOutputTokensUsage struct {
-	Input           *LlmTokensCategoryUsage `json:"input,omitempty" xml:"input,omitempty"`
-	InputCacheRead  *LlmTokensCategoryUsage `json:"input_cache_read,omitempty" xml:"input_cache_read,omitempty"`
-	InputCacheWrite *LlmTokensCategoryUsage `json:"input_cache_write,omitempty" xml:"input_cache_write,omitempty"`
-	OutputTotal     *LlmTokensCategoryUsage `json:"output_total,omitempty" xml:"output_total,omitempty"`
-	extraProperties map[string]interface{}
+	Input                       *LlmTokensCategoryUsage `json:"input,omitempty" xml:"input,omitempty"`
+	InputCacheRead              *LlmTokensCategoryUsage `json:"input_cache_read,omitempty" xml:"input_cache_read,omitempty"`
+	InputCacheWrite             *LlmTokensCategoryUsage `json:"input_cache_write,omitempty" xml:"input_cache_write,omitempty"`
+	OutputTotal                 *LlmTokensCategoryUsage `json:"output_total,omitempty" xml:"output_total,omitempty"`
+	OutputTotalReasoningPortion *LlmTokensCategoryUsage `json:"output_total_reasoning_portion,omitempty" xml:"output_total_reasoning_portion,omitempty"`
+	extraProperties             map[string]interface{}
 }
 
 func (l *LlmInputOutputTokensUsage) GetInput() (value *LlmTokensCategoryUsage) {
@@ -41,6 +42,13 @@ func (l *LlmInputOutputTokensUsage) GetOutputTotal() (value *LlmTokensCategoryUs
 	return l.OutputTotal
 }
 
+func (l *LlmInputOutputTokensUsage) GetOutputTotalReasoningPortion() (value *LlmTokensCategoryUsage) {
+	if l == nil {
+		return
+	}
+	return l.OutputTotalReasoningPortion
+}
+
 func (l *LlmInputOutputTokensUsage) SetInput(input *LlmTokensCategoryUsage) {
 	l.Input = input
 }
@@ -55,6 +63,10 @@ func (l *LlmInputOutputTokensUsage) SetInputCacheWrite(inputCacheWrite *LlmToken
 
 func (l *LlmInputOutputTokensUsage) SetOutputTotal(outputTotal *LlmTokensCategoryUsage) {
 	l.OutputTotal = outputTotal
+}
+
+func (l *LlmInputOutputTokensUsage) SetOutputTotalReasoningPortion(outputTotalReasoningPortion *LlmTokensCategoryUsage) {
+	l.OutputTotalReasoningPortion = outputTotalReasoningPortion
 }
 
 func (l *LlmInputOutputTokensUsage) GetExtraProperties() map[string]interface{} {

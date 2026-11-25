@@ -10,6 +10,8 @@ import (
 type ResellerTierResponse struct {
 	TierId      string `json:"tier_id" xml:"tier_id" required:"true"`
 	DisplayName string `json:"display_name" xml:"display_name" required:"true"`
+	// What the prices are in. The same for every tier on a ladder.
+	Currency ReceptionAgentInfoResponseCurrency `json:"currency" xml:"currency" required:"true"`
 	// A tier's prices and the limits shown on its tier card.
 	TierEconomics   *ResellerTierEconomics `json:"tier_economics" xml:"tier_economics" required:"true"`
 	extraProperties map[string]interface{}
@@ -29,6 +31,13 @@ func (r *ResellerTierResponse) GetDisplayName() (value string) {
 	return r.DisplayName
 }
 
+func (r *ResellerTierResponse) GetCurrency() (value ReceptionAgentInfoResponseCurrency) {
+	if r == nil {
+		return
+	}
+	return r.Currency
+}
+
 func (r *ResellerTierResponse) GetTierEconomics() (value *ResellerTierEconomics) {
 	if r == nil {
 		return
@@ -42,6 +51,10 @@ func (r *ResellerTierResponse) SetTierId(tierId string) {
 
 func (r *ResellerTierResponse) SetDisplayName(displayName string) {
 	r.DisplayName = displayName
+}
+
+func (r *ResellerTierResponse) SetCurrency(currency ReceptionAgentInfoResponseCurrency) {
+	r.Currency = currency
 }
 
 func (r *ResellerTierResponse) SetTierEconomics(tierEconomics *ResellerTierEconomics) {

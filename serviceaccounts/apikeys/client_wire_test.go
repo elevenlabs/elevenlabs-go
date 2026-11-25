@@ -328,8 +328,10 @@ func TestUpdateWire(t *testing.T) {
 		option.WithBaseURL(server.URL),
 	))
 
-	var request serviceaccounts.EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch
+	var request serviceaccounts.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch
 	if err := json.Unmarshal([]byte(`{
+  "api_key_id": "value",
+  "service_account_user_id": "value",
   "is_enabled": true,
   "name": "value",
   "permissions": [
@@ -345,7 +347,7 @@ func TestUpdateWire(t *testing.T) {
   "music_concurrency_limit": 123,
   "expires_at_unix": 123
 }`), &request); err != nil {
-		t.Fatalf("unmarshal request: %v", err)
+		t.Fatalf("unmarshal request body: %v", err)
 	}
 	result, err := client.Update(context.Background(), string("value"), string("value2"), &request)
 	if err != nil {
@@ -395,8 +397,10 @@ func TestUpdateWireError422(t *testing.T) {
 		option.WithMaxAttempts(1),
 	))
 
-	var request serviceaccounts.EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch
+	var request serviceaccounts.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch
 	if err := json.Unmarshal([]byte(`{
+  "api_key_id": "value",
+  "service_account_user_id": "value",
   "is_enabled": true,
   "name": "value",
   "permissions": [
@@ -412,7 +416,7 @@ func TestUpdateWireError422(t *testing.T) {
   "music_concurrency_limit": 123,
   "expires_at_unix": 123
 }`), &request); err != nil {
-		t.Fatalf("unmarshal request: %v", err)
+		t.Fatalf("unmarshal request body: %v", err)
 	}
 	_, err := client.Update(context.Background(), string("value"), string("value2"), &request)
 	if err == nil {

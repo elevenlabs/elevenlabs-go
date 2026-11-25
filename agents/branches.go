@@ -260,63 +260,135 @@ func (b *BodyUpdateAgentBranchV1ConvaiAgentsAgentIdBranchesBranchIdPatch) Marsha
 	return json.Marshal(marshaler)
 }
 
-type MergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost struct {
+type BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost struct {
+	// The ID of the target branch to merge into.
+	TargetBranchId string `json:"-" url:"target_branch_id" explode:"true" serializationStyle:"form" queryParam:"target_branch_id" required:"true"`
+	// Unique identifier for the source branch to merge from.
+	SourceBranchId string `json:"-" url:"-"`
+	// The id of an agent. This is returned on agent creation.
+	AgentId string `json:"-" url:"-"`
 	// Whether to archive the source branch after merging
 	ArchiveSourceBranch *bool `json:"archive_source_branch,omitempty" xml:"archive_source_branch,omitempty"`
-	// Force source branch changes onto the target, overriding timestamp-based conflict resolution
+	// Keep the source branch's value for every conflict instead of sending `conflict_resolutions`
 	Force *bool `json:"force,omitempty" xml:"force,omitempty"`
+	// Side to keep, or custom text where the conflict accepts it, for each conflict the preview reported. A merge or rebase with conflicts is rejected unless there is one for every conflict, sent with both tip ids. On a merge it can't be combined with `force`, which lets the source win every conflict instead.
+	ConflictResolutions []*types.ConflictResolution `json:"conflict_resolutions,omitempty" xml:"conflict_resolutions,omitempty"`
+	// Source branch tip version the conflicts were resolved against (`source_tip_version_id` of the preview). The request fails with 409 if the branch moved since.
+	SourceTipId *string `json:"source_tip_id,omitempty" xml:"source_tip_id,omitempty"`
+	// Target branch tip version the conflicts were resolved against (`target_tip_version_id` of the preview). The request fails with 409 if the branch moved since.
+	TargetTipId *string `json:"target_tip_id,omitempty" xml:"target_tip_id,omitempty"`
 }
 
-func (m *MergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) GetArchiveSourceBranch() (value *bool) {
-	if m == nil {
+func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) GetTargetBranchId() (value string) {
+	if b == nil {
 		return
 	}
-	return m.ArchiveSourceBranch
+	return b.TargetBranchId
 }
 
-func (m *MergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) GetForce() (value *bool) {
-	if m == nil {
+func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) GetSourceBranchId() (value string) {
+	if b == nil {
 		return
 	}
-	return m.Force
+	return b.SourceBranchId
 }
 
-func (m *MergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) SetArchiveSourceBranch(archiveSourceBranch *bool) {
-	m.ArchiveSourceBranch = archiveSourceBranch
+func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) GetAgentId() (value string) {
+	if b == nil {
+		return
+	}
+	return b.AgentId
 }
 
-func (m *MergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) SetForce(force *bool) {
-	m.Force = force
+func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) GetArchiveSourceBranch() (value *bool) {
+	if b == nil {
+		return
+	}
+	return b.ArchiveSourceBranch
 }
 
-func (m *MergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) GetExtraProperties() map[string]interface{} {
+func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) GetForce() (value *bool) {
+	if b == nil {
+		return
+	}
+	return b.Force
+}
+
+func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) GetConflictResolutions() (value []*types.ConflictResolution) {
+	if b == nil {
+		return
+	}
+	return b.ConflictResolutions
+}
+
+func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) GetSourceTipId() (value *string) {
+	if b == nil {
+		return
+	}
+	return b.SourceTipId
+}
+
+func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) GetTargetTipId() (value *string) {
+	if b == nil {
+		return
+	}
+	return b.TargetTipId
+}
+
+func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) SetTargetBranchId(targetBranchId string) {
+	b.TargetBranchId = targetBranchId
+}
+
+func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) SetSourceBranchId(sourceBranchId string) {
+	b.SourceBranchId = sourceBranchId
+}
+
+func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) SetAgentId(agentId string) {
+	b.AgentId = agentId
+}
+
+func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) SetArchiveSourceBranch(archiveSourceBranch *bool) {
+	b.ArchiveSourceBranch = archiveSourceBranch
+}
+
+func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) SetForce(force *bool) {
+	b.Force = force
+}
+
+func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) SetConflictResolutions(conflictResolutions []*types.ConflictResolution) {
+	b.ConflictResolutions = conflictResolutions
+}
+
+func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) SetSourceTipId(sourceTipId *string) {
+	b.SourceTipId = sourceTipId
+}
+
+func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) SetTargetTipId(targetTipId *string) {
+	b.TargetTipId = targetTipId
+}
+
+func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) GetExtraProperties() map[string]interface{} {
 	return nil
 }
 
-func (m MergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) String() string {
-	jsonData, err := json.MarshalIndent(m, "", "  ")
+func (b BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) String() string {
+	jsonData, err := json.MarshalIndent(b, "", "  ")
 	if err != nil {
-		return "error converting struct: MergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost to string"
+		return "error converting struct: BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost to string"
 	}
 	return string(jsonData)
 }
 
-func (m *MergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) UnmarshalJSON(data []byte) error {
-	type unmarshaler MergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*m = MergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost(value)
-	return nil
+func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) UnmarshalJSON(data []byte) error {
+	return unmarshal.UnmarshalNullable(data, b)
 }
 
-func (m *MergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) MarshalJSON() ([]byte, error) {
-	type embed MergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost
+func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) MarshalJSON() ([]byte, error) {
+	type embed BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost
 	var marshaler = struct {
 		embed
 	}{
-		embed: embed(*m),
+		embed: embed(*b),
 	}
 	return json.Marshal(marshaler)
 }
@@ -328,6 +400,12 @@ type BodyRebaseABranchOntoMainV1ConvaiAgentsAgentIdBranchesBranchIdRebasePost st
 	BranchId string `json:"-" url:"-"`
 	// The id of an agent. This is returned on agent creation.
 	AgentId string `json:"-" url:"-"`
+	// Side to keep, or custom text where the conflict accepts it, for each conflict the preview reported. A merge or rebase with conflicts is rejected unless there is one for every conflict, sent with both tip ids. On a merge it can't be combined with `force`, which lets the source win every conflict instead.
+	ConflictResolutions []*types.ConflictResolution `json:"conflict_resolutions,omitempty" xml:"conflict_resolutions,omitempty"`
+	// Tip version of the branch being rebased (`source_tip_version_id` of the rebase preview) the conflicts were resolved against. The request fails with 409 if it moved since.
+	BranchTipId *string `json:"branch_tip_id,omitempty" xml:"branch_tip_id,omitempty"`
+	// Tip version of the branch the changes are pulled from (`source_branch_id`, the main branch by default; `target_tip_version_id` of the rebase preview) the conflicts were resolved against. The request fails with 409 if it moved since.
+	SourceTipId *string `json:"source_tip_id,omitempty" xml:"source_tip_id,omitempty"`
 }
 
 func (b *BodyRebaseABranchOntoMainV1ConvaiAgentsAgentIdBranchesBranchIdRebasePost) GetSourceBranchId() (value *string) {
@@ -351,6 +429,27 @@ func (b *BodyRebaseABranchOntoMainV1ConvaiAgentsAgentIdBranchesBranchIdRebasePos
 	return b.AgentId
 }
 
+func (b *BodyRebaseABranchOntoMainV1ConvaiAgentsAgentIdBranchesBranchIdRebasePost) GetConflictResolutions() (value []*types.ConflictResolution) {
+	if b == nil {
+		return
+	}
+	return b.ConflictResolutions
+}
+
+func (b *BodyRebaseABranchOntoMainV1ConvaiAgentsAgentIdBranchesBranchIdRebasePost) GetBranchTipId() (value *string) {
+	if b == nil {
+		return
+	}
+	return b.BranchTipId
+}
+
+func (b *BodyRebaseABranchOntoMainV1ConvaiAgentsAgentIdBranchesBranchIdRebasePost) GetSourceTipId() (value *string) {
+	if b == nil {
+		return
+	}
+	return b.SourceTipId
+}
+
 func (b *BodyRebaseABranchOntoMainV1ConvaiAgentsAgentIdBranchesBranchIdRebasePost) SetSourceBranchId(sourceBranchId *string) {
 	b.SourceBranchId = sourceBranchId
 }
@@ -361,6 +460,18 @@ func (b *BodyRebaseABranchOntoMainV1ConvaiAgentsAgentIdBranchesBranchIdRebasePos
 
 func (b *BodyRebaseABranchOntoMainV1ConvaiAgentsAgentIdBranchesBranchIdRebasePost) SetAgentId(agentId string) {
 	b.AgentId = agentId
+}
+
+func (b *BodyRebaseABranchOntoMainV1ConvaiAgentsAgentIdBranchesBranchIdRebasePost) SetConflictResolutions(conflictResolutions []*types.ConflictResolution) {
+	b.ConflictResolutions = conflictResolutions
+}
+
+func (b *BodyRebaseABranchOntoMainV1ConvaiAgentsAgentIdBranchesBranchIdRebasePost) SetBranchTipId(branchTipId *string) {
+	b.BranchTipId = branchTipId
+}
+
+func (b *BodyRebaseABranchOntoMainV1ConvaiAgentsAgentIdBranchesBranchIdRebasePost) SetSourceTipId(sourceTipId *string) {
+	b.SourceTipId = sourceTipId
 }
 
 func (b *BodyRebaseABranchOntoMainV1ConvaiAgentsAgentIdBranchesBranchIdRebasePost) GetExtraProperties() map[string]interface{} {
@@ -473,69 +584,6 @@ func (p *PreviewMergeBranchesRequest) SetForce(force *bool) {
 func (p *PreviewMergeBranchesRequest) SetIncludeProcedureGeneratedWorkflowElements(includeProcedureGeneratedWorkflowElements *bool) {
 	p.IncludeProcedureGeneratedWorkflowElements = includeProcedureGeneratedWorkflowElements
 	p.require(previewMergeBranchesRequestFieldIncludeProcedureGeneratedWorkflowElements)
-}
-
-var (
-	bodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePostFieldArchiveSourceBranch = big.NewInt(1 << 0)
-	bodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePostFieldForce               = big.NewInt(1 << 1)
-	bodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePostFieldTargetBranchId      = big.NewInt(1 << 2)
-)
-
-type BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost struct {
-	ArchiveSourceBranch *bool  `json:"archive_source_branch,omitempty" url:"-"`
-	Force               *bool  `json:"force,omitempty" url:"-"`
-	TargetBranchId      string `json:"-" url:"target_branch_id,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-}
-
-func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) require(field *big.Int) {
-	if b.explicitFields == nil {
-		b.explicitFields = big.NewInt(0)
-	}
-	b.explicitFields.Or(b.explicitFields, field)
-}
-
-// SetArchiveSourceBranch sets the ArchiveSourceBranch field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) SetArchiveSourceBranch(archiveSourceBranch *bool) {
-	b.ArchiveSourceBranch = archiveSourceBranch
-	b.require(bodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePostFieldArchiveSourceBranch)
-}
-
-// SetForce sets the Force field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) SetForce(force *bool) {
-	b.Force = force
-	b.require(bodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePostFieldForce)
-}
-
-// SetTargetBranchId sets the TargetBranchId field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) SetTargetBranchId(targetBranchId string) {
-	b.TargetBranchId = targetBranchId
-	b.require(bodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePostFieldTargetBranchId)
-}
-
-func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) UnmarshalJSON(data []byte) error {
-	type unmarshaler BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost
-	var body unmarshaler
-	if err := json.Unmarshal(data, &body); err != nil {
-		return err
-	}
-	*b = BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost(body)
-	return nil
-}
-
-func (b *BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost) MarshalJSON() ([]byte, error) {
-	type embed BodyMergeABranchIntoATargetBranchV1ConvaiAgentsAgentIdBranchesSourceBranchIdMergePost
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*b),
-	}
-	return json.Marshal(marshaler)
 }
 
 var (

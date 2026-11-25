@@ -65,6 +65,7 @@ func TestCreateWire(t *testing.T) {
         "use_llm_generated_message": true,
         "randomize_fillers": true,
         "max_soft_timeouts_per_generation": 8,
+        "pause_after_filler": true,
         "llm_generated_message_prompt_override": "value",
         "disable_until_first_user_message": true
       },
@@ -524,6 +525,9 @@ func TestCreateWire(t *testing.T) {
             "secret_id": "value"
           },
           "auth_connection": {
+            "auth_connection_id": "value"
+          },
+          "mtls_auth_connection": {
             "auth_connection_id": "value"
           },
           "request_headers": {
@@ -1215,6 +1219,9 @@ func TestCreateWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -1360,6 +1367,7 @@ func TestCreateWireError422(t *testing.T) {
         "use_llm_generated_message": true,
         "randomize_fillers": true,
         "max_soft_timeouts_per_generation": 8,
+        "pause_after_filler": true,
         "llm_generated_message_prompt_override": "value",
         "disable_until_first_user_message": true
       },
@@ -1819,6 +1827,9 @@ func TestCreateWireError422(t *testing.T) {
             "secret_id": "value"
           },
           "auth_connection": {
+            "auth_connection_id": "value"
+          },
+          "mtls_auth_connection": {
             "auth_connection_id": "value"
           },
           "request_headers": {
@@ -2510,6 +2521,9 @@ func TestCreateWireError422(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -2616,6 +2630,7 @@ func TestGetWire(t *testing.T) {
         "use_llm_generated_message": true,
         "randomize_fillers": true,
         "max_soft_timeouts_per_generation": 8,
+        "pause_after_filler": true,
         "llm_generated_message_prompt_override": "value",
         "disable_until_first_user_message": true
       },
@@ -3075,6 +3090,9 @@ func TestGetWire(t *testing.T) {
             "secret_id": "value"
           },
           "auth_connection": {
+            "auth_connection_id": "value"
+          },
+          "mtls_auth_connection": {
             "auth_connection_id": "value"
           },
           "request_headers": {
@@ -3770,6 +3788,9 @@ func TestGetWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -3950,6 +3971,7 @@ func TestGetWire(t *testing.T) {
         "use_llm_generated_message": true,
         "randomize_fillers": true,
         "max_soft_timeouts_per_generation": 8,
+        "pause_after_filler": true,
         "llm_generated_message_prompt_override": "value",
         "disable_until_first_user_message": true
       },
@@ -4409,6 +4431,9 @@ func TestGetWire(t *testing.T) {
             "secret_id": "value"
           },
           "auth_connection": {
+            "auth_connection_id": "value"
+          },
+          "mtls_auth_connection": {
             "auth_connection_id": "value"
           },
           "request_headers": {
@@ -5104,6 +5129,9 @@ func TestGetWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -5263,6 +5291,7 @@ func TestGetWire(t *testing.T) {
         "use_llm_generated_message": true,
         "randomize_fillers": true,
         "max_soft_timeouts_per_generation": 8,
+        "pause_after_filler": true,
         "llm_generated_message_prompt_override": "value",
         "disable_until_first_user_message": true
       },
@@ -5722,6 +5751,9 @@ func TestGetWire(t *testing.T) {
             "secret_id": "value"
           },
           "auth_connection": {
+            "auth_connection_id": "value"
+          },
+          "mtls_auth_connection": {
             "auth_connection_id": "value"
           },
           "request_headers": {
@@ -6417,6 +6449,9 @@ func TestGetWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -6640,6 +6675,7 @@ func TestUpdateWire(t *testing.T) {
         "use_llm_generated_message": true,
         "randomize_fillers": true,
         "max_soft_timeouts_per_generation": 8,
+        "pause_after_filler": true,
         "llm_generated_message_prompt_override": "value",
         "disable_until_first_user_message": true
       },
@@ -7099,6 +7135,9 @@ func TestUpdateWire(t *testing.T) {
             "secret_id": "value"
           },
           "auth_connection": {
+            "auth_connection_id": "value"
+          },
+          "mtls_auth_connection": {
             "auth_connection_id": "value"
           },
           "request_headers": {
@@ -7794,6 +7833,9 @@ func TestUpdateWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -7961,6 +8003,7 @@ func TestUpdateWire(t *testing.T) {
         "use_llm_generated_message": true,
         "randomize_fillers": true,
         "max_soft_timeouts_per_generation": 8,
+        "pause_after_filler": true,
         "llm_generated_message_prompt_override": "value",
         "disable_until_first_user_message": true
       },
@@ -8420,6 +8463,9 @@ func TestUpdateWire(t *testing.T) {
             "secret_id": "value"
           },
           "auth_connection": {
+            "auth_connection_id": "value"
+          },
+          "mtls_auth_connection": {
             "auth_connection_id": "value"
           },
           "request_headers": {
@@ -9111,6 +9157,9 @@ func TestUpdateWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -9220,6 +9269,7 @@ func TestUpdateWire(t *testing.T) {
         "use_llm_generated_message": true,
         "randomize_fillers": true,
         "max_soft_timeouts_per_generation": 8,
+        "pause_after_filler": true,
         "llm_generated_message_prompt_override": "value",
         "disable_until_first_user_message": true
       },
@@ -9679,6 +9729,9 @@ func TestUpdateWire(t *testing.T) {
             "secret_id": "value"
           },
           "auth_connection": {
+            "auth_connection_id": "value"
+          },
+          "mtls_auth_connection": {
             "auth_connection_id": "value"
           },
           "request_headers": {
@@ -10374,6 +10427,9 @@ func TestUpdateWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -10533,6 +10589,7 @@ func TestUpdateWire(t *testing.T) {
         "use_llm_generated_message": true,
         "randomize_fillers": true,
         "max_soft_timeouts_per_generation": 8,
+        "pause_after_filler": true,
         "llm_generated_message_prompt_override": "value",
         "disable_until_first_user_message": true
       },
@@ -10992,6 +11049,9 @@ func TestUpdateWire(t *testing.T) {
             "secret_id": "value"
           },
           "auth_connection": {
+            "auth_connection_id": "value"
+          },
+          "mtls_auth_connection": {
             "auth_connection_id": "value"
           },
           "request_headers": {
@@ -11687,6 +11747,9 @@ func TestUpdateWire(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -11896,6 +11959,7 @@ func TestUpdateWireError422(t *testing.T) {
         "use_llm_generated_message": true,
         "randomize_fillers": true,
         "max_soft_timeouts_per_generation": 8,
+        "pause_after_filler": true,
         "llm_generated_message_prompt_override": "value",
         "disable_until_first_user_message": true
       },
@@ -12355,6 +12419,9 @@ func TestUpdateWireError422(t *testing.T) {
             "secret_id": "value"
           },
           "auth_connection": {
+            "auth_connection_id": "value"
+          },
+          "mtls_auth_connection": {
             "auth_connection_id": "value"
           },
           "request_headers": {
@@ -13046,6 +13113,9 @@ func TestUpdateWireError422(t *testing.T) {
         }
       },
       "auto_resolve_after_inactive_minutes": 123,
+      "environments": [
+        "value"
+      ],
       "notifiers": [
         {
           "type": "webhook",
@@ -13624,6 +13694,10 @@ func TestRunTestsWire(t *testing.T) {
                     "output_total": {
                       "tokens": 123,
                       "price": 9.99
+                    },
+                    "output_total_reasoning_portion": {
+                      "tokens": 123,
+                      "price": 9.99
                     }
                   }
                 }
@@ -13781,6 +13855,10 @@ func TestRunTestsWire(t *testing.T) {
                     "price": 9.99
                   },
                   "output_total": {
+                    "tokens": 123,
+                    "price": 9.99
+                  },
+                  "output_total_reasoning_portion": {
                     "tokens": 123,
                     "price": 9.99
                   }
@@ -13962,6 +14040,10 @@ func TestRunTestsWire(t *testing.T) {
                 "output_total": {
                   "tokens": 123,
                   "price": 9.99
+                },
+                "output_total_reasoning_portion": {
+                  "tokens": 123,
+                  "price": 9.99
                 }
               }
             }
@@ -14053,6 +14135,10 @@ func TestRunTestsWire(t *testing.T) {
                 "output_total": {
                   "tokens": 123,
                   "price": 9.99
+                },
+                "output_total_reasoning_portion": {
+                  "tokens": 123,
+                  "price": 9.99
                 }
               }
             }
@@ -14073,6 +14159,10 @@ func TestRunTestsWire(t *testing.T) {
                   "price": 9.99
                 },
                 "output_total": {
+                  "tokens": 123,
+                  "price": 9.99
+                },
+                "output_total_reasoning_portion": {
                   "tokens": 123,
                   "price": 9.99
                 }
@@ -14193,6 +14283,7 @@ func TestRunTestsWire(t *testing.T) {
           "use_llm_generated_message": true,
           "randomize_fillers": true,
           "max_soft_timeouts_per_generation": 8,
+          "pause_after_filler": true,
           "llm_generated_message_prompt_override": "value",
           "disable_until_first_user_message": true
         },
@@ -14652,6 +14743,9 @@ func TestRunTestsWire(t *testing.T) {
               "secret_id": "value"
             },
             "auth_connection": {
+              "auth_connection_id": "value"
+            },
+            "mtls_auth_connection": {
               "auth_connection_id": "value"
             },
             "request_headers": {
@@ -15343,6 +15437,9 @@ func TestRunTestsWire(t *testing.T) {
           }
         },
         "auto_resolve_after_inactive_minutes": 123,
+        "environments": [
+          "value"
+        ],
         "notifiers": [
           {
             "type": "webhook",
@@ -15558,6 +15655,10 @@ func TestRunTestsWire(t *testing.T) {
                     "output_total": {
                       "tokens": 123,
                       "price": 9.99
+                    },
+                    "output_total_reasoning_portion": {
+                      "tokens": 123,
+                      "price": 9.99
                     }
                   }
                 }
@@ -15715,6 +15816,10 @@ func TestRunTestsWire(t *testing.T) {
                     "price": 9.99
                   },
                   "output_total": {
+                    "tokens": 123,
+                    "price": 9.99
+                  },
+                  "output_total_reasoning_portion": {
                     "tokens": 123,
                     "price": 9.99
                   }
@@ -15896,6 +16001,10 @@ func TestRunTestsWire(t *testing.T) {
                 "output_total": {
                   "tokens": 123,
                   "price": 9.99
+                },
+                "output_total_reasoning_portion": {
+                  "tokens": 123,
+                  "price": 9.99
                 }
               }
             }
@@ -15987,6 +16096,10 @@ func TestRunTestsWire(t *testing.T) {
                 "output_total": {
                   "tokens": 123,
                   "price": 9.99
+                },
+                "output_total_reasoning_portion": {
+                  "tokens": 123,
+                  "price": 9.99
                 }
               }
             }
@@ -16007,6 +16120,10 @@ func TestRunTestsWire(t *testing.T) {
                   "price": 9.99
                 },
                 "output_total": {
+                  "tokens": 123,
+                  "price": 9.99
+                },
+                "output_total_reasoning_portion": {
                   "tokens": 123,
                   "price": 9.99
                 }
@@ -16232,6 +16349,10 @@ func TestRunTestsWire(t *testing.T) {
                     "output_total": {
                       "tokens": 123,
                       "price": 9.99
+                    },
+                    "output_total_reasoning_portion": {
+                      "tokens": 123,
+                      "price": 9.99
                     }
                   }
                 }
@@ -16389,6 +16510,10 @@ func TestRunTestsWire(t *testing.T) {
                     "price": 9.99
                   },
                   "output_total": {
+                    "tokens": 123,
+                    "price": 9.99
+                  },
+                  "output_total_reasoning_portion": {
                     "tokens": 123,
                     "price": 9.99
                   }
@@ -16570,6 +16695,10 @@ func TestRunTestsWire(t *testing.T) {
                 "output_total": {
                   "tokens": 123,
                   "price": 9.99
+                },
+                "output_total_reasoning_portion": {
+                  "tokens": 123,
+                  "price": 9.99
                 }
               }
             }
@@ -16661,6 +16790,10 @@ func TestRunTestsWire(t *testing.T) {
                 "output_total": {
                   "tokens": 123,
                   "price": 9.99
+                },
+                "output_total_reasoning_portion": {
+                  "tokens": 123,
+                  "price": 9.99
                 }
               }
             }
@@ -16681,6 +16814,10 @@ func TestRunTestsWire(t *testing.T) {
                   "price": 9.99
                 },
                 "output_total": {
+                  "tokens": 123,
+                  "price": 9.99
+                },
+                "output_total_reasoning_portion": {
                   "tokens": 123,
                   "price": 9.99
                 }
@@ -16834,6 +16971,7 @@ func TestRunTestsWireError422(t *testing.T) {
           "use_llm_generated_message": true,
           "randomize_fillers": true,
           "max_soft_timeouts_per_generation": 8,
+          "pause_after_filler": true,
           "llm_generated_message_prompt_override": "value",
           "disable_until_first_user_message": true
         },
@@ -17293,6 +17431,9 @@ func TestRunTestsWireError422(t *testing.T) {
               "secret_id": "value"
             },
             "auth_connection": {
+              "auth_connection_id": "value"
+            },
+            "mtls_auth_connection": {
               "auth_connection_id": "value"
             },
             "request_headers": {
@@ -17984,6 +18125,9 @@ func TestRunTestsWireError422(t *testing.T) {
           }
         },
         "auto_resolve_after_inactive_minutes": 123,
+        "environments": [
+          "value"
+        ],
         "notifiers": [
           {
             "type": "webhook",

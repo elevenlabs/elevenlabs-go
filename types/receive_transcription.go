@@ -11,6 +11,7 @@ type ReceiveTranscription struct {
 	CommittedTranscript                  *CommittedTranscript
 	DiarizedTranscript                   *DiarizedTranscript
 	SpeakersMerged                       *SpeakersMerged
+	SpeakerNames                         *SpeakerNames
 	CommittedTranscriptWithTimestamps    *CommittedTranscriptWithTimestamps
 	CommittedTranscriptEntities          *CommittedTranscriptEntities
 	RedactedTranscript                   *RedactedTranscript
@@ -81,6 +82,16 @@ func (r *ReceiveTranscription) GetSpeakersMerged() *SpeakersMerged {
 		return nil
 	}
 	return r.SpeakersMerged
+}
+
+func (r *ReceiveTranscription) GetSpeakerNames() *SpeakerNames {
+	if r == nil {
+		return nil
+	}
+	if r.SpeakerNames == nil {
+		return nil
+	}
+	return r.SpeakerNames
 }
 
 func (r *ReceiveTranscription) GetCommittedTranscriptWithTimestamps() *CommittedTranscriptWithTimestamps {
@@ -330,6 +341,15 @@ func (r *ReceiveTranscription) UnmarshalJSON(data []byte) error {
 			return nil
 		}
 	}
+	if hasLiteral("message_type", "speaker_names") {
+		matchedLiteral = true
+		var valueSpeakerNamesLiteral *SpeakerNames
+		if err := json.Unmarshal(data, &valueSpeakerNamesLiteral); err == nil {
+			r.typ = "SpeakerNames"
+			r.SpeakerNames = valueSpeakerNamesLiteral
+			return nil
+		}
+	}
 	if hasLiteral("message_type", "committed_transcript_with_timestamps") {
 		matchedLiteral = true
 		var valueCommittedTranscriptWithTimestampsLiteral *CommittedTranscriptWithTimestamps
@@ -525,6 +545,12 @@ func (r *ReceiveTranscription) UnmarshalJSON(data []byte) error {
 		r.SpeakersMerged = valueSpeakersMerged
 		return nil
 	}
+	var valueSpeakerNames *SpeakerNames
+	if err := json.Unmarshal(data, &valueSpeakerNames); err == nil {
+		r.typ = "SpeakerNames"
+		r.SpeakerNames = valueSpeakerNames
+		return nil
+	}
 	var valueCommittedTranscriptWithTimestamps *CommittedTranscriptWithTimestamps
 	if err := json.Unmarshal(data, &valueCommittedTranscriptWithTimestamps); err == nil {
 		r.typ = "CommittedTranscriptWithTimestamps"
@@ -658,6 +684,9 @@ func (r ReceiveTranscription) MarshalJSON() ([]byte, error) {
 	if r.typ == "SpeakersMerged" || r.SpeakersMerged != nil {
 		return json.Marshal(r.SpeakersMerged)
 	}
+	if r.typ == "SpeakerNames" || r.SpeakerNames != nil {
+		return json.Marshal(r.SpeakerNames)
+	}
 	if r.typ == "CommittedTranscriptWithTimestamps" || r.CommittedTranscriptWithTimestamps != nil {
 		return json.Marshal(r.CommittedTranscriptWithTimestamps)
 	}
@@ -724,6 +753,7 @@ type ReceiveTranscriptionVisitor interface {
 	VisitCommittedTranscript(*CommittedTranscript) error
 	VisitDiarizedTranscript(*DiarizedTranscript) error
 	VisitSpeakersMerged(*SpeakersMerged) error
+	VisitSpeakerNames(*SpeakerNames) error
 	VisitCommittedTranscriptWithTimestamps(*CommittedTranscriptWithTimestamps) error
 	VisitCommittedTranscriptEntities(*CommittedTranscriptEntities) error
 	VisitRedactedTranscript(*RedactedTranscript) error
@@ -760,6 +790,9 @@ func (r *ReceiveTranscription) Accept(visitor ReceiveTranscriptionVisitor) error
 	}
 	if r.typ == "SpeakersMerged" || r.SpeakersMerged != nil {
 		return visitor.VisitSpeakersMerged(r.SpeakersMerged)
+	}
+	if r.typ == "SpeakerNames" || r.SpeakerNames != nil {
+		return visitor.VisitSpeakerNames(r.SpeakerNames)
 	}
 	if r.typ == "CommittedTranscriptWithTimestamps" || r.CommittedTranscriptWithTimestamps != nil {
 		return visitor.VisitCommittedTranscriptWithTimestamps(r.CommittedTranscriptWithTimestamps)

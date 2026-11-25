@@ -39,12 +39,3 @@ func TestReceptionGroupMembershipRoundTrip4(t *testing.T) {
 }`
 	assertRoundTrip(t, wire, new(ReceptionGroupMembership))
 }
-
-func TestReceptionGroupMembershipRoundTrip5(t *testing.T) {
-	t.Parallel()
-	const wire = `{
-  "label": "value",
-  "rank": 123
-}`
-	assertRoundTrip(t, wire, new(ReceptionGroupMembership))
-}

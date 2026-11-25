@@ -26,7 +26,7 @@ func TestBodyCreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiK
 	assertRoundTrip(t, wire, new(BodyCreateServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysPost))
 }
 
-func TestEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchRoundTrip(t *testing.T) {
+func TestBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchRoundTrip(t *testing.T) {
 	t.Parallel()
 	const wire = `{
   "is_enabled": true,
@@ -44,18 +44,18 @@ func TestEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApi
   "music_concurrency_limit": 123,
   "expires_at_unix": 123
 }`
-	assertRoundTrip(t, wire, new(EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch))
+	assertRoundTrip(t, wire, new(BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch))
 }
 
-func TestApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOneVariantsRoundTrip(t *testing.T) {
+func TestBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOneVariantsRoundTrip(t *testing.T) {
 	t.Parallel()
 	type enumCase struct {
-		variant ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne
+		variant BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne
 		wire    string
 	}
 	cases := []enumCase{
-		{variant: ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOneAll, wire: "\"all\""},
-		{variant: ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOneNoUpdate, wire: "\"no_update\""},
+		{variant: BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOneAll, wire: "\"all\""},
+		{variant: BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOneNoUpdate, wire: "\"no_update\""},
 	}
 	for _, tc := range cases {
 		tc := tc
@@ -65,7 +65,7 @@ func TestApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissi
 			if err != nil {
 				t.Fatalf("marshal: %v", err)
 			}
-			var decoded ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne
+			var decoded BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissionsOne
 			if err := json.Unmarshal([]byte(tc.wire), &decoded); err != nil {
 				t.Fatalf("unmarshal: %v", err)
 			}
@@ -87,15 +87,15 @@ func TestApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchPermissi
 	}
 }
 
-func TestApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOneVariantsRoundTrip(t *testing.T) {
+func TestBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOneVariantsRoundTrip(t *testing.T) {
 	t.Parallel()
 	type enumCase struct {
-		variant ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne
+		variant BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne
 		wire    string
 	}
 	cases := []enumCase{
-		{variant: ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOneClear, wire: "\"clear\""},
-		{variant: ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOneNoUpdate, wire: "\"no_update\""},
+		{variant: BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOneClear, wire: "\"clear\""},
+		{variant: BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOneNoUpdate, wire: "\"no_update\""},
 	}
 	for _, tc := range cases {
 		tc := tc
@@ -105,7 +105,7 @@ func TestApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacte
 			if err != nil {
 				t.Fatalf("marshal: %v", err)
 			}
-			var decoded ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne
+			var decoded BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacterLimitOne
 			if err := json.Unmarshal([]byte(tc.wire), &decoded); err != nil {
 				t.Fatalf("unmarshal: %v", err)
 			}
@@ -127,15 +127,15 @@ func TestApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchCharacte
 	}
 }
 
-func TestApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOneVariantsRoundTrip(t *testing.T) {
+func TestBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOneVariantsRoundTrip(t *testing.T) {
 	t.Parallel()
 	type enumCase struct {
-		variant ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne
+		variant BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne
 		wire    string
 	}
 	cases := []enumCase{
-		{variant: ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOneClear, wire: "\"clear\""},
-		{variant: ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOneNoUpdate, wire: "\"no_update\""},
+		{variant: BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOneClear, wire: "\"clear\""},
+		{variant: BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOneNoUpdate, wire: "\"no_update\""},
 	}
 	for _, tc := range cases {
 		tc := tc
@@ -145,7 +145,7 @@ func TestApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedI
 			if err != nil {
 				t.Fatalf("marshal: %v", err)
 			}
-			var decoded ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne
+			var decoded BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedIpsOne
 			if err := json.Unmarshal([]byte(tc.wire), &decoded); err != nil {
 				t.Fatalf("unmarshal: %v", err)
 			}
@@ -167,15 +167,15 @@ func TestApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchAllowedI
 	}
 }
 
-func TestServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOneVariantsRoundTrip(t *testing.T) {
+func TestBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOneVariantsRoundTrip(t *testing.T) {
 	t.Parallel()
 	type enumCase struct {
-		variant ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne
+		variant BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne
 		wire    string
 	}
 	cases := []enumCase{
-		{variant: ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOneClear, wire: "\"clear\""},
-		{variant: ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOneNoUpdate, wire: "\"no_update\""},
+		{variant: BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOneClear, wire: "\"clear\""},
+		{variant: BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOneNoUpdate, wire: "\"no_update\""},
 	}
 	for _, tc := range cases {
 		tc := tc
@@ -185,7 +185,7 @@ func TestServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisabl
 			if err != nil {
 				t.Fatalf("marshal: %v", err)
 			}
-			var decoded ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne
+			var decoded BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisableAllowedOne
 			if err := json.Unmarshal([]byte(tc.wire), &decoded); err != nil {
 				t.Fatalf("unmarshal: %v", err)
 			}
@@ -207,15 +207,15 @@ func TestServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchThirdPartyDisabl
 	}
 }
 
-func TestKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOneVariantsRoundTrip(t *testing.T) {
+func TestBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOneVariantsRoundTrip(t *testing.T) {
 	t.Parallel()
 	type enumCase struct {
-		variant KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne
+		variant BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne
 		wire    string
 	}
 	cases := []enumCase{
-		{variant: KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOneClear, wire: "\"clear\""},
-		{variant: KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOneNoUpdate, wire: "\"no_update\""},
+		{variant: BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOneClear, wire: "\"clear\""},
+		{variant: BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOneNoUpdate, wire: "\"no_update\""},
 	}
 	for _, tc := range cases {
 		tc := tc
@@ -225,7 +225,7 @@ func TestKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurre
 			if err != nil {
 				t.Fatalf("marshal: %v", err)
 			}
-			var decoded KeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne
+			var decoded BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurrencyLimitOne
 			if err := json.Unmarshal([]byte(tc.wire), &decoded); err != nil {
 				t.Fatalf("unmarshal: %v", err)
 			}
@@ -247,15 +247,15 @@ func TestKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchTtsConcurre
 	}
 }
 
-func TestV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOneVariantsRoundTrip(t *testing.T) {
+func TestBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOneVariantsRoundTrip(t *testing.T) {
 	t.Parallel()
 	type enumCase struct {
-		variant V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne
+		variant BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne
 		wire    string
 	}
 	cases := []enumCase{
-		{variant: V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOneClear, wire: "\"clear\""},
-		{variant: V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOneNoUpdate, wire: "\"no_update\""},
+		{variant: BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOneClear, wire: "\"clear\""},
+		{variant: BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOneNoUpdate, wire: "\"no_update\""},
 	}
 	for _, tc := range cases {
 		tc := tc
@@ -265,7 +265,7 @@ func TestV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurr
 			if err != nil {
 				t.Fatalf("marshal: %v", err)
 			}
-			var decoded V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne
+			var decoded BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurrencyLimitOne
 			if err := json.Unmarshal([]byte(tc.wire), &decoded); err != nil {
 				t.Fatalf("unmarshal: %v", err)
 			}
@@ -287,15 +287,15 @@ func TestV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchDubbingConcurr
 	}
 }
 
-func TestV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOneVariantsRoundTrip(t *testing.T) {
+func TestBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOneVariantsRoundTrip(t *testing.T) {
 	t.Parallel()
 	type enumCase struct {
-		variant V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne
+		variant BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne
 		wire    string
 	}
 	cases := []enumCase{
-		{variant: V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOneClear, wire: "\"clear\""},
-		{variant: V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOneNoUpdate, wire: "\"no_update\""},
+		{variant: BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOneClear, wire: "\"clear\""},
+		{variant: BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOneNoUpdate, wire: "\"no_update\""},
 	}
 	for _, tc := range cases {
 		tc := tc
@@ -305,7 +305,7 @@ func TestV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurren
 			if err != nil {
 				t.Fatalf("marshal: %v", err)
 			}
-			var decoded V1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne
+			var decoded BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurrencyLimitOne
 			if err := json.Unmarshal([]byte(tc.wire), &decoded); err != nil {
 				t.Fatalf("unmarshal: %v", err)
 			}
@@ -327,15 +327,15 @@ func TestV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchMusicConcurren
 	}
 }
 
-func TestApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOneVariantsRoundTrip(t *testing.T) {
+func TestBodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOneVariantsRoundTrip(t *testing.T) {
 	t.Parallel()
 	type enumCase struct {
-		variant ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne
+		variant BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne
 		wire    string
 	}
 	cases := []enumCase{
-		{variant: ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOneClear, wire: "\"clear\""},
-		{variant: ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOneNoUpdate, wire: "\"no_update\""},
+		{variant: BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOneClear, wire: "\"clear\""},
+		{variant: BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOneNoUpdate, wire: "\"no_update\""},
 	}
 	for _, tc := range cases {
 		tc := tc
@@ -345,7 +345,7 @@ func TestApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresA
 			if err != nil {
 				t.Fatalf("marshal: %v", err)
 			}
-			var decoded ApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne
+			var decoded BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatchExpiresAtUnixOne
 			if err := json.Unmarshal([]byte(tc.wire), &decoded); err != nil {
 				t.Fatalf("unmarshal: %v", err)
 			}

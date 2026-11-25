@@ -298,6 +298,9 @@ func TestBodySimulatesAConversationStreamV1ConvaiAgentsAgentIdSimulateConversati
           "auth_connection": {
             "auth_connection_id": "value"
           },
+          "mtls_auth_connection": {
+            "auth_connection_id": "value"
+          },
           "request_headers": {
             "key": "value"
           },
@@ -636,6 +639,10 @@ func TestBodySimulatesAConversationStreamV1ConvaiAgentsAgentIdSimulateConversati
                 "price": 9.99
               },
               "output_total": {
+                "tokens": 123,
+                "price": 9.99
+              },
+              "output_total_reasoning_portion": {
                 "tokens": 123,
                 "price": 9.99
               }

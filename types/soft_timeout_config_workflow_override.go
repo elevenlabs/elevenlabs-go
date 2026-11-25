@@ -19,6 +19,8 @@ type SoftTimeoutConfigWorkflowOverride struct {
 	RandomizeFillers *bool `json:"randomize_fillers,omitempty" xml:"randomize_fillers,omitempty"`
 	// Maximum filler messages while waiting for a single LLM response. Fires every timeout_seconds until the LLM streams content or this limit is reached.
 	MaxSoftTimeoutsPerGeneration *int `json:"max_soft_timeouts_per_generation,omitempty" xml:"max_soft_timeouts_per_generation,omitempty"`
+	// If enabled, leave a short pause after a filler message before the agent's response, so the two do not run together.
+	PauseAfterFiller *bool `json:"pause_after_filler,omitempty" xml:"pause_after_filler,omitempty"`
 	// Custom prompt for generating the soft timeout filler message when use_llm_generated_message is enabled. Recent conversation context is provided as a separate user message. If not set, the default prompt will be used. Supports dynamic variables (e.g., {{system__time}}, {{custom_variable}}).
 	LlmGeneratedMessagePromptOverride *string `json:"llm_generated_message_prompt_override,omitempty" xml:"llm_generated_message_prompt_override,omitempty"`
 	// When true, soft timeout fillers are suppressed until the conversation has at least one real user message. Prevents fillers during the agent's opening turn (e.g. workflow generate-immediately / tool calls before the user speaks).
@@ -68,6 +70,13 @@ func (s *SoftTimeoutConfigWorkflowOverride) GetMaxSoftTimeoutsPerGeneration() (v
 	return s.MaxSoftTimeoutsPerGeneration
 }
 
+func (s *SoftTimeoutConfigWorkflowOverride) GetPauseAfterFiller() (value *bool) {
+	if s == nil {
+		return
+	}
+	return s.PauseAfterFiller
+}
+
 func (s *SoftTimeoutConfigWorkflowOverride) GetLlmGeneratedMessagePromptOverride() (value *string) {
 	if s == nil {
 		return
@@ -104,6 +113,10 @@ func (s *SoftTimeoutConfigWorkflowOverride) SetRandomizeFillers(randomizeFillers
 
 func (s *SoftTimeoutConfigWorkflowOverride) SetMaxSoftTimeoutsPerGeneration(maxSoftTimeoutsPerGeneration *int) {
 	s.MaxSoftTimeoutsPerGeneration = maxSoftTimeoutsPerGeneration
+}
+
+func (s *SoftTimeoutConfigWorkflowOverride) SetPauseAfterFiller(pauseAfterFiller *bool) {
+	s.PauseAfterFiller = pauseAfterFiller
 }
 
 func (s *SoftTimeoutConfigWorkflowOverride) SetLlmGeneratedMessagePromptOverride(llmGeneratedMessagePromptOverride *string) {

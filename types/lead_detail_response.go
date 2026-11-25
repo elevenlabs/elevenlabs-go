@@ -16,6 +16,8 @@ type LeadDetailResponse struct {
 	PhoneNumbers []string `json:"phone_numbers,omitempty" xml:"phone_numbers,omitempty"`
 	// The position in `phone_numbers` of the number being called.
 	PhoneNumbersIndex int `json:"phone_numbers_index" xml:"phone_numbers_index" required:"true"`
+	// The timezone the recipient's calling windows are read in; unset when the lead follows the campaign's.
+	TimezoneOverride *string `json:"timezone_override,omitempty" xml:"timezone_override,omitempty"`
 	// The contact's identity: the `user_id` submitted in `conversation_initiation_client_data`, else the lead's phone number.
 	UserId string `json:"user_id" xml:"user_id" required:"true"`
 	// Calls placed, counted against the policy's `max_total_calls`.
@@ -74,6 +76,13 @@ func (l *LeadDetailResponse) GetPhoneNumbersIndex() (value int) {
 		return
 	}
 	return l.PhoneNumbersIndex
+}
+
+func (l *LeadDetailResponse) GetTimezoneOverride() (value *string) {
+	if l == nil {
+		return
+	}
+	return l.TimezoneOverride
 }
 
 func (l *LeadDetailResponse) GetUserId() (value string) {
@@ -178,6 +187,10 @@ func (l *LeadDetailResponse) SetPhoneNumbers(phoneNumbers []string) {
 
 func (l *LeadDetailResponse) SetPhoneNumbersIndex(phoneNumbersIndex int) {
 	l.PhoneNumbersIndex = phoneNumbersIndex
+}
+
+func (l *LeadDetailResponse) SetTimezoneOverride(timezoneOverride *string) {
+	l.TimezoneOverride = timezoneOverride
 }
 
 func (l *LeadDetailResponse) SetUserId(userId string) {

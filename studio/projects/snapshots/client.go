@@ -52,7 +52,7 @@ func (c *Client) Get(ctx context.Context, projectId string, projectSnapshotId st
 }
 
 // Stream the audio from a Studio project snapshot.
-func (c *Client) Stream(ctx context.Context, projectId string, projectSnapshotId string, request *projects.StreamStudioProjectAudioV1StudioProjectsProjectIdSnapshotsProjectSnapshotIdStreamPost, opts ...option.RequestOption) (string, error) {
+func (c *Client) Stream(ctx context.Context, projectId string, projectSnapshotId string, request *projects.BodyStreamStudioProjectAudioV1StudioProjectsProjectIdSnapshotsProjectSnapshotIdStreamPost, opts ...option.RequestOption) (string, error) {
 	response, err := c.WithRawResponse.Stream(ctx, projectId, projectSnapshotId, request, opts...)
 	if err != nil {
 		return "", err

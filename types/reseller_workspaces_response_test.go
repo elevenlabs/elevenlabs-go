@@ -23,6 +23,7 @@ func TestResellerWorkspacesResponseRoundTrip(t *testing.T) {
         "pending_downgrade_tier": "value",
         "pending_downgrade_at_unix": 123
       },
+      "charge_customer": true,
       "has_payment_issue": true,
       "onboarding_completed_at_unix": 123
     }

@@ -11,6 +11,7 @@ type ListHistoryRequest struct {
 	SortDirection           *ListHistoryRequestSortDirection `json:"-" url:"sort_direction,omitempty"`
 	Search                  *string                          `json:"-" url:"search,omitempty"`
 	Source                  *ListHistoryRequestSource        `json:"-" url:"source,omitempty"`
+	Sources                 []*ListHistoryRequestSourcesItem `json:"-" url:"sources,omitempty"`
 }
 
 func (p *ListHistoryRequest) SetPageSize(pageSize *int) {
@@ -47,6 +48,10 @@ func (p *ListHistoryRequest) SetSearch(search *string) {
 
 func (p *ListHistoryRequest) SetSource(source *ListHistoryRequestSource) {
 	p.Source = source
+}
+
+func (p *ListHistoryRequest) SetSources(sources []*ListHistoryRequestSourcesItem) {
+	p.Sources = sources
 }
 
 // ListAudioIsolationRequest holds the optional parameters for the API request.

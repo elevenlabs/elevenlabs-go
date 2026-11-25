@@ -105,8 +105,8 @@ func (c *Client) Share(ctx context.Context, publicUserId string, voiceId string,
 }
 
 // Returns a list of shared voices similar to the provided audio sample. If neither similarity_threshold nor top_k is provided, we will apply default values.
-func (c *Client) FindSimilarVoices(ctx context.Context, request *types.ListSimilarVoicesRequest, opts ...option.RequestOption) (*types.GetLibraryVoicesResponse, error) {
-	response, err := c.WithRawResponse.FindSimilarVoices(ctx, request, opts...)
+func (c *Client) FindSimilarVoices(ctx context.Context, listSimilarVoicesRequest *types.ListSimilarVoicesRequest, opts ...option.RequestOption) (*types.GetLibraryVoicesResponse, error) {
+	response, err := c.WithRawResponse.FindSimilarVoices(ctx, listSimilarVoicesRequest, opts...)
 	if err != nil {
 		return nil, err
 	}

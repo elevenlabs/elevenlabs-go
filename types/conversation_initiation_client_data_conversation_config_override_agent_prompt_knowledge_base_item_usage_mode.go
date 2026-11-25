@@ -1,0 +1,28 @@
+package types
+
+import (
+	"fmt"
+)
+
+// The usage mode of the knowledge base
+type ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemUsageMode string
+
+const (
+	ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemUsageModePrompt ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemUsageMode = "prompt"
+	ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemUsageModeAuto   ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemUsageMode = "auto"
+)
+
+func NewConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemUsageModeFromString(s string) (ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemUsageMode, error) {
+	switch s {
+	case "prompt":
+		return ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemUsageModePrompt, nil
+	case "auto":
+		return ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemUsageModeAuto, nil
+	}
+	var t ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemUsageMode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (e ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemUsageMode) Ptr() *ConversationInitiationClientDataConversationConfigOverrideAgentPromptKnowledgeBaseItemUsageMode {
+	return &e
+}

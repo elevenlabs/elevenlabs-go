@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestPronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRoundTrip(t *testing.T) {
+func TestBodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRoundTrip(t *testing.T) {
 	t.Parallel()
 	const wire = `{
   "rules": [
@@ -17,10 +17,10 @@ func TestPronunciationDictionaryV1PronunciationDictionariesPronunciationDictiona
     }
   ]
 }`
-	assertRoundTrip(t, wire, new(PronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost))
+	assertRoundTrip(t, wire, new(BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPost))
 }
 
-func TestDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItemRoundTrip(t *testing.T) {
+func TestBodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItemRoundTrip(t *testing.T) {
 	t.Parallel()
 	const wire = `{
   "string_to_replace": "value",
@@ -29,7 +29,7 @@ func TestDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesP
   "type": "alias",
   "alias": "value"
 }`
-	assertRoundTrip(t, wire, new(DictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem))
+	assertRoundTrip(t, wire, new(BodySetRulesOnThePronunciationDictionaryV1PronunciationDictionariesPronunciationDictionaryIdSetRulesPostRulesItem))
 }
 
 func TestPronunciationDictionaryRoundTrip(t *testing.T) {

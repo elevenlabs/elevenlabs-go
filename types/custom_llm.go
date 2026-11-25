@@ -15,6 +15,8 @@ type CustomLlm struct {
 	ApiKey *CustomLlmApiKey `json:"api_key,omitempty" xml:"api_key,omitempty"`
 	// Optional workspace auth connection for authentication. Only auth connections that produce an Authorization Bearer token are supported; Basic auth, mTLS, custom header, and URL secret auth connections are not supported.
 	AuthConnection *CustomLlmAuthConnection `json:"auth_connection,omitempty" xml:"auth_connection,omitempty"`
+	// Optional mTLS auth connection. When set, its client certificate is used for the TLS handshake with the LLM endpoint and, when auth_connection is OAuth2 client credentials or OAuth2 JWT, with its token endpoint too. Application auth stays on auth_connection or api_key. auth_connection must then be OAuth2 client credentials, OAuth2 JWT or bearer.
+	MtlsAuthConnection *CustomLlmMtlsAuthConnection `json:"mtls_auth_connection,omitempty" xml:"mtls_auth_connection,omitempty"`
 	// Headers that should be included in the request
 	RequestHeaders map[string]*CustomLlmRequestHeadersValue `json:"request_headers,omitempty"`
 	// The API version to use for the request
@@ -49,6 +51,13 @@ func (c *CustomLlm) GetAuthConnection() (value *CustomLlmAuthConnection) {
 		return
 	}
 	return c.AuthConnection
+}
+
+func (c *CustomLlm) GetMtlsAuthConnection() (value *CustomLlmMtlsAuthConnection) {
+	if c == nil {
+		return
+	}
+	return c.MtlsAuthConnection
 }
 
 func (c *CustomLlm) GetRequestHeaders() (value map[string]*CustomLlmRequestHeadersValue) {
@@ -86,6 +95,10 @@ func (c *CustomLlm) SetApiKey(apiKey *CustomLlmApiKey) {
 
 func (c *CustomLlm) SetAuthConnection(authConnection *CustomLlmAuthConnection) {
 	c.AuthConnection = authConnection
+}
+
+func (c *CustomLlm) SetMtlsAuthConnection(mtlsAuthConnection *CustomLlmMtlsAuthConnection) {
+	c.MtlsAuthConnection = mtlsAuthConnection
 }
 
 func (c *CustomLlm) SetRequestHeaders(requestHeaders map[string]*CustomLlmRequestHeadersValue) {

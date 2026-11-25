@@ -12,6 +12,7 @@ import (
 type AlertingSettingsResponse struct {
 	MonitorConfigs                  map[string]*AlertingMonitorConfig        `json:"monitor_configs,omitempty"`
 	AutoResolveAfterInactiveMinutes *int                                     `json:"auto_resolve_after_inactive_minutes,omitempty" xml:"auto_resolve_after_inactive_minutes,omitempty"`
+	Environments                    []string                                 `json:"environments,omitempty" xml:"environments,omitempty"`
 	Notifiers                       []*AlertingSettingsResponseNotifiersItem `json:"notifiers,omitempty" xml:"notifiers,omitempty"`
 	extraProperties                 map[string]interface{}
 }
@@ -30,6 +31,13 @@ func (a *AlertingSettingsResponse) GetAutoResolveAfterInactiveMinutes() (value *
 	return a.AutoResolveAfterInactiveMinutes
 }
 
+func (a *AlertingSettingsResponse) GetEnvironments() (value []string) {
+	if a == nil {
+		return
+	}
+	return a.Environments
+}
+
 func (a *AlertingSettingsResponse) GetNotifiers() (value []*AlertingSettingsResponseNotifiersItem) {
 	if a == nil {
 		return
@@ -43,6 +51,10 @@ func (a *AlertingSettingsResponse) SetMonitorConfigs(monitorConfigs map[string]*
 
 func (a *AlertingSettingsResponse) SetAutoResolveAfterInactiveMinutes(autoResolveAfterInactiveMinutes *int) {
 	a.AutoResolveAfterInactiveMinutes = autoResolveAfterInactiveMinutes
+}
+
+func (a *AlertingSettingsResponse) SetEnvironments(environments []string) {
+	a.Environments = environments
 }
 
 func (a *AlertingSettingsResponse) SetNotifiers(notifiers []*AlertingSettingsResponseNotifiersItem) {

@@ -79,7 +79,7 @@ func (r *RawClient) List(ctx context.Context, request *reception.ListWorkspacesR
 }
 
 // Create a workspace for one of your customers, optionally with a tier, a phone number and team invites.
-func (r *RawClient) Create(ctx context.Context, request *reception.ProvisionResellerWorkspaceRequest, opts ...option.RequestOption) (*core.Response[*types.ProvisionResellerWorkspaceResponse], error) {
+func (r *RawClient) Create(ctx context.Context, request *reception.ReceptionProvisionResellerWorkspaceRequest, opts ...option.RequestOption) (*core.Response[*types.ProvisionResellerWorkspaceResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -93,7 +93,7 @@ func (r *RawClient) Create(ctx context.Context, request *reception.ProvisionRese
 	)
 	headers.Add("Content-Type", "application/json")
 	if request == nil {
-		request = &reception.ProvisionResellerWorkspaceRequest{}
+		request = &reception.ReceptionProvisionResellerWorkspaceRequest{}
 	}
 	var response types.ProvisionResellerWorkspaceResponse
 	raw, err := r.caller.Call(

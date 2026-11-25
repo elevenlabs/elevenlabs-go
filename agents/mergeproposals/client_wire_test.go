@@ -828,12 +828,14 @@ func TestSubmitReviewWire(t *testing.T) {
 		option.WithBaseURL(server.URL),
 	))
 
-	var request agents.ReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost
+	var request agents.BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost
 	if err := json.Unmarshal([]byte(`{
+  "merge_proposal_id": "value",
+  "agent_id": "value",
   "state": "approved",
   "comment": "value"
 }`), &request); err != nil {
-		t.Fatalf("unmarshal request: %v", err)
+		t.Fatalf("unmarshal request body: %v", err)
 	}
 	result, err := client.SubmitReview(context.Background(), string("value"), string("value2"), &request)
 	if err != nil {
@@ -967,12 +969,14 @@ func TestSubmitReviewWireError422(t *testing.T) {
 		option.WithMaxAttempts(1),
 	))
 
-	var request agents.ReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost
+	var request agents.BodyReviewAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdReviewsPost
 	if err := json.Unmarshal([]byte(`{
+  "merge_proposal_id": "value",
+  "agent_id": "value",
   "state": "approved",
   "comment": "value"
 }`), &request); err != nil {
-		t.Fatalf("unmarshal request: %v", err)
+		t.Fatalf("unmarshal request body: %v", err)
 	}
 	_, err := client.SubmitReview(context.Background(), string("value"), string("value2"), &request)
 	if err == nil {
@@ -1038,11 +1042,13 @@ func TestAddCommentWire(t *testing.T) {
 		option.WithBaseURL(server.URL),
 	))
 
-	var request agents.OnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost
+	var request agents.BodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost
 	if err := json.Unmarshal([]byte(`{
+  "merge_proposal_id": "value",
+  "agent_id": "value",
   "body": "value"
 }`), &request); err != nil {
-		t.Fatalf("unmarshal request: %v", err)
+		t.Fatalf("unmarshal request body: %v", err)
 	}
 	result, err := client.AddComment(context.Background(), string("value"), string("value2"), &request)
 	if err != nil {
@@ -1176,11 +1182,13 @@ func TestAddCommentWireError422(t *testing.T) {
 		option.WithMaxAttempts(1),
 	))
 
-	var request agents.OnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost
+	var request agents.BodyCommentOnAMergeProposalV1ConvaiAgentsAgentIdMergeProposalsMergeProposalIdCommentsPost
 	if err := json.Unmarshal([]byte(`{
+  "merge_proposal_id": "value",
+  "agent_id": "value",
   "body": "value"
 }`), &request); err != nil {
-		t.Fatalf("unmarshal request: %v", err)
+		t.Fatalf("unmarshal request body: %v", err)
 	}
 	_, err := client.AddComment(context.Background(), string("value"), string("value2"), &request)
 	if err == nil {

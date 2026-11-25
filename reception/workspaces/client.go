@@ -42,7 +42,7 @@ func (c *Client) List(ctx context.Context, request *reception.ListWorkspacesRequ
 }
 
 // Create a workspace for one of your customers, optionally with a tier, a phone number and team invites.
-func (c *Client) Create(ctx context.Context, request *reception.ProvisionResellerWorkspaceRequest, opts ...option.RequestOption) (*types.ProvisionResellerWorkspaceResponse, error) {
+func (c *Client) Create(ctx context.Context, request *reception.ReceptionProvisionResellerWorkspaceRequest, opts ...option.RequestOption) (*types.ProvisionResellerWorkspaceResponse, error) {
 	response, err := c.WithRawResponse.Create(ctx, request, opts...)
 	if err != nil {
 		return nil, err

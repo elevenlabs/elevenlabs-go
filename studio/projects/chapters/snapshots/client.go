@@ -52,7 +52,7 @@ func (c *Client) Get(ctx context.Context, projectId string, chapterId string, ch
 }
 
 // Stream the audio from a chapter snapshot. Use `GET /v1/studio/projects/{project_id}/chapters/{chapter_id}/snapshots` to return the snapshots of a chapter.
-func (c *Client) Stream(ctx context.Context, projectId string, chapterId string, chapterSnapshotId string, request *chapters.AudioV1StudioProjectsProjectIdChaptersChapterIdSnapshotsChapterSnapshotIdStreamPost, opts ...option.RequestOption) (io.Reader, error) {
+func (c *Client) Stream(ctx context.Context, projectId string, chapterId string, chapterSnapshotId string, request *chapters.BodyStreamChapterAudioV1StudioProjectsProjectIdChaptersChapterIdSnapshotsChapterSnapshotIdStreamPost, opts ...option.RequestOption) (io.Reader, error) {
 	response, err := c.WithRawResponse.Stream(ctx, projectId, chapterId, chapterSnapshotId, request, opts...)
 	if err != nil {
 		return nil, err

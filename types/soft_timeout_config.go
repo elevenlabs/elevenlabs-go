@@ -13,13 +13,15 @@ type SoftTimeoutConfig struct {
 	// Message to show when the first soft timeout is reached while waiting for LLM response. Supports dynamic variables (e.g., {{system__time}}, {{custom_variable}}).
 	Message *string `json:"message,omitempty" xml:"message,omitempty" maxLength:"200" minLength:"1"`
 	// Extra static filler messages for subsequent soft timeouts in the same LLM generation. The first timeout uses `message`. If fewer messages are configured than `max_soft_timeouts_per_generation`, the last configured message is repeated; otherwise a built-in filler is used.
-	AdditionalSoftTimeoutMessages []string `json:"additional_soft_timeout_messages,omitempty" xml:"additional_soft_timeout_messages,omitempty" maxItems:"7"`
+	AdditionalSoftTimeoutMessages []string `json:"additional_soft_timeout_messages,omitempty" xml:"additional_soft_timeout_messages,omitempty" maxItems:"30"`
 	// If enabled, the soft timeout message will be generated dynamically instead of using the static message.
 	UseLlmGeneratedMessage *bool `json:"use_llm_generated_message,omitempty" xml:"use_llm_generated_message,omitempty"`
 	// If enabled, shuffle the order of static soft timeout messages once at the start of each turn. Only applies when use_llm_generated_message is false.
 	RandomizeFillers *bool `json:"randomize_fillers,omitempty" xml:"randomize_fillers,omitempty"`
 	// Maximum filler messages while waiting for a single LLM response. Fires every timeout_seconds until the LLM streams content or this limit is reached.
 	MaxSoftTimeoutsPerGeneration *int `json:"max_soft_timeouts_per_generation,omitempty" xml:"max_soft_timeouts_per_generation,omitempty" min:"1" max:"8"`
+	// If enabled, leave a short pause after a filler message before the agent's response, so the two do not run together.
+	PauseAfterFiller *bool `json:"pause_after_filler,omitempty" xml:"pause_after_filler,omitempty"`
 	// Custom prompt for generating the soft timeout filler message when use_llm_generated_message is enabled. Recent conversation context is provided as a separate user message. If not set, the default prompt will be used. Supports dynamic variables (e.g., {{system__time}}, {{custom_variable}}).
 	LlmGeneratedMessagePromptOverride *string `json:"llm_generated_message_prompt_override,omitempty" xml:"llm_generated_message_prompt_override,omitempty" maxLength:"1000" minLength:"1"`
 	// When true, soft timeout fillers are suppressed until the conversation has at least one real user message. Prevents fillers during the agent's opening turn (e.g. workflow generate-immediately / tool calls before the user speaks).
@@ -69,6 +71,13 @@ func (s *SoftTimeoutConfig) GetMaxSoftTimeoutsPerGeneration() (value *int) {
 	return s.MaxSoftTimeoutsPerGeneration
 }
 
+func (s *SoftTimeoutConfig) GetPauseAfterFiller() (value *bool) {
+	if s == nil {
+		return
+	}
+	return s.PauseAfterFiller
+}
+
 func (s *SoftTimeoutConfig) GetLlmGeneratedMessagePromptOverride() (value *string) {
 	if s == nil {
 		return
@@ -105,6 +114,10 @@ func (s *SoftTimeoutConfig) SetRandomizeFillers(randomizeFillers *bool) {
 
 func (s *SoftTimeoutConfig) SetMaxSoftTimeoutsPerGeneration(maxSoftTimeoutsPerGeneration *int) {
 	s.MaxSoftTimeoutsPerGeneration = maxSoftTimeoutsPerGeneration
+}
+
+func (s *SoftTimeoutConfig) SetPauseAfterFiller(pauseAfterFiller *bool) {
+	s.PauseAfterFiller = pauseAfterFiller
 }
 
 func (s *SoftTimeoutConfig) SetLlmGeneratedMessagePromptOverride(llmGeneratedMessagePromptOverride *string) {

@@ -26,7 +26,7 @@ type ConversationChargingCommonModel struct {
 	TtsUsage               *ConversationTtsUsageModel `json:"tts_usage,omitempty" xml:"tts_usage,omitempty"`
 	AsrUsage               *ConversationAsrUsageModel `json:"asr_usage,omitempty" xml:"asr_usage,omitempty"`
 	Analysis               *AnalysisCharging          `json:"analysis,omitempty" xml:"analysis,omitempty"`
-	// Credits charged as the voice actor reward for the Voice Library voices this conversation used. It is not included in `cost`.
+	// Credits charged as the voice owner fee for the custom rate voices this conversation used. It is not included in `cost`.
 	VoiceSurchargeCharge *int `json:"voice_surcharge_charge,omitempty" xml:"voice_surcharge_charge,omitempty"`
 	extraProperties      map[string]interface{}
 }

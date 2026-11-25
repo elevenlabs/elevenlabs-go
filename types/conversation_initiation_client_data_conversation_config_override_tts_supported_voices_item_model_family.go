@@ -1,0 +1,39 @@
+package types
+
+import (
+	"fmt"
+)
+
+type ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamily string
+
+const (
+	ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamilyTurbo            ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamily = "turbo"
+	ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamilyFlash            ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamily = "flash"
+	ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamilyMultilingual     ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamily = "multilingual"
+	ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamilyV3Conversational ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamily = "v3_conversational"
+	ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamilyV4               ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamily = "v4"
+	ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamilyV4Turbo          ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamily = "v4_turbo"
+)
+
+func NewConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamilyFromString(s string) (ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamily, error) {
+	switch s {
+	case "turbo":
+		return ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamilyTurbo, nil
+	case "flash":
+		return ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamilyFlash, nil
+	case "multilingual":
+		return ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamilyMultilingual, nil
+	case "v3_conversational":
+		return ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamilyV3Conversational, nil
+	case "v4":
+		return ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamilyV4, nil
+	case "v4_turbo":
+		return ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamilyV4Turbo, nil
+	}
+	var t ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamily
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (e ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamily) Ptr() *ConversationInitiationClientDataConversationConfigOverrideTtsSupportedVoicesItemModelFamily {
+	return &e
+}

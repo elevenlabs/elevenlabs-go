@@ -51,7 +51,7 @@ func (c *Client) Create(ctx context.Context, serviceAccountUserId string, reques
 }
 
 // Update an existing API key for a service account
-func (c *Client) Update(ctx context.Context, serviceAccountUserId string, apiKeyId string, request *serviceaccounts.EditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch, opts ...option.RequestOption) (any, error) {
+func (c *Client) Update(ctx context.Context, serviceAccountUserId string, apiKeyId string, request *serviceaccounts.BodyEditServiceAccountApiKeyV1ServiceAccountsServiceAccountUserIdApiKeysApiKeyIdPatch, opts ...option.RequestOption) (any, error) {
 	response, err := c.WithRawResponse.Update(ctx, serviceAccountUserId, apiKeyId, request, opts...)
 	if err != nil {
 		return nil, err
